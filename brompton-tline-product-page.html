@@ -721,6 +721,121 @@
     .ugc-dot-high   { background: #1a1a1a; }
     [data-ugc].ugc-hidden { display: none !important; }
 
+    /* ─── Tour trigger button ─────────────────────── */
+    #tour-start-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    #tour-start-btn:hover { background: var(--gold); color: #fff; }
+    #tour-start-btn i { font-size: 14px; }
+
+    /* ─── Tour overlay elements ────────────────────── */
+    #tour-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0,0,0,0.72);
+    }
+    #tour-spotlight {
+      display: none;
+      position: fixed;
+      z-index: 9001;
+      pointer-events: none;
+      border-radius: 10px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.72), 0 0 0 2.5px #b8860b, 0 0 24px rgba(184,134,11,0.45);
+      transition: top 0.38s cubic-bezier(0.4,0,0.2,1),
+                  left 0.38s cubic-bezier(0.4,0,0.2,1),
+                  width 0.38s cubic-bezier(0.4,0,0.2,1),
+                  height 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    #tour-tooltip {
+      display: none;
+      position: fixed;
+      z-index: 9002;
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px 20px 14px;
+      width: 320px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1);
+      font-family: var(--font);
+      transition: top 0.38s cubic-bezier(0.4,0,0.2,1), left 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    #tour-tooltip .tour-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    #tour-step-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    #tour-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1;
+      padding: 0 0 2px;
+    }
+    #tour-close:hover { color: var(--text); }
+    #tour-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+    #tour-body {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .tour-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #tour-dots { display: flex; gap: 5px; align-items: center; }
+    .tour-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      transition: background 0.2s, transform 0.2s;
+    }
+    #tour-prev, #tour-next {
+      padding: 6px 13px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+      font-family: var(--font);
+    }
+    #tour-prev { border: 1px solid var(--border-strong); background: #fff; color: var(--text); }
+    #tour-prev:hover { background: var(--bg-secondary); }
+    #tour-prev:disabled { opacity: 0.3; cursor: default; }
+    #tour-next { border: none; background: #1a1a1a; color: #fff; }
+    #tour-next:hover { background: #333; }
+
     /* ─── Responsive ───────────────────────────────── */
     @media (max-width: 768px) {
       nav { padding: 12px 20px; }
@@ -755,6 +870,10 @@
       <span>Stories</span>
     </div>
     <div class="nav-actions">
+      <button id="tour-start-btn" onclick="startTour()" aria-label="Start UGC tour">
+        <i class="ti ti-route" aria-hidden="true"></i>
+        <span>Take the tour</span>
+      </button>
       <div class="ugc-toggle" id="ugc-toggle">
         <button class="ugc-toggle-btn" onclick="toggleUGCMenu()" aria-label="UGC visibility">
           <i class="ti ti-adjustments-horizontal" aria-hidden="true"></i>
@@ -907,7 +1026,7 @@
       <div class="use-cases">
         <div class="uc-card">
           <div class="uc-img">
-            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/710474388_10164642365573328_3861383121613037145_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=103&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=BYl3n3lH_GkQ7kNvwHFZJh2&_nc_oc=Adp3k6LlLqaTD_FL9e8v5hvsupCDnBiZMPPOOdcG6XXaVYff0yHxw3Tcgovlm0MZ0yc&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=zIta8IsJg6x_moDPtaIS6A&_nc_ss=7b2a8&oh=00_Af-bRsjM3xo9Wl0f2xxEW1kBmvb5QPIFjx3rJF8teAZUiw&oe=6A30BCB4" alt="Sam riding a Brompton on the London commute" />
+            <img src="images/sam-london-commute.jpg" alt="Sam riding a Brompton on the London commute" />
           </div>
           <div class="uc-body">
             <div class="uc-tag">Daily commuter · London</div>
@@ -921,7 +1040,7 @@
         </div>
         <div class="uc-card">
           <div class="uc-img">
-            <img src="https://scontent-lga3-3.xx.fbcdn.net/v/t39.30808-6/651277113_10163086708977991_6560498174120945557_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=102&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=CLCQeTtq_6IQ7kNvwEHEpm6&_nc_oc=AdoZH9rWNrrsur3K9dcvx766alpbFdguSEqd_RpEahkxe7631Mi5WKu4EfZW_NX-Nho&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&_nc_gid=wCMDPzwt0S0uA-SPbTi49Q&_nc_ss=7b2a8&oh=00_Af8oI3LhI8aHI08DpJMMMShXe5kIwbwq9TYboUORsqrnWw&oe=6A30BE24" alt="Jo with a Brompton on international travels" />
+            <img src="images/jo-international-travels.jpg" alt="Jo with a Brompton on international travels" />
           </div>
           <div class="uc-body">
             <div class="uc-tag">Frequent traveller · International</div>
@@ -935,7 +1054,7 @@
         </div>
         <div class="uc-card">
           <div class="uc-img">
-            <img src="https://scontent-lga3-3.xx.fbcdn.net/v/t39.30808-6/660288333_10164390144318328_6240112335320258078_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=104&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=2CBoGvqttUYQ7kNvwGznNkC&_nc_oc=Adoec85ZumqnMi6qUJMdVDnqjQe4Gz-Hlscyk1QwlPx7MH7RIIb77HuGhQnhtNrY-W8&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&_nc_gid=P0mzsDNMvweg9EF4APeRYg&_nc_ss=7b2a8&oh=00_Af9uiH3ZEM8utHVhveorKh35S3Ooc08z2UGEpIs4mhfrDw&oe=6A309F1C" alt="Alex with a Brompton on a gravel climb in Yorkshire" />
+            <img src="images/alex-gravel-climb.jpg" alt="Alex with a Brompton on a gravel climb in Yorkshire" />
           </div>
           <div class="uc-body">
             <div class="uc-tag">Weekend explorer · Yorkshire</div>
@@ -959,27 +1078,27 @@
       </div>
       <div class="ugc-photo-wall">
         <div class="ugc-photo">
-          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/652680504_10164322435158328_1129161490549540094_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=105&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=olbGDgq_KQAQ7kNvwHwEH4p&_nc_oc=AdoybYVDyv18q7Lv8zVz9Jwpf50gbiHwtKgYxhzISFQHpE7sSn3kgyWbx718_Rg6BVc&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=LHIxQZv5wPXnScdY7tIvog&_nc_ss=7b2a8&oh=00_Af9YxI-9JTeO0NchGJMASHxlhcgWUyxt_tIrqrzJGlcjcg&oe=6A30C005" alt="Community photo 1" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="images/owner-wall-1.jpg" alt="Community photo 1" style="width:100%;height:100%;object-fit:cover;" />
           <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 847</div>
         </div>
         <div class="ugc-photo">
-          <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/650139661_10164285610213328_8007725100514038292_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx756x960&ctp=s756x960&_nc_cat=110&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=9QVaZjpumOYQ7kNvwEB707R&_nc_oc=AdqsO1eQ_wNeWZz-WjNb2V5BPlZ8QtrAfSgPwiNAV7N-C6N5oFbm9-6qn56Jg-RBSgY&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=8zFwocYMcCXelgT_OAAXuQ&_nc_ss=7b2a8&oh=00_Af_-J3imr3maffD5scWD_tmWXw3ny6PPP1EkgsB5gFkMWA&oe=6A30BAC9" alt="Community photo 2" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="images/owner-wall-2.jpg" alt="Community photo 2" style="width:100%;height:100%;object-fit:cover;" />
           <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 623</div>
         </div>
         <div class="ugc-photo">
-          <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/716490120_10163436726517991_8794936911122334706_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=111&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=FUOakiI-n6cQ7kNvwH6Q3aJ&_nc_oc=AdoCRohRRvf3XW8ddh1hCQhni-1o-KH_lpYIs1qMGDugPUH1t4Km8Z7dHFH6amCFly0&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=WLhMzY6S8bzmDihaj0lyqg&_nc_ss=7b2a8&oh=00_Af_wMILju0vjD3Vc86XUZsIXe65GJ3NL0FpZ-ly6BzNoGQ&oe=6A30A1A8" alt="Community photo 3" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="images/owner-wall-3.jpg" alt="Community photo 3" style="width:100%;height:100%;object-fit:cover;" />
           <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 541</div>
         </div>
         <div class="ugc-photo">
-          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/646775647_25823918963946667_1041772150236076313_n.jpg?stp=dst-jpg_tt6&cstp=mx1125x1500&ctp=s1125x1500&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=qe7yYTcDjIwQ7kNvwEbaj-5&_nc_oc=Adrf6YRq76pnZs53Ll9KPiBC6OiTUjFR7oTg49HT-4aek-Ax5fzd_ER-emx4qYp9kF8&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=eyGN5OXob9avk4blCa9RQQ&_nc_ss=7b2a8&oh=00_Af_CNaK5wBtkfthVUnEBL1eAfkxD5LoxFTubDPa--RWupw&oe=6A30CADE" alt="Community photo 4" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="images/owner-wall-4.jpg" alt="Community photo 4" style="width:100%;height:100%;object-fit:cover;" />
           <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 489</div>
         </div>
         <div class="ugc-photo">
-          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/634650478_2130490677355535_3353056322864368817_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1433&ctp=s2048x1433&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=M8vhKQcg2g8Q7kNvwGfGwDx&_nc_oc=AdrzUCSFYEKtbxYdTdR2-AitVlLWuthoVi5xPbGPgRK6JBDJSQPYfMBrHg_NlVpyTLg&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=3TpnHINePkDw2tRDJiEbtw&_nc_ss=7b2a8&oh=00_Af8xnQyZRmdgPUsb-90ovtt-43UVMNaOiXEMp69dqfet0Q&oe=6A30B0FD" alt="Community photo 5" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="images/owner-wall-5.jpg" alt="Community photo 5" style="width:100%;height:100%;object-fit:cover;" />
           <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 412</div>
         </div>
         <div class="ugc-photo">
-          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/634868512_10236310959007069_4984358375339439331_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=XNwp1ST-B0EQ7kNvwHNu2NU&_nc_oc=Ado78bQjtufZ1mJaq73QlVDzWVp4jJzyrOjCoWKbLty9aGd9rabUDdD57pps9ISgmak&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=XlllVuCZWfonjWSpBaRqwg&_nc_ss=7b2a8&oh=00_Af-KOOItKjtiv8yQb0THZwpOMPf9fSJb0hIV6upEiINx4g&oe=6A30D1C1" alt="Community photo 6" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="images/owner-wall-6.jpg" alt="Community photo 6" style="width:100%;height:100%;object-fit:cover;" />
           <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 389</div>
         </div>
       </div>
@@ -1043,8 +1162,8 @@
           <div class="review-title">The price gave me pause for 6 months. Now I regret not buying sooner.</div>
           <div class="review-body">I'll address the elephant in the room: yes, £4,969 is a lot for a bicycle. But I've done the maths. I cancelled my monthly rail card (£247/month), I park it under my desk, and it has replaced three different forms of transport. In 14 months it has effectively paid for itself. The 12-speed derailleur is genuinely transformative — I've never felt under-geared climbing into work or over-geared on the flat. The titanium feels alive in a way steel doesn't. I've ridden it in rain, summer heat and a sleet storm. Zero issues.</div>
           <div class="review-photos">
-            <div class="review-photo"><img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/622791987_10164097706213328_411063216858519043_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=wmnd3LTt2swQ7kNvwHU_UNw&_nc_oc=AdpB_0Hkv8U-VE1sUR6x9Ba7MBx7N1AbAYRSO5GXvWJJV8_18LmYCrhIXTOBriQQRIs&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=b7_B_IxfONSUkW6u56sGZQ&_nc_ss=7b2a8&oh=00_Af-XTStOHirXFhCqEgV2QWZ3mS8Wn6twVedrVWO7_O5iZQ&oe=6A30B107" alt="Marcus review photo 1" style="width:100%;height:100%;object-fit:cover;" /></div>
-            <div class="review-photo"><img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/618091192_10164067629868328_6442740886102593357_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1122x2048&ctp=s1122x2048&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=IBwVsIFutysQ7kNvwEv4pC2&_nc_oc=AdoSMFzRZJ2ys91h-hXy_tT9XnPCVNkF7gg0g1ACA-35Wtmg2VW9YwgHkqXh5K9LX5o&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=1IzXzr1S76uH78fGT5ll-Q&_nc_ss=7b2a8&oh=00_Af-CnlREWO-Ecm1Esab6Vjqhd34ZvaRIL6qmEEkvG5c2Uw&oe=6A30B0AF" alt="Marcus review photo 2" style="width:100%;height:100%;object-fit:cover;" /></div>
+            <div class="review-photo"><img src="images/marcus-1.jpg" alt="Marcus review photo 1" style="width:100%;height:100%;object-fit:cover;" /></div>
+            <div class="review-photo"><img src="images/marcus-2.jpg" alt="Marcus review photo 2" style="width:100%;height:100%;object-fit:cover;" /></div>
           </div>
           <div class="review-footer">
             <button class="helpful-btn"><i class="ti ti-thumbs-up" aria-hidden="true"></i> Helpful (234)</button>
@@ -1635,6 +1754,230 @@
         goTo(Math.min(current, maxIndex()));
       });
     })();
+  </script>
+
+
+  <!-- ── UGC ONBOARDING TOUR ───────────────────────────────── -->
+  <div id="tour-backdrop"></div>
+  <div id="tour-spotlight"></div>
+  <div id="tour-tooltip">
+    <div class="tour-header">
+      <span id="tour-step-label"></span>
+      <button id="tour-close" onclick="endTour()" aria-label="Close tour">×</button>
+    </div>
+    <div id="tour-title"></div>
+    <div id="tour-body"></div>
+    <div class="tour-footer">
+      <button id="tour-prev" onclick="tourNav(-1)">← Prev</button>
+      <div id="tour-dots"></div>
+      <button id="tour-next" onclick="tourNav(1)">Next →</button>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    const STEPS = [
+      {
+        target: null,
+        title: 'UGC Powers Conversion',
+        body: 'This page shows what happens when owner voices replace brand claims. Nine UGC components appear across this page — each one measurably closes the trust gap that holds a £4,969 buyer back.',
+      },
+      {
+        target: '.rating-row',
+        title: '① Star Ratings & Volume',
+        body: 'Brompton currently has just 7 T Line reviews — "almost laughable" for a 50-year-old brand. Volume matters: 347 verified ratings right below the price transforms credibility for hesitant buyers.',
+      },
+      {
+        target: '.value-justifier',
+        title: '② The Owner Story No Brand Can Write',
+        body: 'A real commuter who agonised for months now reports saving £3,000 in parking and rail fares. Real numbers, real context — this is what justifies premium pricing, not spec copy.',
+      },
+      {
+        target: '.ugc-badge-strip',
+        title: '③ Above-Fold Social Proof',
+        body: 'Before a shopper scrolls once: 847 photos, 23 video reviews, 112 Q&As. These signals immediately signal that thousands of real people own and love this bike.',
+      },
+      {
+        target: '#real-riders',
+        title: '④ Real Riders, Real Stories',
+        body: '"A T Line in a suitcase answers \'is it really that small?\' better than any studio shot." Unpolished, in-situ owner photos paint a picture of daily life no spec sheet can match.',
+      },
+      {
+        target: '#owner-photos',
+        title: '⑤ Owner Photo Wall',
+        body: 'The #MyBrompton hashtag holds thousands of owner shots. Surfaced here, they\'re not just social proof — they\'re indexable content that feeds AI and search with credible real-world experiences.',
+      },
+      {
+        target: '#reviews',
+        title: '⑥ Reviews & Attribute Scores',
+        body: 'Star ratings alone don\'t address specific doubts. Attribute scores like "Value for money" speak directly to the objection holding a £4,969 buyer back — before they abandon to a forum.',
+      },
+      {
+        target: '#qa',
+        title: '⑦ Owner Q&A',
+        body: '"Take those forums off Reddit and bring them onto the product page." Owner Q&A answers the real questions on-brand, searchable — and AI-indexable for organic authority.',
+      },
+      {
+        target: function() { return document.querySelectorAll('.section[data-ugc="low"]')[0]; },
+        title: '⑧ Community at Scale',
+        body: 'Active owners across dozens of countries with thousands of kilometres ridden. Social proof at scale tells a hesitant buyer: this many real people can\'t all be wrong about a £5k folding bike.',
+      },
+      {
+        target: '#video-reviews',
+        title: '⑨ Video Reviews',
+        body: '"Don\'t take our word for it — watch these." Real customers, real retailers, real roads. Video closes the last trust gap that photos and text alone can\'t bridge.',
+      },
+    ];
+
+    let current = 0;
+    let active = false;
+
+    const backdrop  = document.getElementById('tour-backdrop');
+    const spotlight = document.getElementById('tour-spotlight');
+    const tooltip   = document.getElementById('tour-tooltip');
+    const labelEl   = document.getElementById('tour-step-label');
+    const titleEl   = document.getElementById('tour-title');
+    const bodyEl    = document.getElementById('tour-body');
+    const dotsEl    = document.getElementById('tour-dots');
+    const prevBtn   = document.getElementById('tour-prev');
+    const nextBtn   = document.getElementById('tour-next');
+
+    function getTarget(step) {
+      if (!step.target) return null;
+      if (typeof step.target === 'function') return step.target();
+      return document.querySelector(step.target);
+    }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      STEPS.forEach(function(_, i) {
+        var d = document.createElement('div');
+        d.className = 'tour-dot';
+        d.style.background = i === current ? '#1a1a1a' : 'rgba(0,0,0,0.15)';
+        d.style.transform   = i === current ? 'scale(1.3)' : 'scale(1)';
+        dotsEl.appendChild(d);
+      });
+    }
+
+    function positionTooltip(spotRect) {
+      var TW  = 320;
+      var GAP = 14;
+      var VW  = window.innerWidth;
+      var VH  = window.innerHeight;
+      var left, top;
+
+      if (!spotRect) {
+        left = Math.round((VW - TW) / 2);
+        top  = Math.round((VH - 220) / 2);
+      } else {
+        // Horizontal: center on spotlight, clamp to viewport
+        left = Math.round(spotRect.left + spotRect.width / 2 - TW / 2);
+        left = Math.max(12, Math.min(left, VW - TW - 12));
+
+        // Vertical: below if space, above if not
+        var TH = 220;
+        if (spotRect.bottom + GAP + TH < VH) {
+          top = Math.round(spotRect.bottom + GAP);
+        } else if (spotRect.top - GAP - TH > 0) {
+          top = Math.round(spotRect.top - GAP - TH);
+        } else {
+          // Fallback: float to right or left
+          top  = Math.max(12, Math.min(Math.round(spotRect.top), VH - TH - 12));
+          if (spotRect.right + GAP + TW < VW) {
+            left = Math.round(spotRect.right + GAP);
+          } else {
+            left = Math.max(12, Math.round(spotRect.left - GAP - TW));
+          }
+        }
+      }
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top  = top  + 'px';
+    }
+
+    function show(idx) {
+      current = Math.max(0, Math.min(idx, STEPS.length - 1));
+      var step   = STEPS[current];
+      var target = getTarget(step);
+      var isLast = current === STEPS.length - 1;
+
+      // Update copy
+      labelEl.textContent = 'Step ' + (current + 1) + ' of ' + STEPS.length;
+      titleEl.textContent = step.title;
+      bodyEl.textContent  = step.body;
+
+      // Update nav
+      prevBtn.disabled = current === 0;
+      nextBtn.textContent  = isLast ? 'Finish ✓' : 'Next →';
+      nextBtn.style.background = isLast ? '#2d6b2d' : '#1a1a1a';
+      buildDots();
+
+      if (!target) {
+        // Intro step: full backdrop, no spotlight
+        backdrop.style.display  = 'block';
+        spotlight.style.display = 'none';
+        tooltip.style.display   = 'block';
+        positionTooltip(null);
+        return;
+      }
+
+      backdrop.style.display  = 'none';
+      spotlight.style.display = 'block';
+      tooltip.style.display   = 'block';
+
+      // Scroll into view then measure
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      setTimeout(function() {
+        var r   = target.getBoundingClientRect();
+        var PAD = 8;
+        var sr  = {
+          top:    r.top    - PAD,
+          left:   r.left   - PAD,
+          bottom: r.bottom + PAD,
+          right:  r.right  + PAD,
+          width:  r.width  + PAD * 2,
+          height: r.height + PAD * 2,
+        };
+
+        spotlight.style.top    = sr.top    + 'px';
+        spotlight.style.left   = sr.left   + 'px';
+        spotlight.style.width  = sr.width  + 'px';
+        spotlight.style.height = sr.height + 'px';
+
+        positionTooltip(sr);
+      }, 420);
+    }
+
+    window.startTour = function() {
+      active = true;
+      current = 0;
+      show(0);
+    };
+
+    window.tourNav = function(dir) {
+      if (dir > 0 && current === STEPS.length - 1) { endTour(); return; }
+      show(current + dir);
+    };
+
+    window.endTour = function() {
+      active = false;
+      backdrop.style.display  = 'none';
+      spotlight.style.display = 'none';
+      tooltip.style.display   = 'none';
+    };
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!active) return;
+      if (e.key === 'Escape')                           endTour();
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  tourNav(1);
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    tourNav(-1);
+    });
+
+    // Click backdrop to close (intro step only)
+    backdrop.addEventListener('click', endTour);
+  })();
   </script>
 
 </body>
