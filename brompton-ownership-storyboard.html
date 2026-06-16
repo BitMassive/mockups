@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andy's Ownership Journey — Brompton</title>
+<style>
+  @font-face {
+    font-family: 'BromptonSlab';
+    src: url('Brand/BromptonSlab-Regular.woff') format('woff'),
+         url('Brand/BromptonSlab-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #002FA7; --blue-mid: #1A4BC4; --blue-light: #E8EEFB; --blue-pale: #F0F3FC;
+    --black: #000000; --white: #FFFFFF;
+    --grey-dark: #707070; --grey-mid: #DBDBDB; --grey-light: #F6F6F6;
+    --yellow: #E8B500; --yellow-pale: #FEF7D9;
+    --green: #1E5C1E; --green-pale: #E6F0E6;
+    --font-brand: 'BromptonSlab', Georgia, 'Times New Roman', serif;
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--black); line-height: 1.5; zoom: 1.25; }
+  section { padding: 64px 48px; scroll-margin-top: 70px; }
+  section.alt-bg { background: var(--grey-light); }
+  .section-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .section-title { font-family: var(--font-brand); font-size: 36px; font-weight: 400; line-height: 1.15; color: var(--black); margin-bottom: 12px; max-width: 640px; }
+  .section-subtitle { font-size: 15px; color: var(--grey-dark); max-width: 640px; margin-bottom: 48px; line-height: 1.65; }
+
+  #storyboard { background: var(--grey-light); }
+  .char-key { display:flex; gap:14px; margin-bottom:40px; flex-wrap:wrap; max-width:960px; justify-content:center; }
+  .char-pill { display:flex; align-items:center; gap:11px; background:white; border:1px solid var(--grey-mid); border-radius:8px; padding:10px 16px; }
+  .char-pill strong { display:block; font-size:13px; font-weight:700; color:var(--black); margin-bottom:1px; }
+  .char-pill span { font-size:11px; color:var(--grey-dark); }
+
+  .sb-phases { display:flex; flex-direction:column; gap:24px; }
+  .sb-row { display:block; }
+  .sb-phase-hdr { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .sb-phase-num { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:white; flex-shrink:0; }
+  .sb-phase-title { font-size:15px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+
+  .chat-wrap { background:transparent; }
+  .chat-hdr { background:var(--grey-light); padding:10px 12px; border-bottom:1px solid var(--grey-mid); font-size:15px; color:var(--grey-dark); display:flex; align-items:center; gap:6px; }
+  .chat-body2 { padding:12px; display:flex; flex-direction:column; gap:9px; }
+  .chat-ctx { background:var(--grey-light); border-radius:5px; padding:8px 12px; font-size:15px; color:var(--grey-dark); font-style:italic; text-align:center; max-width:60%; margin-left:auto; margin-right:auto; margin-top:5px; margin-bottom:5px; }
+  .chat-msg2 { display:flex; align-items:flex-end; gap:7px; }
+  .chat-msg2.r { flex-direction:row-reverse; }
+  .ch-av { width:63px; height:63px; border-radius:50%; flex-shrink:0; overflow:hidden; object-fit:cover; }
+  .ch-bw { max-width:82%; display:flex; flex-direction:column; gap:2px; }
+  .ch-nm { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--grey-dark); padding:0 4px; }
+  .chat-msg2.r .ch-nm { text-align:right; }
+  .ch-b { background:white; border-radius:13px 13px 13px 3px; padding:10px 14px; font-size:15px; color:var(--black); line-height:1.55; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+  .chat-msg2.r .ch-b { background:var(--blue); color:white; border-radius:13px 13px 3px 13px; }
+  .chat-outcomes2 { padding:8px 12px 10px; border-top:1px solid var(--grey-light); display:flex; gap:5px; flex-wrap:wrap; }
+  .outcome-tag { font-size:10px; font-weight:700; padding:4px 9px; border-radius:10px; }
+  .outcome-tag.retail   { background:var(--yellow-pale); color:#7A5C00; border:1px solid rgba(232,181,0,0.35); }
+  .outcome-tag.customer { background:var(--blue-pale); color:var(--blue); border:1px solid rgba(0,47,167,0.25); }
+  .outcome-tag.brompton { background:var(--green-pale); color:var(--green); border:1px solid rgba(30,92,30,0.25); }
+
+  @keyframes storyReveal {
+    0%   { opacity:0; transform:translateY(32px); }
+    65%  { opacity:1; transform:translateY(0); }
+    100% { opacity:1; transform:translateY(0); }
+  }
+  #storyboard .sb-phase-hdr,
+  #storyboard .chat-hdr,
+  #storyboard .chat-ctx,
+  #storyboard .chat-msg2,
+  #storyboard .chat-outcomes2 { opacity:0; transform:translateY(32px); transition:none; }
+  #storyboard .sb-phase-hdr.revealed,
+  #storyboard .chat-hdr.revealed,
+  #storyboard .chat-ctx.revealed,
+  #storyboard .chat-msg2.revealed,
+  #storyboard .chat-outcomes2.revealed { animation:storyReveal 0.75s cubic-bezier(0.22,0.8,0.3,1) both; }
+
+  .sb-outer-grid { display:grid; grid-template-columns:1fr 248px; gap:32px; align-items:start; max-width:960px; margin-left:auto; margin-right:auto; }
+  .sb-phone-sticky { position:sticky; top:32px; }
+  .sb-pscr { display:none; }
+  .sb-pscr.active { display:block; }
+  .sticky-phone { width:244px; background:#1A1A1A; border-radius:38px; padding:12px 10px; box-shadow:0 22px 56px rgba(0,0,0,0.25),0 0 0 1px rgba(0,0,0,0.12); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
+  .sticky-notch { width:72px; height:21px; background:#1A1A1A; border-radius:0 0 13px 13px; margin:0 auto 7px; }
+  .sticky-screen { background:white; border-radius:26px; overflow:hidden; min-height:440px; }
+
+  /* ── Shared phone UI primitives ── */
+  .sph-hdr-blue { background:var(--blue); padding:16px 14px; text-align:center; }
+  .sph-hdr-black { background:var(--black); padding:12px 14px; }
+  .sph-brand { font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:6px; }
+  .sph-title { font-family:var(--font-brand); font-size:17px; color:white; font-weight:400; line-height:1.2; }
+  .sph-body { padding:12px; display:flex; flex-direction:column; gap:9px; }
+  .sph-row { display:flex; gap:8px; }
+  .sph-card-blue { background:var(--blue); border-radius:8px; padding:12px; }
+  .sph-card-pale { background:var(--blue-pale); border:1px solid rgba(0,47,167,0.2); border-radius:8px; padding:11px; }
+  .sph-mbar-wrap { background:var(--grey-mid); border-radius:3px; height:5px; margin-bottom:4px; overflow:hidden; }
+  .sph-mbar-fill { height:100%; border-radius:3px; background:white; }
+  .sph-ms-item { display:flex; align-items:center; gap:9px; background:var(--grey-light); border-radius:7px; padding:8px 10px; }
+  .sph-ms-item.e { background:var(--green-pale); border:1px solid rgba(30,92,30,0.2); }
+  .sph-ms-ic { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; background:var(--grey-mid); }
+  .sph-ms-ic.e { background:var(--green); }
+  .sph-ms-name { font-size:10px; font-weight:700; color:var(--black); }
+  .sph-ms-desc { font-size:8px; color:var(--grey-dark); }
+  .sph-ms-badge { font-size:8px; font-weight:700; padding:2px 6px; border-radius:10px; margin-left:auto; flex-shrink:0; }
+  .sph-ms-badge.e { background:var(--green); color:white; }
+  .sph-ms-badge.l { background:var(--grey-mid); color:var(--grey-dark); }
+  .sph-btn-blue { background:var(--blue); color:white; text-align:center; border-radius:5px; padding:9px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .sph-notif { background:rgba(30,30,30,0.92); border-radius:14px; padding:10px 12px; margin:8px; display:flex; gap:9px; align-items:flex-start; }
+  .sph-notif-ic { width:28px; height:28px; border-radius:7px; background:var(--blue); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .sph-notif-app { font-size:8px; font-weight:700; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px; }
+  .sph-notif-msg { font-size:11px; color:white; line-height:1.35; }
+  .sph-field { background:var(--grey-light); border:1px solid var(--grey-mid); border-radius:5px; padding:7px 9px; margin-bottom:4px; }
+  .sph-flbl { font-size:7px; letter-spacing:1px; text-transform:uppercase; color:var(--grey-dark); margin-bottom:1px; }
+  .sph-fval { font-size:11px; color:var(--black); }
+  .sph-tag-green { display:inline-flex; align-items:center; gap:4px; background:var(--green-pale); border:1px solid rgba(30,92,30,0.25); border-radius:10px; padding:3px 8px; font-size:9px; font-weight:700; color:var(--green); }
+  .sph-q-chip { border-radius:6px; padding:7px 10px; font-size:10px; font-weight:600; cursor:pointer; border:1.5px solid var(--grey-mid); background:white; color:var(--black); }
+  .sph-q-chip.sel { border-color:var(--blue); background:var(--blue-pale); color:var(--blue); }
+
+  /* ── Checklist animation ── */
+  .chk-item { display:flex; align-items:center; gap:8px; padding:8px 10px; background:white; border-radius:6px; border:1px solid var(--grey-mid); transition:background 0.45s ease, border-color 0.45s ease; }
+  .chk-item.done { background:var(--green-pale); border-color:rgba(30,92,30,0.3); }
+  .chk-ic { font-size:14px; display:inline-block; transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+  .chk-ic.pop { transform:scale(1.6); }
+  #chk-progress { transition:background 0.4s ease, border-color 0.4s ease, color 0.4s ease; }
+  #chk-progress.celebrate { background:var(--green-pale); border-color:rgba(30,92,30,0.3); color:var(--green); animation:chkCelebrate 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+  @keyframes chkCelebrate { 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
+
+  @media (max-width: 900px) {
+    section { padding: 40px 20px; }
+    .sb-outer-grid { grid-template-columns: 1fr; }
+    .sb-phone-sticky { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<section id="storyboard" class="alt-bg">
+  <div class="section-label">Post-Purchase Experience</div>
+  <h2 class="section-title">Andy's Ownership Journey</h2>
+  <p class="section-subtitle">From the moment the box arrives to 2,000 miles later — how Brompton turns a first ride into a lifelong relationship.</p>
+
+  <!-- Character key -->
+  <div class="char-key">
+    <div class="char-pill">
+      <img src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Andy"/>
+      <div><strong>Andy</strong><span>New Brompton owner</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Ella"/>
+      <div><strong>Ella</strong><span>Andy's wife</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGhlYWRzaG90JTIwbWFuJTIwZW5nbGlzaHxlbnwwfDJ8MHx8fDA%3D" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Phil"/>
+      <div><strong>Phil</strong><span>London Brompton Club</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://images.unsplash.com/photo-1726160182266-f5ff7f78682d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGhlYWRzaG90JTIwbWFuJTIwYnJvd24lMjBza2luJTIwZnJpZW5kbHl8ZW58MHwyfDB8fHww" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Max"/>
+      <div><strong>Max</strong><span>Andy's brother-in-law</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://plus.unsplash.com/premium_photo-1726826637082-16602bf15ba8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGVhZHNob3QlMjB5b3VuZyUyMGdpcmx8ZW58MHwyfDB8fHww" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Stacey"/>
+      <div><strong>Stacey</strong><span>Andy's daughter</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://plus.unsplash.com/premium_photo-1723867331866-e112500178a4?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhZHNob3QlMjB3b21hbiUyMGZyZW5jaHxlbnwwfDJ8MHx8fDA%3D" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Mila"/>
+      <div><strong>Mila</strong><span>Paris Brompton Club</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://images.unsplash.com/photo-1654110455429-cf322b40a906?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvcnRyYWl0fGVufDB8MnwwfHx8MA%3D%3D" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Tom"/>
+      <div><strong>Tom</strong><span>Mechanic · Balfes Bikes</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://inkwellmanagement.com/images/authors/william-butler-adams.jpeg" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Will"/>
+      <div><strong>Will</strong><span>CEO · Brompton Bicycle</span></div>
+    </div>
+  </div>
+
+  <div class="sb-outer-grid">
+  <div class="sb-phases">
+
+  <!-- ═══════════════════════════════════════
+       PHASE 1 · DELIVERY
+  ═══════════════════════════════════════ -->
+  <div class="sb-row">
+    <div class="sb-phase-hdr" data-trigger-screen="delivery">
+      <div class="sb-phase-num" style="background:var(--blue);">1</div>
+      <div class="sb-phase-title" style="color:var(--blue);">Delivery</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🏠 Andy's flat, London E1 — Tuesday afternoon</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">Andy's phone buzzes. A notification slides down.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"Finally. It's here."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">He opens the front door. The box is there. He smiles.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 2 · REGISTRATION
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="register">
+      <div class="sb-phase-num" style="background:var(--blue);">2</div>
+      <div class="sb-phase-title" style="color:var(--blue);">Registration</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">📱 That evening — Andy downloads the Brompton app</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">He logs in and is prompted to register his bike. He finds the serial number on the frame.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"Purchased at Balfes Bikes. Sales associate: Sally." That's a nice touch.</div>
+          </div>
+        </div>
+        <div class="chat-ctx">The bike feels real now.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">👤 Andy is identified from day one — before he's ridden a mile</span>
+        <span class="outcome-tag retail">🏪 Balfes gets credit for the sale, even post-purchase</span>
+        <span class="outcome-tag brompton">📊 Brompton owns the direct relationship from first open</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 3 · ONBOARDING
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="onboard">
+      <div class="sb-phase-num" style="background:var(--blue);">3</div>
+      <div class="sb-phase-title" style="color:var(--blue);">Onboarding — Three Questions</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">📱 Same evening — the app asks Andy three things</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">How often do you ride? How do you plan to use your Brompton? What's your postcode?</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to Ella)</div>
+            <div class="ch-b">"It's asking for my postcode. Clever — it'll know my routes."</div>
+          </div>
+        </div>
+        <div class="chat-ctx" data-trigger-screen="checklist" style="margin-top:80px;">The next day, the app surfaces Andy's first piece of content: the Ready to Ride checklist.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"Recommended routes. Cycling in traffic. What to wear. OK — I'm actually going to do this."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Over the next few evenings, he works through it. He's preparing. He's excited.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag brompton">📊 Segmentation data captured — Andy's content feed is now personalised</span>
+        <span class="outcome-tag customer">👤 Confidence built before the first commute</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 4 · FIRST COMMUTE
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr">
+      <div class="sb-phase-num" style="background:var(--blue);">4</div>
+      <div class="sb-phase-title" style="color:var(--blue);">The First Commute</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🌅 Early morning — Andy's front door, E1</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">Andy stands on the street with the T Line. He unfolds it for the first time. His hands are slightly clumsy. It clicks into place.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"Right. Here we go."</div>
+          </div>
+        </div>
+        <div class="chat-ctx" data-trigger-screen="badge">He rides to work. It takes longer than the tube. He arrives in a better mood than he has in years.</div>
+        <div class="chat-ctx">His phone buzzes at his desk.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Verified Owner badge. 'Welcome to the fold.'" He screenshots it and sends it to Ella.</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">👤 Identity moment — Andy is now a Brompton rider, not just a buyer</span>
+        <span class="outcome-tag brompton">📍 First ride data captured; usage patterns begin to build</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 5 · EARLY MILESTONES
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="ceo">
+      <div class="sb-phase-num" style="background:var(--yellow);">5</div>
+      <div class="sb-phase-title" style="color:#8A6800;">Early Milestones — 25 & 50 Miles</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">📱 A week and a half later — Andy hits 25 miles</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">A video appears in the app. A personal message from their CEO.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"This doesn't feel like marketing. He's just — talking to me." He watches it twice.</div>
+          </div>
+        </div>
+        <div class="chat-ctx" data-trigger-screen="coffee" style="margin-top:80px;">Andy hits 50 miles. The app delivers a reward: one free coffee at WatchHouse.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (texts Ella)</div>
+            <div class="ch-b">"Riding to WatchHouse after work. Treat from Brompton."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Ella</div>
+            <div class="ch-b">"Only if you bring one home."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Friday afternoon. He rides to WatchHouse near the river. Folds the bike beside him. Sits outside with his coffee watching the city. It's a good moment.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">☕ Tangible reward at a moment of high engagement</span>
+        <span class="outcome-tag brompton">🤝 WatchHouse partnership delivers lifestyle alignment, not just discount</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 6 · THE REFERRAL
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="friendpass">
+      <div class="sb-phase-num" style="background:var(--green);">6</div>
+      <div class="sb-phase-title" style="color:var(--green);">100 Miles — The Friend Pass</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">📱 Andy hits 100 miles</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">The app unlocks a 3-Day Friend Pass — a Brompton hire voucher to send to anyone.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (texts Max)</div>
+            <div class="ch-b">"Got you something. Three days on a Brompton, on me. Well — on them."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1726160182266-f5ff7f78682d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGhlYWRzaG90JTIwbWFuJTIwYnJvd24lMjBza2luJTIwZnJpZW5kbHl8ZW58MHwyfDB8fHww" alt="Max" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Max</div>
+            <div class="ch-b">"Is this real? I've been going on about these things for months."</div>
+          </div>
+        </div>
+        <div class="chat-ctx" data-trigger-screen="maxtour" style="margin-top:80px;">A week or so later. Andy's phone lights up.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (calls Ella)</div>
+            <div class="ch-b">"Max got one. They're inviting us to the factory."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Ella</div>
+            <div class="ch-b">"Us? The factory? In Greenford?"</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Just like Willy Wonka, right?" He laughs.</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">🎁 Referral feels like generosity, not a programme</span>
+        <span class="outcome-tag brompton">📈 Max is a new sale triggered by Andy — CAC near zero</span>
+        <span class="outcome-tag brompton">🏭 Factory tour deepens both Andy's and Max's brand commitment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 7 · DISCOVERY
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="cityguide">
+      <div class="sb-phase-num" style="background:var(--blue);">7</div>
+      <div class="sb-phase-title" style="color:var(--blue);">Discovery — City Guides</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🗺 Saturday morning — Andy opens the app</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">Brompton's city guides: crowdsourced routes, Brompton-friendly cafes, pubs and museums that welcome the bike inside.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"East London Loop. Eight miles. Starts Wapping, ends at The Mayflower." I didn't know half these places existed.</div>
+          </div>
+        </div>
+        <div class="chat-ctx">He follows it alone. It's one of the better Saturdays he's had in a while.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">🗺 The bike reshapes how Andy experiences the city</span>
+        <span class="outcome-tag brompton">📍 Route data and engagement signals build the ride profile</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 8 · THE FLAT
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="blank">
+      <div class="sb-phase-num" style="background:var(--blue);">8</div>
+      <div class="sb-phase-title" style="color:var(--blue);">The Flat Tyre — Phil</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🛞 Midway through the ride home — a quiet backstreet, Shoreditch</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">Andy gets a flat. He's crouching over the wheel with no idea what to do. A passing rider slows, doubles back, and stops.</div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGhlYWRzaG90JTIwbWFuJTIwZW5nbGlzaHxlbnwwfDJ8MHx8fDA%3D" alt="Phil" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Phil</div>
+            <div class="ch-b">"Need a hand?"</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"I've got no idea what I'm doing, honestly."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Phil uses his own spare tube and toolkit to fix it. They chat for ten minutes. Phil is a member of the London Brompton Club.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Do you always carry a spare tube?"</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGhlYWRzaG90JTIwbWFuJTIwZW5nbGlzaHxlbnwwfDJ8MHx8fDA%3D" alt="Phil" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Phil</div>
+            <div class="ch-b">"Always. We look after each other."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Phil waves it off and rides on.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 9 · COMMUNITY & SKILLS
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="academy">
+      <div class="sb-phase-num" style="background:var(--green);">9</div>
+      <div class="sb-phase-title" style="color:var(--green);">Skills &amp; Confidence Building</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">📲 Back home — Andy opens the Brompton Academy</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">He finds "How to Fix a Flat." He watches it but isn't confident he could do it alone.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"That looks manageable." He checks the class booking — £10, one hour at Balfes. "Ten quid. I'll make that back the first time I'm not stranded halfway to work."</div>
+          </div>
+        </div>
+        <div class="chat-ctx" data-trigger-screen="maintenance" style="margin-top:80px;">Andy arrives at Balfes. Sally is there. Tom the mechanic leads an hour with Andy and six other owners.</div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1654110455429-cf322b40a906?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvcnRyYWl0fGVufDB8MnwwfHx8MA%3D%3D" alt="Tom" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Tom · Balfes Mechanic</div>
+            <div class="ch-b">"By the end of this hour you'll be able to fix a flat on any street in London."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Free spare tube with any toolkit purchase. Andy buys the toolkit, plus a second tube. Just in case.</div>
+        <div class="chat-ctx" style="margin-top:80px;">Two days later, riding home, Andy spots another Brompton owner crouched over a flat on the pavement.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to the stranger)</div>
+            <div class="ch-b">"I've got a spare tube. Here — let me show you."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">He's surprised by how good it feels. Phil was right.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag retail">🏪 Balfes drives a toolkit sale and a service booking — the app sent the customer back</span>
+        <span class="outcome-tag customer">🔧 Andy gains confidence and belonging simultaneously</span>
+        <span class="outcome-tag brompton">🔄 Community behaviour self-replicates without Brompton orchestrating it</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 10 · DEEPENING
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr">
+      <div class="sb-phase-num" style="background:var(--yellow);">10</div>
+      <div class="sb-phase-title" style="color:#8A6800;">Deepening — 250 Miles &amp; Beyond</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">📱 Andy hits 250 miles — the app sends stickers</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">A set of reflective customisation stickers arrives in the post. Andy lets his daughter decide where they go.</div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://plus.unsplash.com/premium_photo-1726826637082-16602bf15ba8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGVhZHNob3QlMjB5b3VuZyUyMGdpcmx8ZW58MHwyfDB8fHww" alt="Stacey" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Stacey</div>
+            <div class="ch-b">"That one. And that one. And definitely that one."</div>
+          </div>
+        </div>
+        <div class="chat-ctx" style="margin-top:80px;">The app sends a service reminder: new tyres, brake pads, a full tune-up. Members can access a loaner bike while the bike's in the shop.</div>
+        <div class="chat-msg2 r" data-trigger-screen="service">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to Ella)</div>
+            <div class="ch-b">"They'll lend me a bike while mine's in the shop."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Ella</div>
+            <div class="ch-b">"Book it."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">The app content has started to shift too — less emergency prep, more stories of weekend tours and countryside rides. He starts clicking on them.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag retail">🔧 Proactive service booking drives Balfes revenue</span>
+        <span class="outcome-tag customer">👤 Loaner bike removes the only barrier to booking</span>
+        <span class="outcome-tag brompton">📊 Content feed evolution mirrors Andy's growing rider identity</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 11 · BROMPTON WORLD CHAMPIONSHIPS
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="bwc">
+      <div class="sb-phase-num" style="background:var(--yellow);">11</div>
+      <div class="sb-phase-title" style="color:#8A6800;">The World Championships</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🏆 Brompton World Championships — Andy goes alone, on a whim</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">The event is chaotic and joyful — fancy dress, fold-off competitions, riders from all over the world.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to Mila, Paris Brompton Club)</div>
+            <div class="ch-b">"This is nothing like I expected."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://plus.unsplash.com/premium_photo-1723867331866-e112500178a4?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhZHNob3QlMjB3b21hbiUyMGZyZW5jaHxlbnwwfDJ8MHx8fDA%3D" alt="Mila" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Mila · Paris Brompton Club</div>
+            <div class="ch-b">"It never is. What city are you from?"</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"London."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://plus.unsplash.com/premium_photo-1723867331866-e112500178a4?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhZHNob3QlMjB3b21hbiUyMGZyZW5jaHxlbnwwfDJ8MHx8fDA%3D" alt="Mila" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Mila</div>
+            <div class="ch-b">"Does everyone in London wear such funny costumes when they ride?"</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Mila introduces him to someone she's just met. Andy does a double take. It's Phil — the man from the Shoreditch flat. Phil recognises him too. They laugh.</div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGhlYWRzaG90JTIwbWFuJTIwZW5nbGlzaHxlbnwwfDJ8MHx8fDA%3D" alt="Phil" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Phil</div>
+            <div class="ch-b">"Have you fixed your own flat yet?"</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Someone else's in fact!"</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">🌍 Community feeling made tangible — strangers become friends</span>
+        <span class="outcome-tag brompton">❤️ The event is the product. No ad spend could replicate this</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 12 · THE CLUB
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="clubride">
+      <div class="sb-phase-num" style="background:var(--green);">12</div>
+      <div class="sb-phase-title" style="color:var(--green);">The Club — Ella Rides</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🚴 Phil invites Andy to join a London Brompton Club ride</div>
+      <div class="chat-body2">
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"I've got plans with my wife that weekend."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGhlYWRzaG90JTIwbWFuJTIwZW5nbGlzaHxlbnwwfDJ8MHx8fDA%3D" alt="Phil" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Phil</div>
+            <div class="ch-b">"Bring her — Brompton club members get free bike hire passes. Get her a bike." Andy hadn't known that.</div>
+          </div>
+        </div>
+        <div class="chat-ctx">Andy hires a Brompton for Ella through the app. They join Phil's ride on a Sunday morning — around twenty riders, a mix of ages and abilities.</div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Ella (mid-ride)</div>
+            <div class="ch-b">"This is actually really good."</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Don't tell me I was right."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">They ride through the park. Stop for coffee. Come home two hours later still talking about it.</div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Ella (walking in the door)</div>
+            <div class="ch-b">"I want one."</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (smiling)</div>
+            <div class="ch-b">"I know."</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">👫 The product extends into Andy's closest relationships</span>
+        <span class="outcome-tag brompton">📈 Ella is the next sale — no campaign required</span>
+        <span class="outcome-tag retail">🏪 Hire drives a purchase; another Balfes customer in the making</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PHASE 13 · THE FLYWHEEL
+  ═══════════════════════════════════════ -->
+  <div class="sb-row" style="margin-top:80px;">
+    <div class="sb-phase-hdr" data-trigger-screen="k1000">
+      <div class="sb-phase-num" style="background:var(--blue);">13</div>
+      <div class="sb-phase-title" style="color:var(--blue);">1,000 Miles — The Flywheel</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">🌀 Andy crosses 1,000 miles</div>
+      <div class="chat-body2">
+        <div class="chat-ctx">The app marks it with a personalised summary — commutes completed, weekend routes, friends referred. Ella's Brompton arrives the same week.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to himself)</div>
+            <div class="ch-b">"214 commutes. I haven't taken the tube in six weeks."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">The app is now surfacing multi-day routes, cycling holidays, international riding trips. Andy opens the Paris city guide and bookmarks it.</div>
+        <div class="chat-ctx" data-trigger-screen="k2000" style="margin-top:80px;">Just before Christmas. Andy crosses 2,000 miles.</div>
+        <div class="chat-ctx">The app puts it in context: <em>The distance from London to Istanbul.</em></div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy (to Ella)</div>
+            <div class="ch-b">"We're going to Paris."</div>
+          </div>
+        </div>
+        <div class="chat-msg2">
+          <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Ella</div>
+            <div class="ch-b">"We said next spring."</div>
+          </div>
+        </div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"I know. I'm already looking."</div>
+          </div>
+        </div>
+        <div class="chat-ctx">He's fitter than he's been in a decade. Ella rides on weekends. Their daughter has started asking when she gets a bike. Max is somewhere around 400 miles of his own.</div>
+      </div>
+      <div class="chat-outcomes2">
+        <span class="outcome-tag customer">🌍 The Brompton has restructured Andy's life — not just his commute</span>
+        <span class="outcome-tag brompton">📈 Three household Bromptons. Paris trip imminent. Another city guide opened.</span>
+        <span class="outcome-tag brompton">🔄 The flywheel: one sale in-store became a family, a community, and a trip abroad</span>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /sb-phases -->
+
+  <!-- ── Sticky phone column ── -->
+  <div class="sb-phone-sticky">
+    <div class="sticky-phone">
+      <div class="sticky-notch"></div>
+      <div class="sticky-screen">
+
+        <!-- ── SCREEN: delivery ── -->
+        <div class="sb-pscr" id="sbscr-delivery">
+          <div style="background:#1C1C1E;padding:16px 12px 12px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:right;margin-bottom:12px;">09:41</div>
+            <div class="sph-notif" style="margin:0;">
+              <div class="sph-notif-ic">🚲</div>
+              <div>
+                <div class="sph-notif-app">Brompton</div>
+                <div class="sph-notif-msg" style="font-size:12px;font-weight:600;">Your Brompton T Line has been delivered.</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;">Signed for at your address · just now</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--grey-light);flex:1;padding:12px;display:flex;flex-direction:column;gap:9px;">
+            <div style="background:white;border-radius:10px;overflow:hidden;border:1px solid var(--grey-mid);">
+              <div style="background:var(--blue);padding:14px;text-align:center;">
+                <div class="sph-brand">Brompton</div>
+                <div class="sph-title">Your bike<br>has arrived.</div>
+              </div>
+              <div style="padding:12px;display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--green-pale);border-radius:6px;border:1px solid rgba(30,92,30,0.2);">
+                  <span style="font-size:16px;">✅</span>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:var(--green);">Delivered</div>
+                    <div style="font-size:8px;color:var(--grey-dark);">T Line · Electric · Flame Lacquer</div>
+                  </div>
+                </div>
+                <div style="font-size:9px;color:var(--grey-dark);line-height:1.5;">Open the Brompton app to register your bike and unlock your first rewards.</div>
+                <div class="sph-btn-blue" style="font-size:9px;">Register my Brompton →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: register ── -->
+        <div class="sb-pscr" id="sbscr-register">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">Brompton App</div>
+            <div class="sph-title">Register<br>your bike</div>
+          </div>
+          <div class="sph-body">
+            <div class="sph-field">
+              <div class="sph-flbl">Serial Number</div>
+              <div class="sph-fval">T24-08847-LDN ✓</div>
+            </div>
+            <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.25);border-radius:8px;padding:11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:2px;">Bike found ✓</div>
+              <div style="font-size:11px;font-weight:700;color:var(--black);">Brompton T Line Electric</div>
+              <div style="font-size:9px;color:var(--grey-dark);">Flame Lacquer · 4-speed</div>
+              <div style="border-top:1px solid rgba(30,92,30,0.15);margin-top:4px;padding-top:6px;">
+                <div style="font-size:8px;color:var(--grey-dark);">Purchased at</div>
+                <div style="font-size:10px;font-weight:700;color:var(--black);">Balfes Bikes, London</div>
+                <div style="font-size:8px;color:var(--grey-dark);margin-top:1px;">Sales associate: <strong style="color:var(--black);">Sally</strong></div>
+              </div>
+            </div>
+            <div class="sph-btn-blue">This is my bike →</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: onboard ── -->
+        <div class="sb-pscr" id="sbscr-onboard">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">Quick setup</div>
+            <div class="sph-title">Tell us a bit<br>about yourself</div>
+          </div>
+          <div class="sph-body">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--black);margin-bottom:7px;">How often do you plan to ride?</div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                <div class="sph-q-chip sel">Rarely</div>
+                <div class="sph-q-chip">A few times a week</div>
+                <div class="sph-q-chip">Every day</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--black);margin-bottom:7px;">How will you mainly use it?</div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                <div class="sph-q-chip sel">Commuting</div>
+                <div class="sph-q-chip">Weekend rides</div>
+                <div class="sph-q-chip">Travel</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--black);margin-bottom:5px;">Your postcode</div>
+              <div class="sph-field"><div class="sph-fval">E1 6RF</div></div>
+            </div>
+            <div class="sph-btn-blue">Continue →</div>
+            <div style="font-size:8px;color:var(--grey-dark);text-align:center;">We use this to personalise your routes and content.</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: checklist ── -->
+        <div class="sb-pscr" id="sbscr-checklist">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">Ready to Ride</div>
+            <div class="sph-title">Your first<br>commute guide</div>
+          </div>
+          <div class="sph-body">
+            <div style="font-size:9px;color:var(--grey-dark);">Based on your postcode and commute, we've put this together for you.</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div class="chk-item"><span class="chk-ic">⬜</span><div style="font-size:10px;font-weight:600;color:var(--black);">Best routes from E1 to the City</div></div>
+              <div class="chk-item"><span class="chk-ic">⬜</span><div style="font-size:10px;font-weight:600;color:var(--black);">Cycling safely in London traffic</div></div>
+              <div class="chk-item"><span class="chk-ic">⬜</span><div style="font-size:10px;font-weight:600;color:var(--black);">What to wear to arrive fresh</div></div>
+              <div class="chk-item"><span class="chk-ic">⬜</span><div style="font-size:10px;font-weight:600;color:var(--black);">Where to fold and store at the office</div></div>
+              <div class="chk-item"><span class="chk-ic">⬜</span><div style="font-size:10px;font-weight:600;color:var(--black);">Maintenance basics: before you go</div></div>
+            </div>
+            <div id="chk-progress" style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.2);border-radius:7px;padding:9px;font-size:9px;color:var(--blue);">0 of 5 complete · Est. 12 mins to finish</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: badge ── -->
+        <div class="sb-pscr" id="sbscr-badge">
+          <div style="background:var(--black);padding:16px 14px;text-align:center;">
+            <div class="sph-brand">Brompton</div>
+            <div style="font-size:36px;margin:8px 0;">🏅</div>
+            <div class="sph-title">Verified Owner</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:6px;">1 mile logged</div>
+          </div>
+          <div class="sph-body">
+            <div style="text-align:center;padding:8px 0;">
+              <div style="font-family:var(--font-brand);font-size:18px;color:var(--black);font-weight:400;margin-bottom:6px;">Welcome to the fold.</div>
+              <div style="font-size:11px;color:var(--grey-dark);line-height:1.5;">You've completed your first Brompton commute.<br>There are 124,000 of us out there.</div>
+            </div>
+            <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.2);border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:9px;color:var(--grey-dark);margin-bottom:3px;">Next milestone</div>
+              <div style="font-size:13px;font-weight:700;color:var(--blue);">25 miles</div>
+              <div style="font-size:9px;color:var(--grey-dark);">A personal message from Will</div>
+              <div class="sph-mbar-wrap" style="margin-top:8px;background:rgba(0,47,167,0.1);"><div class="sph-mbar-fill" style="width:4%;background:var(--blue);"></div></div>
+            </div>
+            <div class="sph-btn-blue" style="font-size:9px;">Share my first ride →</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: ceo ── -->
+        <div class="sb-pscr" id="sbscr-ceo">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">25 Miles</div>
+            <div class="sph-title">A message<br>from Will</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:var(--black);border-radius:10px;overflow:hidden;position:relative;">
+              <div style="height:120px;background:var(--black);position:relative;overflow:hidden;">
+                <img src="https://inkwellmanagement.com/images/authors/william-butler-adams.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:top;opacity:0.75;" alt="Will Butler-Adams"/>
+                <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.5) 0%,transparent 60%);"></div>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;">▶</div>
+                <div style="position:absolute;bottom:7px;right:9px;font-size:9px;color:rgba(255,255,255,0.7);letter-spacing:1px;background:rgba(0,0,0,0.4);padding:2px 5px;border-radius:3px;">4:12</div>
+              </div>
+              <div style="padding:10px 12px;">
+                <div style="font-family:var(--font-brand);font-size:12px;color:white;font-weight:400;">Will Butler-Adams</div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.5);">CEO, Brompton Bicycle</div>
+              </div>
+            </div>
+            <div style="background:var(--grey-light);border-radius:8px;padding:10px;font-size:10px;color:var(--grey-dark);line-height:1.55;font-style:italic;">"Congrats on your first 25 miles. I remember mine — I knew straight away this was different. Keep going."</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:var(--green-pale);border-radius:6px;padding:8px;text-align:center;">
+                <div style="font-size:16px;">💬</div>
+                <div style="font-size:8px;font-weight:700;color:var(--green);margin-top:2px;">Reply</div>
+              </div>
+              <div style="flex:1;background:var(--blue-pale);border-radius:6px;padding:8px;text-align:center;">
+                <div style="font-size:16px;">📤</div>
+                <div style="font-size:8px;font-weight:700;color:var(--blue);margin-top:2px;">Share</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: coffee ── -->
+        <div class="sb-pscr" id="sbscr-coffee">
+          <div style="background:var(--black);padding:16px 14px 12px;text-align:center;">
+            <div class="sph-brand">50 Miles</div>
+            <div style="font-size:34px;margin:6px 0;">☕</div>
+            <div class="sph-title">Your reward<br>is waiting</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:10px;overflow:hidden;">
+              <div style="background:#1A1A1A;padding:12px;display:flex;align-items:center;gap:9px;">
+                <div style="font-size:22px;">☕</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:white;">One Free Coffee</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,0.5);">WatchHouse · Any London location</div>
+                </div>
+              </div>
+              <div style="padding:10px 12px;">
+                <div style="font-size:10px;color:var(--grey-dark);line-height:1.5;margin-bottom:8px;">Show this at the counter. Valid for any drink. Fold your bike and enjoy.</div>
+                <div style="background:var(--grey-light);border-radius:6px;padding:8px;text-align:center;">
+                  <div style="font-family:'Courier New',monospace;font-size:16px;font-weight:700;color:var(--black);letter-spacing:3px;">BRMP-5078</div>
+                  <div style="font-size:8px;color:var(--grey-dark);margin-top:3px;">Expires in 30 days</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.15);border-radius:7px;padding:9px;text-align:center;">
+              <div style="font-size:9px;color:var(--grey-dark);margin-bottom:3px;">Next reward at</div>
+              <div style="font-size:14px;font-weight:700;color:var(--blue);">100 miles</div>
+              <div class="sph-mbar-wrap" style="margin-top:7px;background:rgba(0,47,167,0.1);"><div class="sph-mbar-fill" style="width:50%;background:var(--blue);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: friendpass ── -->
+        <div class="sb-pscr" id="sbscr-friendpass">
+          <div style="background:var(--black);padding:16px 14px 12px;text-align:center;">
+            <div class="sph-brand">100 Miles</div>
+            <div style="font-size:30px;margin:6px 0;">🎁</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:white;border:1.5px solid var(--blue);border-radius:10px;padding:12px;text-align:center;">
+              <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:6px;">3-Day Friend Pass</div>
+              <div style="font-family:var(--font-brand);font-size:18px;color:var(--black);font-weight:400;line-height:1.25;margin-bottom:4px;">Free Brompton<br>hire for someone<br>you choose</div>
+              <div style="font-size:9px;color:var(--grey-dark);line-height:1.4;margin-bottom:10px;">Any Brompton hire location. No card required. Just send the pass.</div>
+              <div class="sph-btn-blue" style="font-size:10px;">Share Friend Pass</div>
+            </div>
+            <div style="font-size:9px;color:var(--grey-dark);text-align:center;">You can send this to one person. Choose wisely.</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: maxtour ── -->
+        <div class="sb-pscr" id="sbscr-maxtour">
+          <div style="background:#1C1C1E;padding:16px 12px 12px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:right;margin-bottom:10px;">10:22</div>
+            <div class="sph-notif" style="margin:0 0 8px;">
+              <div class="sph-notif-ic">🎉</div>
+              <div>
+                <div class="sph-notif-app">Brompton</div>
+                <div class="sph-notif-msg">Max just bought a Brompton!</div>
+              </div>
+            </div>
+            <div class="sph-notif" style="margin:0;">
+              <div class="sph-notif-ic">🏭</div>
+              <div>
+                <div class="sph-notif-app">Brompton</div>
+                <div class="sph-notif-msg">You're both invited to the factory.</div>
+              </div>
+            </div>
+          </div>
+          <div class="sph-body" style="background:var(--grey-light);">
+            <div style="background:white;border-radius:10px;overflow:hidden;border:1px solid var(--grey-mid);">
+              <div style="background:linear-gradient(135deg,#1A1A2E,#002FA7);padding:16px 12px;text-align:center;">
+                <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">Referral Reward</div>
+                <div style="font-family:var(--font-brand);font-size:15px;color:white;font-weight:400;">Private Factory Tour</div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.65);margin-top:4px;">Brompton HQ · Greenford, London</div>
+              </div>
+              <div style="padding:10px 12px;font-size:9px;color:var(--grey-dark);line-height:1.55;">Andy and Max, plus guests — you're invited for a behind-the-scenes tour of where every Brompton is made.</div>
+              <div style="padding:0 12px 10px;"><div class="sph-btn-blue" style="font-size:9px;">Choose a date →</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: cityguide ── -->
+        <div class="sb-pscr" id="sbscr-cityguide">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">City Guides</div>
+            <div class="sph-title">East London</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:var(--grey-light);border-radius:8px;overflow:hidden;border:1px solid var(--grey-mid);">
+              <div style="height:80px;background:linear-gradient(135deg,#1a3a5c,#2d6a4f);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:28px;">🗺</div>
+              </div>
+              <div style="padding:9px 10px;">
+                <div style="font-size:11px;font-weight:700;color:var(--black);margin-bottom:2px;">East London Loop</div>
+                <div style="display:flex;gap:8px;font-size:9px;color:var(--grey-dark);">
+                  <span>8.4 miles</span><span>·</span><span>55 min</span><span>·</span><span>⭐ 4.9 (142)</span>
+                </div>
+                <div style="font-size:9px;color:var(--grey-dark);margin-top:5px;line-height:1.4;">Wapping → Whitechapel → Victoria Park → The Mayflower, Rotherhithe.</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);">Along the route</div>
+              <div style="display:flex;align-items:center;gap:7px;background:white;border-radius:6px;padding:7px 9px;border:1px solid var(--grey-mid);">
+                <span style="font-size:13px;">☕</span>
+                <div><div style="font-size:10px;font-weight:600;color:var(--black);">Allpress Espresso</div><div style="font-size:8px;color:var(--grey-dark);">Bikes welcome inside · Dalston</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;background:white;border-radius:6px;padding:7px 9px;border:1px solid var(--grey-mid);">
+                <span style="font-size:13px;">🍺</span>
+                <div><div style="font-size:10px;font-weight:600;color:var(--black);">The Mayflower</div><div style="font-size:8px;color:var(--grey-dark);">Fold and leave beside you · Rotherhithe</div></div>
+              </div>
+            </div>
+            <div class="sph-btn-blue" style="font-size:9px;">Start this route →</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: academy ── -->
+        <div class="sb-pscr" id="sbscr-academy">
+          <div style="background:var(--black);padding:12px 14px;">
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:4px;">Brompton Academy</div>
+            <div class="sph-title">Learn to look<br>after your bike</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:white;border-radius:8px;overflow:hidden;border:1px solid var(--grey-mid);">
+              <div style="height:80px;background:var(--black);position:relative;overflow:hidden;">
+                <img src="https://img.youtube.com/vi/96SJLSG2g50/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center;" alt="How to Fix a Flat"/>
+                <div style="position:absolute;inset:0;background:rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:rgba(200,0,0,0.9);display:flex;align-items:center;justify-content:center;font-size:13px;color:white;padding-left:2px;">▶</div>
+                </div>
+              </div>
+              <div style="padding:9px 10px;font-size:9px;color:var(--grey-dark);line-height:1.5;">Spare tube, tyre levers, pump. You'll need three things — and about four minutes.</div>
+            </div>
+            <div style="background:var(--yellow-pale);border:1px solid rgba(232,181,0,0.4);border-radius:8px;padding:10px;">
+              <div style="font-size:9px;font-weight:700;color:#7A5C00;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">🎓 Want hands-on practice?</div>
+              <div style="font-size:10px;color:var(--black);margin-bottom:7px;line-height:1.4;">Brompton Maintenance 101 at Balfes Bikes. 1 hour · <strong>£10</strong>. Free spare tube included.</div>
+              <div style="background:var(--yellow);color:#3A2A00;text-align:center;border-radius:4px;padding:7px;font-size:9px;font-weight:700;letter-spacing:0.5px;">Book at Balfes →</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: maintenance ── -->
+        <div class="sb-pscr" id="sbscr-maintenance">
+          <div style="background:var(--green);padding:14px;text-align:center;">
+            <div class="sph-brand" style="color:rgba(255,255,255,0.7);">Balfes Bikes</div>
+            <div class="sph-title">Maintenance 101<br>Confirmed</div>
+          </div>
+          <div class="sph-body">
+            <div style="display:flex;align-items:center;gap:9px;background:var(--green-pale);border-radius:8px;padding:10px;border:1px solid rgba(30,92,30,0.2);">
+              <span style="font-size:20px;">📅</span>
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--black);">Saturday, 10:00am</div>
+                <div style="font-size:9px;color:var(--grey-dark);">Balfes Bikes, London Bridge</div>
+                <div style="font-size:9px;color:var(--grey-dark);">Led by Tom · 7 attendees</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);">What you'll learn</div>
+              <div class="sph-ms-item e"><div class="sph-ms-ic e" style="font-size:10px;">✅</div><div><div class="sph-ms-name">How to fix a flat tyre</div></div></div>
+              <div class="sph-ms-item e"><div class="sph-ms-ic e" style="font-size:10px;">✅</div><div><div class="sph-ms-name">Brake pad adjustment</div></div></div>
+              <div class="sph-ms-item e"><div class="sph-ms-ic e" style="font-size:10px;">✅</div><div><div class="sph-ms-name">Chain care & gear indexing</div></div></div>
+            </div>
+            <div style="background:var(--grey-light);border-radius:7px;padding:9px;font-size:9px;color:var(--grey-dark);line-height:1.4;">🎁 Free spare tube included with any Brompton toolkit purchase on the day.</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: service ── -->
+        <div class="sb-pscr" id="sbscr-service">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">Brompton Care</div>
+            <div class="sph-title">Time for a<br>service</div>
+          </div>
+          <div class="sph-body">
+            <div style="display:flex;gap:7px;">
+              <div style="flex:1;background:var(--grey-light);border-radius:7px;padding:9px;text-align:center;border:1px solid var(--grey-mid);">
+                <div style="font-family:var(--font-brand);font-size:22px;color:var(--blue);">267</div>
+                <div style="font-size:8px;color:var(--grey-dark);">miles ridden</div>
+              </div>
+              <div style="flex:1;background:var(--grey-light);border-radius:7px;padding:9px;text-align:center;border:1px solid var(--grey-mid);">
+                <div style="font-family:var(--font-brand);font-size:22px;color:var(--yellow);">⚠</div>
+                <div style="font-size:8px;color:var(--grey-dark);">service due</div>
+              </div>
+            </div>
+            <div style="background:var(--yellow-pale);border:1px solid rgba(232,181,0,0.4);border-radius:8px;padding:10px;font-size:9px;color:#5A3E00;line-height:1.5;">Based on your mileage: <strong>new tyres</strong>, <strong>brake pads</strong>, and a full tune-up are recommended.</div>
+            <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.2);border-radius:8px;padding:10px;">
+              <div style="font-size:9px;font-weight:700;color:var(--blue);margin-bottom:4px;">🚲 Members-only loaner bike</div>
+              <div style="font-size:9px;color:var(--grey-dark);line-height:1.4;">We'll have a bike waiting for you while yours is in the shop. No extra charge.</div>
+            </div>
+            <div class="sph-btn-blue" style="font-size:9px;">Book priority service at Balfes →</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: bwc ── -->
+        <div class="sb-pscr" id="sbscr-bwc">
+          <div style="background:linear-gradient(135deg,#002FA7,#E8B500);padding:20px 14px;text-align:center;">
+            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.8);margin-bottom:6px;">You're going to</div>
+            <div style="font-family:var(--font-brand);font-size:15px;color:white;font-weight:400;line-height:1.2;">Brompton World<br>Championships</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-top:6px;">Brent Cross · London</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:white;border:1.5px solid var(--yellow);border-radius:10px;overflow:hidden;">
+              <div style="background:var(--yellow-pale);padding:10px 12px;border-bottom:1px solid rgba(232,181,0,0.3);">
+                <div style="font-size:9px;font-weight:700;color:#7A5C00;text-transform:uppercase;letter-spacing:0.5px;">Your Ticket</div>
+                <div style="font-family:'Courier New',monospace;font-size:15px;font-weight:700;letter-spacing:2px;color:var(--black);margin-top:3px;">BWC-ANDY-01</div>
+              </div>
+              <div style="padding:9px 12px;font-size:9px;color:var(--grey-dark);line-height:1.55;">Fancy dress encouraged. Fold-off competitions. Riders from 30+ countries.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div class="sph-ms-item"><div class="sph-ms-ic" style="font-size:11px;">🎭</div><div><div class="sph-ms-name">Fancy Dress Competition</div></div></div>
+              <div class="sph-ms-item"><div class="sph-ms-ic" style="font-size:11px;">⚡</div><div><div class="sph-ms-name">Fold-Off Championship</div></div></div>
+              <div class="sph-ms-item"><div class="sph-ms-ic" style="font-size:11px;">🌍</div><div><div class="sph-ms-name">30+ Countries Represented</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: clubride ── -->
+        <div class="sb-pscr" id="sbscr-clubride">
+          <div style="background:var(--green);padding:14px;text-align:center;">
+            <div class="sph-brand" style="color:rgba(255,255,255,0.7);">London Brompton Club</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:white;border-radius:8px;padding:10px;border:1px solid var(--grey-mid);">
+              <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:6px;">This Sunday</div>
+              <div style="font-size:11px;font-weight:700;color:var(--black);margin-bottom:3px;">Victoria Park Loop → Coffee</div>
+              <div style="font-size:9px;color:var(--grey-dark);">Led by Phil · ~20 riders · All abilities</div>
+              <div style="font-size:9px;color:var(--grey-dark);margin-top:3px;">Starts 9am · Approach Road Gate</div>
+            </div>
+            <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.2);border-radius:8px;padding:10px;">
+              <div style="font-size:9px;font-weight:700;color:var(--blue);margin-bottom:5px;">🚲 Member Benefit</div>
+              <div style="font-size:9px;color:var(--grey-dark);line-height:1.5;margin-bottom:7px;">Get a free Brompton Bike Hire pass for your friends when you start any City Guide route or join any Community Ride.</div>
+              <div class="sph-btn-blue" style="font-size:9px;">Hire a Brompton →</div>
+            </div>
+            <div style="background:var(--grey-light);border-radius:7px;padding:8px;font-size:9px;color:var(--grey-dark);">22 members going · 4 hire bikes available</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: k1000 ── -->
+        <div class="sb-pscr" id="sbscr-k1000">
+          <div style="background:var(--black);padding:14px;text-align:center;">
+            <div class="sph-brand">Milestone</div>
+            <div style="font-family:var(--font-brand);font-size:42px;color:white;font-weight:400;line-height:1;">1,000</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">miles</div>
+          </div>
+          <div class="sph-body">
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:var(--blue-pale);border-radius:7px;padding:9px;text-align:center;border:1px solid rgba(0,47,167,0.15);">
+                <div style="font-family:var(--font-brand);font-size:20px;color:var(--blue);">214</div>
+                <div style="font-size:8px;color:var(--grey-dark);">commutes</div>
+              </div>
+              <div style="flex:1;background:var(--blue-pale);border-radius:7px;padding:9px;text-align:center;border:1px solid rgba(0,47,167,0.15);">
+                <div style="font-family:var(--font-brand);font-size:20px;color:var(--blue);">12</div>
+                <div style="font-size:8px;color:var(--grey-dark);">weekend routes</div>
+              </div>
+              <div style="flex:1;background:var(--blue-pale);border-radius:7px;padding:9px;text-align:center;border:1px solid rgba(0,47,167,0.15);">
+                <div style="font-family:var(--font-brand);font-size:20px;color:var(--blue);">2</div>
+                <div style="font-size:8px;color:var(--grey-dark);">friends referred</div>
+              </div>
+            </div>
+            <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.2);border-radius:8px;padding:10px;font-size:9px;color:var(--green);line-height:1.5;font-weight:600;">🏅 Limited edition enamel badge on its way to you.</div>
+            <div class="sph-btn-blue" style="font-size:9px;">Explore multi-day routes →</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: k2000 ── -->
+        <div class="sb-pscr" id="sbscr-k2000">
+          <div style="background:var(--black);padding:14px;text-align:center;">
+            <div class="sph-brand">Milestone</div>
+            <div style="font-family:var(--font-brand);font-size:42px;color:white;font-weight:400;line-height:1;">2,000</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">miles</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:var(--blue);border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.65);margin-bottom:4px;">That's the distance from</div>
+              <div style="font-family:var(--font-brand);font-size:14px;color:white;font-weight:400;">London to Istanbul</div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.6);margin-top:4px;">on two wheels. On a folding bike.</div>
+            </div>
+            <div style="background:#d8e8f2;border-radius:8px;overflow:hidden;border:1px solid #b8ccd8;">
+              <svg viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+                <rect width="220" height="120" fill="#c4d8ea"/>
+                <!-- Land masses -->
+                <ellipse cx="50" cy="44" rx="26" ry="20" fill="#d8e4cc"/>
+                <path d="M74 48 Q100 36 145 42 Q178 46 195 62 Q200 78 188 86 Q168 94 138 88 Q105 82 84 70 Q72 62 74 48Z" fill="#d8e4cc"/>
+                <!-- English Channel hint -->
+                <path d="M64 54 Q72 49 82 53" fill="none" stroke="#b0c8da" stroke-width="4"/>
+                <!-- Dashed route London → Paris → Istanbul -->
+                <polyline points="50,44 88,58 182,70" fill="none" stroke="#002FA7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.85"/>
+                <!-- London -->
+                <circle cx="50" cy="44" r="5" fill="#002FA7" stroke="white" stroke-width="1.5"/>
+                <text x="50" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#002FA7" font-family="Helvetica Neue,Arial,sans-serif">London</text>
+                <!-- Paris (yellow — next destination) -->
+                <circle cx="88" cy="58" r="5" fill="#E8B500" stroke="white" stroke-width="1.5"/>
+                <text x="88" y="48" text-anchor="middle" font-size="8" font-weight="700" fill="#7A5C00" font-family="Helvetica Neue,Arial,sans-serif">Paris ★</text>
+                <!-- Istanbul -->
+                <circle cx="182" cy="70" r="5" fill="#002FA7" stroke="white" stroke-width="1.5"/>
+                <text x="182" y="60" text-anchor="middle" font-size="8" font-weight="700" fill="#002FA7" font-family="Helvetica Neue,Arial,sans-serif">Istanbul</text>
+                <!-- Bottom label -->
+                <text x="110" y="114" text-anchor="middle" font-size="8" fill="#556677" font-family="Helvetica Neue,Arial,sans-serif">2,000 miles · next up: Paris</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /sticky-screen -->
+    </div><!-- /sticky-phone -->
+  </div><!-- /sb-phone-sticky -->
+
+  </div><!-- /sb-outer-grid -->
+
+  <div style="max-width:960px;margin:40px auto 0;padding:24px 32px;background:var(--blue-pale);border:1px solid var(--blue);border-radius:8px;color:var(--blue);text-align:center;">
+    <div style="font-family:var(--font-brand);font-size:20px;font-weight:400;margin-bottom:8px;">One sale. One family. One community. Three Bromptons.</div>
+    <div style="font-size:15px;line-height:1.65;margin-bottom:20px;">Andy's journey shows how the ownership experience — not just the bike — is the product. Every touchpoint was earned. Nothing was pushed.</div>
+    <a href="brompton-storyboard.html" style="display:inline-block;background:var(--blue);color:white;border-radius:5px;padding:11px 22px;font-size:13px;font-weight:700;letter-spacing:0.5px;text-decoration:none;">← Back to In-Store Journey</a>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var storyboard = document.getElementById('storyboard');
+  if (!storyboard) return;
+
+  var SELECTORS = ['.sb-phase-hdr','.chat-hdr','.chat-ctx','.chat-msg2','.chat-outcomes2'].join(',');
+  var allItems = Array.from(storyboard.querySelectorAll(SELECTORS));
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -20% 0px' });
+
+  allItems.forEach(function (el) { observer.observe(el); });
+
+  var triggerEls = Array.from(storyboard.querySelectorAll('[data-trigger-screen]'));
+  var stickyPhone = document.querySelector('.sticky-phone');
+  var sbScreens = document.querySelectorAll('.sb-pscr');
+  var lastScreenId = null;
+  var hideTimeout = null;
+  var checklistTimers = [];
+
+  function clearChecklistTimers() {
+    checklistTimers.forEach(clearTimeout);
+    checklistTimers = [];
+  }
+
+  function resetChecklist() {
+    var items = document.querySelectorAll('.chk-item');
+    var prog = document.getElementById('chk-progress');
+    items.forEach(function(item) {
+      item.classList.remove('done');
+      var ic = item.querySelector('.chk-ic');
+      if (ic) { ic.textContent = '⬜'; ic.classList.remove('pop'); }
+    });
+    if (prog) {
+      prog.classList.remove('celebrate');
+      prog.textContent = '0 of 5 complete · Est. 12 mins to finish';
+      prog.style.background = '';
+      prog.style.borderColor = '';
+      prog.style.color = '';
+    }
+  }
+
+  function runChecklistAnimation() {
+    var items = Array.from(document.querySelectorAll('.chk-item'));
+    var prog = document.getElementById('chk-progress');
+    var delays  = [700, 1500, 2400, 3400, 4500];
+    var minsLeft = [10,   8,    6,    4,    0  ];
+
+    items.forEach(function(item, i) {
+      var t = setTimeout(function() {
+        var ic = item.querySelector('.chk-ic');
+        if (!ic) return;
+        ic.classList.add('pop');
+        setTimeout(function() {
+          ic.textContent = '✅';
+          ic.classList.remove('pop');
+          item.classList.add('done');
+          if (prog) {
+            var done = i + 1;
+            if (done < 5) {
+              prog.textContent = done + ' of 5 complete · Est. ' + minsLeft[i] + ' mins to finish';
+            } else {
+              prog.textContent = '🎉 All done! Ready to ride.';
+              prog.classList.add('celebrate');
+            }
+          }
+        }, 220);
+      }, delays[i]);
+      checklistTimers.push(t);
+    });
+  }
+
+  function activateSbScreen(screenId) {
+    clearChecklistTimers();
+    sbScreens.forEach(function(s) { s.classList.remove('active'); });
+    if (hideTimeout) { clearTimeout(hideTimeout); hideTimeout = null; }
+    if (screenId === 'blank') {
+      stickyPhone.style.opacity = '0';
+      hideTimeout = setTimeout(function() { stickyPhone.style.visibility = 'hidden'; hideTimeout = null; }, 500);
+    } else {
+      stickyPhone.style.visibility = 'visible';
+      stickyPhone.style.opacity = '1';
+      var t = document.getElementById('sbscr-' + screenId);
+      if (t) t.classList.add('active');
+      if (screenId === 'checklist') {
+        resetChecklist();
+        var startT = setTimeout(runChecklistAnimation, 400);
+        checklistTimers.push(startT);
+      }
+    }
+  }
+
+  function updateActiveScreen() {
+    var threshold = window.innerHeight * 0.60;
+    var active = null;
+    triggerEls.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < threshold) {
+        if (!active || rect.top > active.getBoundingClientRect().top) active = el;
+      }
+    });
+    var newId = active ? active.dataset.triggerScreen : null;
+    if (newId === lastScreenId) return;
+    lastScreenId = newId;
+    if (!newId) {
+      if (stickyPhone) { stickyPhone.style.visibility = 'hidden'; stickyPhone.style.opacity = '0'; }
+    } else {
+      activateSbScreen(newId);
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveScreen, { passive: true });
+  updateActiveScreen();
+})();
+</script>
+</body>
+</html>

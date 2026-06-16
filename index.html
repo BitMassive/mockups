@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brompton — Project Index</title>
+<style>
+  @font-face {
+    font-family: 'BromptonSlab';
+    src: url('Brand/BromptonSlab-Regular.woff') format('woff'),
+         url('Brand/BromptonSlab-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #F6F6F6;
+    color: #000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .wrap { max-width: 640px; width: 100%; }
+  h1 {
+    font-family: 'BromptonSlab', Georgia, serif;
+    font-weight: 400;
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #002FA7;
+  }
+  p.sub { color: #707070; font-size: 14px; margin-bottom: 32px; }
+  .card {
+    display: block;
+    background: white;
+    border: 1px solid #DBDBDB;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    text-decoration: none;
+    color: #000;
+    transition: border-color 0.15s ease;
+  }
+  .card:hover { border-color: #002FA7; }
+  .card .label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #002FA7; font-weight: 700; margin-bottom: 6px; }
+  .card .title { font-size: 17px; font-weight: 600; }
+  .card .desc { font-size: 13px; color: #707070; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Brompton</h1>
+    <p class="sub">Project pages</p>
+
+    <a class="card" href="brompton-storyboard.html">
+      <div class="label">01 · Storyboard</div>
+      <div class="title">In-Store Storyboard</div>
+      <div class="desc">The retail experience that kicks off the ownership journey.</div>
+    </a>
+
+    <a class="card" href="brompton-ownership-storyboard.html">
+      <div class="label">02 · Storyboard</div>
+      <div class="title">Andy's Ownership Journey</div>
+      <div class="desc">How the ownership experience becomes the product.</div>
+    </a>
+
+    <a class="card" href="brompton-tline-product-page.html">
+      <div class="label">03 · Product Page</div>
+      <div class="title">T Line Explore — 12-Speed</div>
+      <div class="desc">Where the flywheel drives conversion.</div>
+    </a>
+  </div>
+</body>
+</html>

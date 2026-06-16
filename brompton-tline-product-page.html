@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T Line Explore – 12-Speed | Brompton Bicycle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f5f4f1;
+      --text: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --text-tertiary: #9a9a9a;
+      --border: rgba(0,0,0,0.12);
+      --border-strong: rgba(0,0,0,0.25);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --gold: #b8860b;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: #fff;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; }
+
+    /* ─── Top bar ──────────────────────────────────── */
+    .top-bar {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 9px 20px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    .top-bar a { color: #c8b88a; text-decoration: underline; }
+
+    /* ─── Nav ──────────────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 100;
+    }
+    .nav-logo { font-size: 18px; font-weight: 600; letter-spacing: 0.1em; }
+    .nav-links { display: flex; gap: 24px; font-size: 13px; color: var(--text-secondary); }
+    .nav-links span { cursor: pointer; }
+    .nav-links span:hover { color: var(--text); }
+    .nav-actions { display: flex; gap: 16px; align-items: center; }
+    .nav-actions i { font-size: 20px; cursor: pointer; color: var(--text-secondary); }
+    .nav-actions i:hover { color: var(--text); }
+
+    /* ─── Breadcrumb ───────────────────────────────── */
+    .breadcrumb {
+      padding: 10px 40px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .breadcrumb span { color: var(--text-tertiary); }
+
+    /* ─── Page wrapper ─────────────────────────────── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* ─── Product hero ─────────────────────────────── */
+    .product-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding: 24px 0 48px;
+    }
+
+    /* Gallery */
+    .gallery {}
+    .main-img {
+      border-radius: var(--radius-lg);
+      background: #f4f3f0;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 24px;
+    }
+    .thumb-row { display: flex; gap: 8px; margin-top: 10px; }
+    .thumb {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-md);
+      background: #f4f3f0;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      flex-shrink: 0;
+    }
+    .thumb.active { border-color: #1a1a1a; }
+    .thumb img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .ugc-badge-strip { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .ugc-badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 0.5px solid var(--border);
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    a.ugc-badge:hover { background: var(--bg-secondary); border-color: var(--border-strong); }
+    .ugc-badge i { font-size: 13px; }
+
+    /* Product info */
+    .product-info {}
+    .line-tag {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .prod-title {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .stars { color: var(--gold); font-size: 15px; letter-spacing: -1px; }
+    .rating-num { font-weight: 500; font-size: 14px; }
+    .review-count { font-size: 13px; color: var(--text-secondary); text-decoration: underline; cursor: pointer; }
+    .community-badge {
+      font-size: 11px;
+      background: #f0f7e6;
+      color: #3B6D11;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .price-block { margin-bottom: 16px; }
+    .price-main { font-size: 30px; font-weight: 500; }
+    .price-sub { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+    .klarna-row {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .klarna-pill {
+      background: #ffb3c7;
+      color: #4a0020;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .social-proof-bar {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sp-dot { width: 7px; height: 7px; border-radius: 50%; background: #4CAF50; flex-shrink: 0; }
+    .sp-hot { color: var(--text); font-weight: 500; }
+    .value-justifier {
+      border-left: 3px solid var(--gold);
+      padding: 10px 14px;
+      background: #fdf8ed;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-bottom: 16px;
+      font-size: 13px;
+      font-style: italic;
+      color: #5a4a10;
+    }
+    .value-justifier cite {
+      display: block;
+      font-style: normal;
+      font-size: 11px;
+      margin-top: 4px;
+      color: #8a7030;
+    }
+    .spec-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .spec-chip {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 9px 12px;
+      font-size: 12px;
+    }
+    .spec-chip .lbl { color: var(--text-secondary); font-size: 11px; }
+    .spec-chip .val { font-weight: 500; font-size: 14px; display: block; margin-top: 2px; }
+
+    .options-section { margin-bottom: 18px; }
+    .opt-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+    .opt-label span { color: var(--text); font-weight: 500; }
+    .color-opts { display: flex; gap: 8px; margin-bottom: 14px; }
+    .color-swatch {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: outline 0.1s;
+    }
+    .color-swatch.active { outline: 2px solid #1a1a1a; outline-offset: 2px; }
+    .handlebar-opts { display: flex; gap: 8px; }
+    .hbar-opt {
+      padding: 8px 18px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      border: 0.5px solid var(--border-strong);
+      cursor: pointer;
+      background: transparent;
+      color: var(--text);
+    }
+    .hbar-opt.active { border: 1.5px solid #1a1a1a; font-weight: 500; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary {
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      border: 1px solid #1a1a1a;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: var(--bg-secondary); }
+
+    .trust-strip {
+      display: flex;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .trust-item {
+      flex: 1;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      border-right: 0.5px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-item i { font-size: 17px; color: var(--text); }
+    .trust-item strong { color: var(--text); font-weight: 500; font-size: 12px; display: block; }
+
+    /* ─── Sections ─────────────────────────────────── */
+    .section {
+      padding: 40px 0;
+      border-top: 0.5px solid var(--border);
+      scroll-margin-top: 64px;
+    }
+    .section-title { font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+    .section-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 22px; }
+
+    /* ─── Use cases ────────────────────────────────── */
+    .use-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .uc-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 0.5px solid var(--border);
+    }
+    .uc-img {
+      height: 180px;
+      overflow: hidden;
+    }
+    .uc-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .uc-img i { font-size: 52px; }
+    .uc-body { padding: 16px; }
+    .uc-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 6px; }
+    .uc-title { font-weight: 500; font-size: 14px; margin-bottom: 7px; }
+    .uc-quote { font-size: 12px; color: var(--text-secondary); line-height: 1.6; font-style: italic; }
+    .uc-attr { font-size: 11px; color: var(--text-secondary); margin-top: 10px; display: flex; align-items: center; gap: 7px; }
+    .uc-avatar {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      font-size: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    /* ─── Photo wall ───────────────────────────────── */
+    .ugc-photo-label {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .ugc-photo-wall { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+    .ugc-photo {
+      border-radius: var(--radius-md);
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .ugc-photo i { font-size: 32px; }
+    .ugc-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.45);
+      opacity: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 12px; gap: 5px;
+      transition: opacity 0.15s;
+    }
+    .ugc-photo:hover .ugc-overlay { opacity: 1; }
+
+    /* ─── Reviews ──────────────────────────────────── */
+    .rating-summary {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .rating-big { text-align: center; min-width: 120px; }
+    .rating-big .num { font-size: 60px; font-weight: 500; line-height: 1; }
+    .rating-big .star-row { font-size: 22px; color: var(--gold); margin: 5px 0; }
+    .rating-big .out-of,
+    .rating-big .total { font-size: 12px; color: var(--text-secondary); }
+    .rating-bars { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .rbar-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+    .rbar-label { width: 28px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+    .rbar-track { flex: 1; height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; }
+    .rbar-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+    .rbar-count { width: 24px; color: var(--text-secondary); font-size: 11px; }
+    .review-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .rh-chip {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+    }
+    .rh-chip .rh-tag { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+    .rh-chip .rh-stat { font-size: 22px; font-weight: 500; }
+    .rh-chip .rh-label { font-size: 12px; color: var(--text-secondary); }
+
+    .review-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .rf-btn {
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      border: 0.5px solid var(--border-strong);
+      cursor: pointer;
+      background: transparent;
+      color: var(--text);
+    }
+    .rf-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+    .reviews-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 28px; }
+    .review-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 500;
+      flex-shrink: 0;
+    }
+    .reviewer-info .name { font-weight: 500; font-size: 14px; }
+    .reviewer-info .meta { font-size: 11px; color: var(--text-secondary); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 3px; }
+    .verified-badge {
+      background: #e6f3e6;
+      color: #2d6b2d;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .use-case-tag {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .review-stars { font-size: 14px; color: var(--gold); }
+    .review-date { font-size: 11px; color: var(--text-secondary); text-align: right; }
+    .review-title { font-weight: 500; font-size: 14px; margin-bottom: 7px; }
+    .review-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+    .review-photos { display: flex; gap: 8px; margin-top: 14px; }
+    .review-photo {
+      width: 76px; height: 76px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .review-footer {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 0.5px solid var(--border);
+      display: flex; gap: 12px; align-items: center;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .helpful-btn {
+      border: 0.5px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 4px 13px;
+      background: transparent;
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .helpful-btn:hover { background: var(--bg-secondary); }
+
+    .pj-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .pj-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .pj-header { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px; }
+    .pj-stars { color: var(--gold); font-size: 12px; margin-bottom: 6px; }
+    .pj-quote { font-size: 13px; font-style: italic; line-height: 1.55; color: var(--text); margin-bottom: 8px; }
+    .pj-attr { font-size: 11px; color: var(--text-secondary); }
+
+    /* ─── Q&A ──────────────────────────────────────── */
+    .qa-section { display: flex; flex-direction: column; gap: 14px; }
+    .qa-item {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .qa-q { font-size: 13px; font-weight: 500; margin-bottom: 10px; display: flex; gap: 10px; }
+    .qa-q-icon {
+      background: var(--bg-secondary);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 500;
+      color: var(--text-secondary);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .qa-a { font-size: 13px; color: var(--text-secondary); line-height: 1.65; padding-left: 32px; }
+    .qa-a strong { color: var(--text); }
+    .qa-meta { font-size: 11px; color: var(--text-secondary); margin-top: 8px; padding-left: 32px; display: flex; gap: 12px; }
+    .qa-helpful { color: #2d6b2d; }
+
+    /* ─── Community ────────────────────────────────── */
+    .community-section {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .community-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .cs-stat { text-align: center; }
+    .cs-num { font-size: 26px; font-weight: 500; }
+    .cs-label { font-size: 12px; color: var(--text-secondary); }
+    .buyer-types { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .buyer-tag {
+      font-size: 12px;
+      padding: 7px 15px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border-strong);
+      display: flex; align-items: center; gap: 7px;
+      background: #fff;
+    }
+    .buyer-tag i { font-size: 15px; }
+
+    /* ─── Media mentions ───────────────────────────── */
+    .media-mentions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .mm-card {
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 0.5px solid var(--border);
+    }
+    .mm-source { font-size: 13px; font-weight: 500; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+    .mm-source-type {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+    }
+    .mm-stars { font-size: 12px; color: var(--gold); margin-bottom: 6px; }
+    .mm-quote { font-size: 12px; color: var(--text-secondary); font-style: italic; line-height: 1.55; }
+
+    /* ─── Shorts carousel ──────────────────────────── */
+    .short-slide {
+      flex: 0 0 calc((100% - 32px) / 3);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 9/16;
+    }
+    .yt-thumb {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      text-decoration: none;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: #000;
+    }
+    .yt-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .yt-thumb:hover img { opacity: 0.7; }
+    .yt-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .yt-play i { font-size: 26px; color: #ff0000; }
+    .yt-thumb:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); }
+    .yt-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 12px 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .short-slide { flex: 0 0 calc(100% - 0px); }
+    }
+
+    /* ─── Sticky footer CTA ────────────────────────── */
+    .sticky-cta {
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      border-top: 0.5px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 99;
+    }
+    .sticky-cta .left .title { font-weight: 500; font-size: 15px; }
+    .sticky-cta .left .sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .sticky-cta .btn-add {
+      padding: 12px 32px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .sticky-cta .btn-add:hover { background: #333; }
+
+    /* ─── Footer ───────────────────────────────────── */
+    footer {
+      background: #1a1a1a;
+      color: #aaa;
+      padding: 40px;
+      font-size: 12px;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    footer h4 { color: #fff; font-size: 13px; font-weight: 500; margin-bottom: 14px; }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    footer ul li a { color: #aaa; }
+    footer ul li a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 24px auto 0;
+      padding-top: 20px;
+      border-top: 0.5px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+    .payment-icons { display: flex; gap: 8px; align-items: center; }
+    .payment-pill {
+      background: rgba(255,255,255,0.1);
+      color: #ddd;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    /* ─── UGC Toggle ───────────────────────────────── */
+    .ugc-toggle { position: relative; }
+    .ugc-toggle-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px;
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      background: transparent;
+      font-size: 12px; font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .ugc-toggle-btn:hover { background: var(--bg-secondary); }
+    .ugc-toggle-btn i { font-size: 15px; }
+    .ugc-active-pill {
+      font-size: 11px; font-weight: 500;
+      padding: 2px 7px; border-radius: 10px;
+      background: #1a1a1a; color: #fff;
+    }
+    .ugc-active-pill.pill-off  { background: #ccc; color: #555; }
+    .ugc-active-pill.pill-low  { background: #ddd4f0; color: #534AB7; }
+    .ugc-active-pill.pill-medium { background: #faeeda; color: #854F0B; }
+    .ugc-active-pill.pill-high { background: #1a1a1a; color: #fff; }
+    .ugc-menu {
+      display: none;
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: #fff;
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 8px;
+      min-width: 210px;
+      z-index: 200;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .ugc-menu.open { display: flex; flex-direction: column; gap: 2px; }
+    .ugc-menu-label { font-size: 11px; color: var(--text-secondary); padding: 4px 8px 6px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 0.5px solid var(--border); margin-bottom: 4px; }
+    .ugc-opt {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: var(--radius-md);
+      font-size: 13px; font-weight: 500;
+      border: none; background: transparent;
+      cursor: pointer; text-align: left; width: 100%; color: var(--text);
+    }
+    .ugc-opt:hover { background: var(--bg-secondary); }
+    .ugc-opt.active { background: var(--bg-secondary); }
+    .ugc-hint { font-size: 11px; color: var(--text-secondary); font-weight: 400; margin-left: auto; }
+    .ugc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ugc-dot-off    { background: #ccc; }
+    .ugc-dot-low    { background: #534AB7; }
+    .ugc-dot-medium { background: #b8860b; }
+    .ugc-dot-high   { background: #1a1a1a; }
+    [data-ugc].ugc-hidden { display: none !important; }
+
+    /* ─── Responsive ───────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .page { padding: 0 20px; }
+      .breadcrumb { padding: 10px 20px; }
+      .product-main { grid-template-columns: 1fr; gap: 24px; }
+      .use-cases { grid-template-columns: 1fr; }
+      .ugc-photo-wall { grid-template-columns: repeat(3, 1fr); }
+      .rating-summary { grid-template-columns: 1fr; }
+      .review-highlights { grid-template-columns: 1fr; }
+      .pj-row { grid-template-columns: 1fr; }
+      .community-stats { grid-template-columns: repeat(2, 1fr); }
+      .media-mentions { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: repeat(2, 1fr); }
+      .sticky-cta { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    Free delivery on all bikes · 28-day returns · <a href="#">7-year frame warranty</a>
+  </div>
+
+  <nav>
+    <div class="nav-logo"><img src="https://www.brompton.com/icons/brompton-logo-original.svg" alt="Brompton" style="height:28px;display:block;" /></div>
+    <div class="nav-links">
+      <span>Bikes</span>
+      <span>Electric</span>
+      <span>Parts &amp; Accessories</span>
+      <span>Stories</span>
+    </div>
+    <div class="nav-actions">
+      <div class="ugc-toggle" id="ugc-toggle">
+        <button class="ugc-toggle-btn" onclick="toggleUGCMenu()" aria-label="UGC visibility">
+          <i class="ti ti-adjustments-horizontal" aria-hidden="true"></i>
+          <span>UGC</span>
+          <span id="ugc-current-label" class="ugc-active-pill">High</span>
+        </button>
+        <div class="ugc-menu" id="ugc-menu">
+          <div class="ugc-menu-label">UGC visibility</div>
+          <button class="ugc-opt" data-level="off" onclick="setUGC('off')"><span class="ugc-dot ugc-dot-off"></span>Off <span class="ugc-hint">Hide all UGC</span></button>
+          <button class="ugc-opt" data-level="low" onclick="setUGC('low')"><span class="ugc-dot ugc-dot-low"></span>Low <span class="ugc-hint">Community stats, press</span></button>
+          <button class="ugc-opt" data-level="medium" onclick="setUGC('medium')"><span class="ugc-dot ugc-dot-medium"></span>Medium <span class="ugc-hint">+ Photos, Q&amp;A, video</span></button>
+          <button class="ugc-opt active" data-level="high" onclick="setUGC('high')"><span class="ugc-dot ugc-dot-high"></span>High <span class="ugc-hint">+ Ratings, reviews</span></button>
+        </div>
+      </div>
+      <i class="ti ti-map-pin" aria-hidden="true"></i>
+      <i class="ti ti-user" aria-hidden="true"></i>
+      <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="#">Home</a>
+    <span>/</span>
+    <a href="#">Bikes</a>
+    <span>/</span>
+    <a href="#">T Line</a>
+    <span>/</span>
+    <span>T Line Explore – 12-speed</span>
+  </div>
+
+  <div class="page">
+
+    <!-- ── PRODUCT HERO ─────────────────────────────── -->
+    <div class="product-main">
+
+      <!-- Gallery -->
+      <div class="gallery">
+        <div class="main-img">
+          <img
+            id="main-photo"
+            src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67431/MLL099B0BBT20Q00T0070120999B00_3__82635.1770715526.1280.1280.jpg?c=1"
+            alt="Brompton T Line Explore 12-speed Blasted Titanium"
+          />
+        </div>
+        <div class="thumb-row">
+          <div class="thumb active" onclick="swapImg(this, 'https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67431/MLL099B0BBT20Q00T0070120999B00_3__82635.1770715526.1280.1280.jpg?c=1')">
+            <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67434/MLL099B0BBT20Q00T0070120999B00_1__74696.1764069689.220.290.jpg?c=1" alt="" />
+          </div>
+          <div class="thumb" onclick="swapImg(this, 'https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67432/MLL099B0BBT20Q00T0070120999B00_2__56664.1764069689.1280.1280.jpg?c=1')">
+            <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67432/MLL099B0BBT20Q00T0070120999B00_2__56664.1764069689.220.290.jpg?c=1" alt="" />
+          </div>
+          <div class="thumb" onclick="swapImg(this, 'https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67426/MLL099B0BBT20Q00T0070120999B00_4__74732.1764069689.1280.1280.jpg?c=1')">
+            <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67426/MLL099B0BBT20Q00T0070120999B00_4__74732.1764069689.220.290.jpg?c=1" alt="" />
+          </div>
+          <div class="thumb" onclick="swapImg(this, 'https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67417/MLL099B0BBT20Q00T0070120999B00_5_xF__62892.1770715526.1280.1280.jpg?c=1')">
+            <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67417/MLL099B0BBT20Q00T0070120999B00_5_xF__62892.1770715526.220.290.jpg?c=1" alt="" />
+          </div>
+          <div class="thumb" onclick="swapImg(this, 'https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67418/MLL099B0BBT20Q00T0070120999B00_7__72121.1764069689.1280.1280.jpg?c=1')">
+            <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67418/MLL099B0BBT20Q00T0070120999B00_7__72121.1764069689.220.290.jpg?c=1" alt="" />
+          </div>
+        </div>
+        <div class="ugc-badge-strip" data-ugc="medium">
+          <a href="#real-riders" class="ugc-badge"><i class="ti ti-photo" aria-hidden="true"></i> 847 owner photos</a>
+          <a href="#video-reviews" class="ugc-badge"><i class="ti ti-video" aria-hidden="true"></i> 23 video reviews</a>
+          <a href="#qa" class="ugc-badge"><i class="ti ti-message-circle" aria-hidden="true"></i> 112 Q&amp;As</a>
+        </div>
+      </div>
+
+      <!-- Product info -->
+      <div class="product-info">
+        <div class="line-tag">T Line — Titanium</div>
+        <h1 class="prod-title">T Line Explore<br>12-speed</h1>
+
+        <div class="rating-row" data-ugc="high">
+          <span class="stars">★★★★★</span>
+          <span class="rating-num">4.9</span>
+          <a class="review-count" href="#reviews">347 reviews</a>
+          <span class="community-badge">Top rated 2025</span>
+        </div>
+
+        <div class="price-block">
+          <div class="price-main">£4,969</div>
+          <div class="price-sub">or from £138/month with financing</div>
+          <div class="klarna-row">
+            <span class="klarna-pill">Klarna</span>
+            3 interest-free payments of £1,656.33 ·
+            <a href="#" style="color: var(--text-secondary); text-decoration: underline;">Learn more</a>
+          </div>
+        </div>
+
+
+        <div class="value-justifier" data-ugc="high">
+          "I agonised over the price for months. Eighteen months later it's replaced my car for my commute — I've saved over £3,000 in parking and rail fares."
+          <cite>— Marcus T., verified buyer · London commuter</cite>
+        </div>
+
+        <div class="spec-mini">
+          <div class="spec-chip"><span class="lbl">Weight</span><span class="val">From 8.8 kg</span></div>
+          <div class="spec-chip"><span class="lbl">Gears</span><span class="val">12-speed</span></div>
+          <div class="spec-chip"><span class="lbl">Frame</span><span class="val">Grade 9 titanium</span></div>
+          <div class="spec-chip"><span class="lbl">Fold time</span><span class="val">~20 seconds</span></div>
+        </div>
+
+        <div class="options-section">
+          <div class="opt-label">Colour: <span>Blasted Titanium</span></div>
+          <div class="color-opts">
+            <div class="color-swatch active" style="background:#b0a898;" title="Blasted Titanium"></div>
+            <div class="color-swatch" style="background:#2a2a2a;" title="Ceratech Black"></div>
+            <div class="color-swatch" style="background:#c04020;" title="Flame Lacquer"></div>
+          </div>
+          <div class="opt-label">Handlebars: <span>Mid</span></div>
+          <div class="handlebar-opts">
+            <button class="hbar-opt">Low</button>
+            <button class="hbar-opt active">Mid</button>
+          </div>
+        </div>
+
+        <button class="btn-primary">Add to cart — £4,969</button>
+        <button class="btn-secondary">Find your nearest store to test ride</button>
+
+        <div class="trust-strip">
+          <div class="trust-item">
+            <i class="ti ti-shield-check" aria-hidden="true"></i>
+            <strong>7-yr warranty</strong>
+            frame included
+          </div>
+          <div class="trust-item">
+            <i class="ti ti-rotate-clockwise" aria-hidden="true"></i>
+            <strong>28-day returns</strong>
+            no questions asked
+          </div>
+          <div class="trust-item">
+            <i class="ti ti-truck" aria-hidden="true"></i>
+            <strong>Free delivery</strong>
+            dispatched in 48 hrs
+          </div>
+          <div class="trust-item">
+            <i class="ti ti-building-store" aria-hidden="true"></i>
+            <strong>Click &amp; collect</strong>
+            1,400+ stores
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REAL RIDERS ──────────────────────────────── -->
+    <div class="section" id="real-riders" data-ugc="high">
+      <div class="section-title">Real riders, real stories</div>
+      <div class="section-sub">How T Line owners use their bikes every day</div>
+      <div class="use-cases">
+        <div class="uc-card">
+          <div class="uc-img">
+            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/710474388_10164642365573328_3861383121613037145_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=103&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=BYl3n3lH_GkQ7kNvwHFZJh2&_nc_oc=Adp3k6LlLqaTD_FL9e8v5hvsupCDnBiZMPPOOdcG6XXaVYff0yHxw3Tcgovlm0MZ0yc&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=zIta8IsJg6x_moDPtaIS6A&_nc_ss=7b2a8&oh=00_Af-bRsjM3xo9Wl0f2xxEW1kBmvb5QPIFjx3rJF8teAZUiw&oe=6A30BCB4" alt="Sam riding a Brompton on the London commute" />
+          </div>
+          <div class="uc-body">
+            <div class="uc-tag">Daily commuter · London</div>
+            <div class="uc-title">"My tube-to-office weapon"</div>
+            <div class="uc-quote">"Folds in 20 seconds, fits under my desk, runs 12 miles a day. I've had it two years and people still stop me to ask what it is."</div>
+            <div class="uc-attr">
+              <div class="uc-avatar" style="background:#ddd4f0;color:#534AB7;">SR</div>
+              Sam R. · Verified owner · ★★★★★
+            </div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-img">
+            <img src="https://scontent-lga3-3.xx.fbcdn.net/v/t39.30808-6/651277113_10163086708977991_6560498174120945557_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=102&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=CLCQeTtq_6IQ7kNvwEHEpm6&_nc_oc=AdoZH9rWNrrsur3K9dcvx766alpbFdguSEqd_RpEahkxe7631Mi5WKu4EfZW_NX-Nho&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&_nc_gid=wCMDPzwt0S0uA-SPbTi49Q&_nc_ss=7b2a8&oh=00_Af8oI3LhI8aHI08DpJMMMShXe5kIwbwq9TYboUORsqrnWw&oe=6A30BE24" alt="Jo with a Brompton on international travels" />
+          </div>
+          <div class="uc-body">
+            <div class="uc-tag">Frequent traveller · International</div>
+            <div class="uc-title">"Flew to 9 cities with it"</div>
+            <div class="uc-quote">"Packed into a carry-on bag, rolled through three airports, rode 200 km across Japan. The titanium frame means I'm not babying it — it's an instrument, not an ornament."</div>
+            <div class="uc-attr">
+              <div class="uc-avatar" style="background:#c9e4d7;color:#0F6E56;">JL</div>
+              Jo L. · Verified owner · ★★★★★
+            </div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-img">
+            <img src="https://scontent-lga3-3.xx.fbcdn.net/v/t39.30808-6/660288333_10164390144318328_6240112335320258078_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=104&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=2CBoGvqttUYQ7kNvwGznNkC&_nc_oc=Adoec85ZumqnMi6qUJMdVDnqjQe4Gz-Hlscyk1QwlPx7MH7RIIb77HuGhQnhtNrY-W8&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&_nc_gid=P0mzsDNMvweg9EF4APeRYg&_nc_ss=7b2a8&oh=00_Af9uiH3ZEM8utHVhveorKh35S3Ooc08z2UGEpIs4mhfrDw&oe=6A309F1C" alt="Alex with a Brompton on a gravel climb in Yorkshire" />
+          </div>
+          <div class="uc-body">
+            <div class="uc-tag">Weekend explorer · Yorkshire</div>
+            <div class="uc-title">"Gravel climbs on a folding bike"</div>
+            <div class="uc-quote">"The 12-speed range is genuinely impressive. I've taken it up 15% gradients and tucked it behind the pub door while everyone else chains up outside."</div>
+            <div class="uc-attr">
+              <div class="uc-avatar" style="background:#f5dbb5;color:#633806;">AK</div>
+              Alex K. · Verified owner · ★★★★★
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── UGC PHOTO WALL ───────────────────────────── -->
+    <div class="section" id="owner-photos" data-ugc="medium">
+      <div class="section-title">Customer photos</div>
+      <div class="ugc-photo-label">
+        <i class="ti ti-brand-instagram" style="font-size:15px;" aria-hidden="true"></i>
+        From the community — tag <strong style="margin:0 2px;">#MyBrompton</strong> to be featured
+      </div>
+      <div class="ugc-photo-wall">
+        <div class="ugc-photo">
+          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/652680504_10164322435158328_1129161490549540094_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=105&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=olbGDgq_KQAQ7kNvwHwEH4p&_nc_oc=AdoybYVDyv18q7Lv8zVz9Jwpf50gbiHwtKgYxhzISFQHpE7sSn3kgyWbx718_Rg6BVc&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=LHIxQZv5wPXnScdY7tIvog&_nc_ss=7b2a8&oh=00_Af9YxI-9JTeO0NchGJMASHxlhcgWUyxt_tIrqrzJGlcjcg&oe=6A30C005" alt="Community photo 1" style="width:100%;height:100%;object-fit:cover;" />
+          <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 847</div>
+        </div>
+        <div class="ugc-photo">
+          <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/650139661_10164285610213328_8007725100514038292_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx756x960&ctp=s756x960&_nc_cat=110&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=9QVaZjpumOYQ7kNvwEB707R&_nc_oc=AdqsO1eQ_wNeWZz-WjNb2V5BPlZ8QtrAfSgPwiNAV7N-C6N5oFbm9-6qn56Jg-RBSgY&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=8zFwocYMcCXelgT_OAAXuQ&_nc_ss=7b2a8&oh=00_Af_-J3imr3maffD5scWD_tmWXw3ny6PPP1EkgsB5gFkMWA&oe=6A30BAC9" alt="Community photo 2" style="width:100%;height:100%;object-fit:cover;" />
+          <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 623</div>
+        </div>
+        <div class="ugc-photo">
+          <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/716490120_10163436726517991_8794936911122334706_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=111&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=FUOakiI-n6cQ7kNvwH6Q3aJ&_nc_oc=AdoCRohRRvf3XW8ddh1hCQhni-1o-KH_lpYIs1qMGDugPUH1t4Km8Z7dHFH6amCFly0&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=WLhMzY6S8bzmDihaj0lyqg&_nc_ss=7b2a8&oh=00_Af_wMILju0vjD3Vc86XUZsIXe65GJ3NL0FpZ-ly6BzNoGQ&oe=6A30A1A8" alt="Community photo 3" style="width:100%;height:100%;object-fit:cover;" />
+          <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 541</div>
+        </div>
+        <div class="ugc-photo">
+          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/646775647_25823918963946667_1041772150236076313_n.jpg?stp=dst-jpg_tt6&cstp=mx1125x1500&ctp=s1125x1500&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=qe7yYTcDjIwQ7kNvwEbaj-5&_nc_oc=Adrf6YRq76pnZs53Ll9KPiBC6OiTUjFR7oTg49HT-4aek-Ax5fzd_ER-emx4qYp9kF8&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=eyGN5OXob9avk4blCa9RQQ&_nc_ss=7b2a8&oh=00_Af_CNaK5wBtkfthVUnEBL1eAfkxD5LoxFTubDPa--RWupw&oe=6A30CADE" alt="Community photo 4" style="width:100%;height:100%;object-fit:cover;" />
+          <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 489</div>
+        </div>
+        <div class="ugc-photo">
+          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/634650478_2130490677355535_3353056322864368817_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1433&ctp=s2048x1433&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=M8vhKQcg2g8Q7kNvwGfGwDx&_nc_oc=AdrzUCSFYEKtbxYdTdR2-AitVlLWuthoVi5xPbGPgRK6JBDJSQPYfMBrHg_NlVpyTLg&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=3TpnHINePkDw2tRDJiEbtw&_nc_ss=7b2a8&oh=00_Af8xnQyZRmdgPUsb-90ovtt-43UVMNaOiXEMp69dqfet0Q&oe=6A30B0FD" alt="Community photo 5" style="width:100%;height:100%;object-fit:cover;" />
+          <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 412</div>
+        </div>
+        <div class="ugc-photo">
+          <img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/634868512_10236310959007069_4984358375339439331_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=XNwp1ST-B0EQ7kNvwHNu2NU&_nc_oc=Ado78bQjtufZ1mJaq73QlVDzWVp4jJzyrOjCoWKbLty9aGd9rabUDdD57pps9ISgmak&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=XlllVuCZWfonjWSpBaRqwg&_nc_ss=7b2a8&oh=00_Af-KOOItKjtiv8yQb0THZwpOMPf9fSJb0hIV6upEiINx4g&oe=6A30D1C1" alt="Community photo 6" style="width:100%;height:100%;object-fit:cover;" />
+          <div class="ugc-overlay"><i class="ti ti-heart" aria-hidden="true"></i> 389</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REVIEWS ──────────────────────────────────── -->
+    <div class="section" id="reviews" data-ugc="high">
+      <div class="section-title">Reviews</div>
+      <div class="rating-summary">
+        <div class="rating-big">
+          <div class="num">4.9</div>
+          <div class="star-row">★★★★★</div>
+          <div class="out-of">out of 5</div>
+          <div class="total">347 reviews</div>
+        </div>
+        <div>
+          <div class="rating-bars">
+            <div class="rbar-row"><span class="rbar-label">5★</span><div class="rbar-track"><div class="rbar-fill" style="width:88%"></div></div><span class="rbar-count">306</span></div>
+            <div class="rbar-row"><span class="rbar-label">4★</span><div class="rbar-track"><div class="rbar-fill" style="width:9%"></div></div><span class="rbar-count">31</span></div>
+            <div class="rbar-row"><span class="rbar-label">3★</span><div class="rbar-track"><div class="rbar-fill" style="width:2%"></div></div><span class="rbar-count">7</span></div>
+            <div class="rbar-row"><span class="rbar-label">2★</span><div class="rbar-track"><div class="rbar-fill" style="width:1%"></div></div><span class="rbar-count">2</span></div>
+            <div class="rbar-row"><span class="rbar-label">1★</span><div class="rbar-track"><div class="rbar-fill" style="width:0.3%"></div></div><span class="rbar-count">1</span></div>
+          </div>
+          <div class="review-highlights" style="margin-top:14px;">
+            <div class="rh-chip"><div class="rh-tag">Value for money</div><div class="rh-stat">94%</div><div class="rh-label">say worth the price</div></div>
+            <div class="rh-chip"><div class="rh-tag">Repeat buyers</div><div class="rh-stat">67%</div><div class="rh-label">own multiple Bromptons</div></div>
+            <div class="rh-chip"><div class="rh-tag">Recommend</div><div class="rh-stat">98%</div><div class="rh-label">would recommend it</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-filters">
+        <button class="rf-btn active">All (347)</button>
+        <button class="rf-btn">With photos (184)</button>
+        <button class="rf-btn">Commuting (128)</button>
+        <button class="rf-btn">Travel (89)</button>
+        <button class="rf-btn">Value (64)</button>
+        <button class="rf-btn">First Brompton (51)</button>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="avatar" style="background:#ddd4f0;color:#534AB7;">MH</div>
+              <div class="reviewer-info">
+                <div class="name">Marcus H.</div>
+                <div class="meta">
+                  <span class="verified-badge"><i class="ti ti-check" style="font-size:10px"></i> Verified purchase</span>
+                  <span class="use-case-tag">Daily commuter</span>
+                  <span>London</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-date">March 2025 · Owned 14 months</div>
+            </div>
+          </div>
+          <div class="review-title">The price gave me pause for 6 months. Now I regret not buying sooner.</div>
+          <div class="review-body">I'll address the elephant in the room: yes, £4,969 is a lot for a bicycle. But I've done the maths. I cancelled my monthly rail card (£247/month), I park it under my desk, and it has replaced three different forms of transport. In 14 months it has effectively paid for itself. The 12-speed derailleur is genuinely transformative — I've never felt under-geared climbing into work or over-geared on the flat. The titanium feels alive in a way steel doesn't. I've ridden it in rain, summer heat and a sleet storm. Zero issues.</div>
+          <div class="review-photos">
+            <div class="review-photo"><img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/622791987_10164097706213328_411063216858519043_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=wmnd3LTt2swQ7kNvwHU_UNw&_nc_oc=AdpB_0Hkv8U-VE1sUR6x9Ba7MBx7N1AbAYRSO5GXvWJJV8_18LmYCrhIXTOBriQQRIs&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=b7_B_IxfONSUkW6u56sGZQ&_nc_ss=7b2a8&oh=00_Af-XTStOHirXFhCqEgV2QWZ3mS8Wn6twVedrVWO7_O5iZQ&oe=6A30B107" alt="Marcus review photo 1" style="width:100%;height:100%;object-fit:cover;" /></div>
+            <div class="review-photo"><img src="https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/618091192_10164067629868328_6442740886102593357_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1122x2048&ctp=s1122x2048&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=IBwVsIFutysQ7kNvwEv4pC2&_nc_oc=AdoSMFzRZJ2ys91h-hXy_tT9XnPCVNkF7gg0g1ACA-35Wtmg2VW9YwgHkqXh5K9LX5o&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=1IzXzr1S76uH78fGT5ll-Q&_nc_ss=7b2a8&oh=00_Af-CnlREWO-Ecm1Esab6Vjqhd34ZvaRIL6qmEEkvG5c2Uw&oe=6A30B0AF" alt="Marcus review photo 2" style="width:100%;height:100%;object-fit:cover;" /></div>
+          </div>
+          <div class="review-footer">
+            <button class="helpful-btn"><i class="ti ti-thumbs-up" aria-hidden="true"></i> Helpful (234)</button>
+            <span>234 people found this helpful</span>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="avatar" style="background:#c9e4d7;color:#0F6E56;">PL</div>
+              <div class="reviewer-info">
+                <div class="name">Priya L.</div>
+                <div class="meta">
+                  <span class="verified-badge"><i class="ti ti-check" style="font-size:10px"></i> Verified purchase</span>
+                  <span class="use-case-tag">Business travel</span>
+                  <span>Singapore → London</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-date">January 2025 · Owned 8 months</div>
+            </div>
+          </div>
+          <div class="review-title">Flew it as cabin baggage to 11 countries. Not a single scratch.</div>
+          <div class="review-body">As someone who travels for work 3 weeks a month, this is the only bike that fits my life. I pack it in a Brompton bag, it goes in the overhead locker, and I'm cycling from the airport within 20 minutes of landing. The Blasted Titanium finish is genuinely beautiful — raw and industrial, but refined. Several people have asked if it's custom-made. It weighs less than my carry-on. At this price, it's cheaper than a year of airport taxi rides.</div>
+          <div class="review-footer">
+            <button class="helpful-btn"><i class="ti ti-thumbs-up" aria-hidden="true"></i> Helpful (187)</button>
+            <span>187 people found this helpful</span>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="avatar" style="background:#f5dbb5;color:#633806;">TW</div>
+              <div class="reviewer-info">
+                <div class="name">Tom W.</div>
+                <div class="meta">
+                  <span class="verified-badge"><i class="ti ti-check" style="font-size:10px"></i> Verified purchase</span>
+                  <span class="use-case-tag">Weekend rides</span>
+                  <span>Manchester</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="review-stars">★★★★☆</div>
+              <div class="review-date">February 2025 · Owned 4 months</div>
+            </div>
+          </div>
+          <div class="review-title">4 stars because the pump isn't included at this price — but the bike itself is 5/5.</div>
+          <div class="review-body">The ride quality is extraordinary. Comparing it to my old C Line is like going from economy to business class. The 12-speed range makes it genuinely useful for hilly terrain — I've climbed routes I'd never attempt on my old Brompton. My one gripe: Schwalbe One tyres and Tubolito tubes at £4,969 and no pump? That should be sorted. Otherwise, it is a transcendent piece of engineering and I'd buy it again in a heartbeat.</div>
+          <div class="review-footer">
+            <button class="helpful-btn"><i class="ti ti-thumbs-up" aria-hidden="true"></i> Helpful (93)</button>
+            <span>93 people found this helpful</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pull quotes on price/value -->
+      <div class="pj-row">
+        <div class="pj-card">
+          <div class="pj-header">On the price</div>
+          <div class="pj-stars">★★★★★</div>
+          <div class="pj-quote">"I've owned £500 bikes that fell apart. This will outlive me. Total cost of ownership is a fraction of any alternative."</div>
+          <div class="pj-attr">— Claire B. · Verified buyer · 2 years owned</div>
+        </div>
+        <div class="pj-card">
+          <div class="pj-header">On daily use</div>
+          <div class="pj-stars">★★★★★</div>
+          <div class="pj-quote">"Eight months in and I've ridden it every single working day. It just works, every time, in any weather. Absolutely worth it."</div>
+          <div class="pj-attr">— David O. · Verified buyer · 8 months owned</div>
+        </div>
+        <div class="pj-card">
+          <div class="pj-header">On weight &amp; carry</div>
+          <div class="pj-stars">★★★★★</div>
+          <div class="pj-quote">"8.8 kg sounds light on paper but feels magical in practice. I carry it up two flights of stairs daily without thinking about it."</div>
+          <div class="pj-attr">— Yuki S. · Verified buyer · 1 year owned</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Q&A ──────────────────────────────────────── -->
+    <div class="section" id="qa" data-ugc="medium">
+      <div class="section-title">Questions from the community</div>
+      <div class="section-sub">112 questions answered by Brompton owners and staff</div>
+      <div class="qa-section">
+        <div class="qa-item" id="qa-1" style="scroll-margin-top:80px;">
+          <div class="qa-q">
+            <div class="qa-q-icon">Q</div>
+            Is the 12-speed worth the premium over the 6-speed T Line for mostly flat city riding?
+          </div>
+          <div class="qa-a">
+            <strong>Community answer (47 people agree):</strong> For a genuinely flat city like Amsterdam, the 6-speed is probably sufficient. But if you have any hills, bridges, or headwinds, the extra range is transformative — especially the lower gears. The steps between gears are much smaller too, so you're always in the right gear. I regret not getting the 12-speed first time around.
+          </div>
+          <div class="qa-meta">
+            <span>Asked by Owen M.</span>
+            <span class="qa-helpful">✓ 47 found this helpful</span>
+          </div>
+        </div>
+        <div class="qa-item" id="qa-2" style="scroll-margin-top:80px;">
+          <div class="qa-q">
+            <div class="qa-q-icon">Q</div>
+            How does it actually compare to a full-size road bike for longer rides (30+ miles)?
+          </div>
+          <div class="qa-a">
+            <strong>Verified owner reply:</strong> I regularly do 40-mile weekend rides on mine — through the Peak District, not just flat roads. The geometry takes 20 minutes to adapt to, and then you forget you're on a folding bike. The 12-speed gearing handles the climbs, the Schwalbe ONE tyres are fast, and the carbon bits absorb road buzz surprisingly well. It is not a road bike, but it's genuinely fun for long days out.
+          </div>
+          <div class="qa-meta">
+            <span>Answered by Alex K. · Verified T Line owner</span>
+            <span class="qa-helpful">✓ 89 found this helpful</span>
+          </div>
+        </div>
+        <div class="qa-item" id="qa-3" style="scroll-margin-top:80px;">
+          <div class="qa-q">
+            <div class="qa-q-icon">Q</div>
+            How durable is the Blasted Titanium finish? Does it scratch easily?
+          </div>
+          <div class="qa-a">
+            <strong>Brompton staff:</strong> The Blasted Titanium is a raw titanium finish — naturally resistant to corrosion and doesn't require paint protection. Surface marks from normal use tend to blend into the matte texture over time, giving it character rather than looking damaged. Owners often say it improves with age. For maximum protection, the Ceratech Black finish adds a ceramic coating, but Blasted Titanium is extremely durable in everyday use.
+          </div>
+          <div class="qa-meta">
+            <span>Answered by Brompton Customer Team</span>
+            <span class="qa-helpful">✓ 112 found this helpful</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ASK A QUESTION ───────────────────────────── -->
+    <div style="border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; background: var(--bg-secondary);">
+      <div style="font-weight: 500; font-size: 15px; margin-bottom: 4px;">Have a question?</div>
+      <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">Ask the Brompton community — owners and staff typically reply within 24 hours.</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <input
+          type="text"
+          id="qa-input"
+          placeholder="e.g. How does it handle in wet weather?"
+          style="width: 100%; padding: 11px 14px; border: 0.5px solid var(--border-strong); border-radius: var(--radius-md); font-size: 13px; font-family: var(--font); color: var(--text); background: #fff; outline: none;"
+          onfocus="this.style.borderColor='#1a1a1a'"
+          onblur="this.style.borderColor='rgba(0,0,0,0.25)'"
+        />
+        <div id="qa-suggestions" style="display:none; flex-direction:column; gap:8px;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; color: var(--text-secondary);">Questions are public and may be answered by verified owners or Brompton staff.</span>
+          <button
+            id="qa-submit-btn"
+            onclick="submitQuestion()"
+            style="padding: 10px 20px; background: #1a1a1a; color: #fff; border: none; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; flex-shrink: 0; margin-left: 16px;"
+          >Submit question</button>
+        </div>
+        <div id="qa-confirm" style="display:none; flex-direction:column; gap:10px;">
+          <div style="font-size:13px; color:#2d6b2d; display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-circle-check" style="font-size:16px; flex-shrink:0;"></i> Thanks — your question has been submitted and will appear once answered.
+          </div>
+          <div style="font-size:13px; color:var(--text-secondary);">Want to get notified when someone answers? Enter your email below.</div>
+          <div style="display:flex; gap:8px;">
+            <input
+              type="email"
+              id="qa-email"
+              placeholder="your@email.com"
+              style="flex:1; padding:9px 12px; border:0.5px solid var(--border-strong); border-radius:var(--radius-md); font-size:13px; font-family:var(--font); color:var(--text); background:#fff; outline:none;"
+              onfocus="this.style.borderColor='#1a1a1a'"
+              onblur="this.style.borderColor='rgba(0,0,0,0.25)'"
+            />
+            <button onclick="submitEmail()" style="padding:9px 16px; background:#1a1a1a; color:#fff; border:none; border-radius:var(--radius-md); font-size:13px; font-weight:500; cursor:pointer; white-space:nowrap;">Notify me</button>
+          </div>
+          <div id="qa-email-confirm" style="display:none; font-size:13px; color:#2d6b2d; align-items:center; gap:6px;">
+            <i class="ti ti-circle-check" style="font-size:16px;"></i> Got it — we'll email you when your question is answered.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMMUNITY ─────────────────────────────────── -->
+    <div class="section" data-ugc="low">
+      <div class="community-section">
+        <div class="section-title" style="margin-bottom:4px;">Who rides the T Line</div>
+        <div style="font-size:13px;color:var(--text-secondary);">Joined by thousands of riders across 41 countries</div>
+        <div class="community-stats">
+          <div class="cs-stat"><div class="cs-num">2,847</div><div class="cs-label">active T Line owners</div></div>
+          <div class="cs-stat"><div class="cs-num">41</div><div class="cs-label">countries ridden in</div></div>
+          <div class="cs-stat"><div class="cs-num">12.4M</div><div class="cs-label">owner km logged</div></div>
+          <div class="cs-stat"><div class="cs-num">4.1 yrs</div><div class="cs-label">avg. ownership</div></div>
+        </div>
+        <div class="buyer-types">
+          <div class="buyer-tag"><i class="ti ti-train" aria-hidden="true"></i> Daily commuters</div>
+          <div class="buyer-tag"><i class="ti ti-plane" aria-hidden="true"></i> Business travellers</div>
+          <div class="buyer-tag"><i class="ti ti-mountain" aria-hidden="true"></i> Weekend explorers</div>
+          <div class="buyer-tag"><i class="ti ti-device-laptop" aria-hidden="true"></i> Remote workers</div>
+          <div class="buyer-tag"><i class="ti ti-award" aria-hidden="true"></i> Upgrade from C/P Line</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PRESS ─────────────────────────────────────── -->
+    <div class="section" data-ugc="low">
+      <div class="section-title">In the press</div>
+      <div class="media-mentions">
+        <div class="mm-card">
+          <img src="https://www.google.com/s2/favicons?domain=cyclingweekly.com&sz=64" alt="Cycling Weekly" style="width:28px;height:28px;border-radius:6px;margin-bottom:8px;display:block;" />
+          <div class="mm-source">Cycling Weekly <span class="mm-source-type">Editorial</span></div>
+          <div class="mm-stars">★★★★★</div>
+          <div class="mm-quote">"The benchmark folding bike. Nothing else comes close at any price."</div>
+        </div>
+        <div class="mm-card">
+          <img src="https://www.google.com/s2/favicons?domain=thetimes.co.uk&sz=64" alt="The Times" style="width:28px;height:28px;border-radius:6px;margin-bottom:8px;display:block;" />
+          <div class="mm-source">The Times <span class="mm-source-type">Review</span></div>
+          <div class="mm-quote">"A masterpiece of British engineering that makes you reconsider what a bicycle can be."</div>
+        </div>
+        <div class="mm-card">
+          <img src="https://www.google.com/s2/favicons?domain=wired.co.uk&sz=64" alt="Wired UK" style="width:28px;height:28px;border-radius:6px;margin-bottom:8px;display:block;" />
+          <div class="mm-source">Wired UK <span class="mm-source-type">Feature</span></div>
+          <div class="mm-quote">"If you commute, travel, or simply want the best folding bike ever made, this is it."</div>
+        </div>
+        <div class="mm-card">
+          <img src="https://www.google.com/s2/favicons?domain=reddit.com&sz=64" alt="Reddit" style="width:28px;height:28px;border-radius:6px;margin-bottom:8px;display:block;" />
+          <div class="mm-source">r/cycling <span class="mm-source-type">Community</span></div>
+          <div class="mm-stars">↑ 2.4k upvotes</div>
+          <div class="mm-quote">"Finally caved and bought the T Line 12-speed. Six months later: not a single regret. AMA."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── VIDEO CAROUSEL ───────────────────────────── -->
+    <div class="section" id="video-reviews" data-ugc="medium">
+      <div class="section-title">Don't take our word for it</div>
+      <div class="section-sub">Real owners, unfiltered — from the Brompton community on YouTube</div>
+      <div style="position:relative;">
+        <div id="shorts-track-wrap" style="overflow:hidden; border-radius:var(--radius-lg);">
+          <div id="shorts-track" style="display:flex; gap:16px; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);">
+            <div class="short-slide">
+              <a class="yt-thumb" href="https://youtube.com/shorts/P3PsHuJ16AU" target="_blank" aria-label="Watch: Brompton T Line. Stunning lightweight bike.">
+                <img src="https://img.youtube.com/vi/P3PsHuJ16AU/hqdefault.jpg" alt="Brompton T Line. Stunning lightweight bike." />
+                <div class="yt-play"><i class="ti ti-brand-youtube" aria-hidden="true"></i></div>
+                <div class="yt-label">Brompton T Line. Stunning lightweight bike.</div>
+              </a>
+            </div>
+            <div class="short-slide">
+              <a class="yt-thumb" href="https://youtube.com/shorts/V3CQJI6EHYo" target="_blank" aria-label="Watch: Brompton T Line weight comparison">
+                <img src="https://img.youtube.com/vi/V3CQJI6EHYo/hqdefault.jpg" alt="Brompton T Line weight comparison" />
+                <div class="yt-play"><i class="ti ti-brand-youtube" aria-hidden="true"></i></div>
+                <div class="yt-label">Brompton T Line weight comparison</div>
+              </a>
+            </div>
+            <div class="short-slide">
+              <a class="yt-thumb" href="https://youtube.com/shorts/Z-RROjpxzIQ" target="_blank" aria-label="Watch: Brompton T-Line stress test">
+                <img src="https://img.youtube.com/vi/Z-RROjpxzIQ/hqdefault.jpg" alt="Brompton T-Line stress test" />
+                <div class="yt-play"><i class="ti ti-brand-youtube" aria-hidden="true"></i></div>
+                <div class="yt-label">Brompton T-Line stress test</div>
+              </a>
+            </div>
+            <div class="short-slide">
+              <a class="yt-thumb" href="https://youtube.com/shorts/pC4rWWlCdIc" target="_blank" aria-label="Watch: Brompton vs another folding bike">
+                <img src="https://img.youtube.com/vi/pC4rWWlCdIc/hqdefault.jpg" alt="Brompton vs another folding bike" />
+                <div class="yt-play"><i class="ti ti-brand-youtube" aria-hidden="true"></i></div>
+                <div class="yt-label">Brompton vs another folding bike</div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <button id="shorts-prev" onclick="slideShorts(-1)" aria-label="Previous" style="position:absolute;top:50%;left:-18px;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#fff;border:0.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;opacity:0.4;transition:opacity 0.15s;">
+          <i class="ti ti-chevron-left" style="font-size:18px;" aria-hidden="true"></i>
+        </button>
+        <button id="shorts-next" onclick="slideShorts(1)" aria-label="Next" style="position:absolute;top:50%;right:-18px;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#fff;border:0.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:opacity 0.15s;">
+          <i class="ti ti-chevron-right" style="font-size:18px;" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="shorts-dots" style="display:flex;justify-content:center;gap:6px;margin-top:16px;"></div>
+    </div>
+
+  </div><!-- /page -->
+
+  <!-- ── STICKY FOOTER CTA ──────────────────────────── -->
+  <div class="sticky-cta">
+    <div class="left">
+      <div class="title">T Line Explore – 12-speed · Blasted Titanium</div>
+      <div class="sub">★★★★★ 4.9 · 347 reviews · In stock — ships within 48 hrs</div>
+    </div>
+    <button class="btn-add">Add to cart — £4,969</button>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h4>About Us</h4>
+        <ul>
+          <li><a href="#">Who We Are</a></li>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Brompton Renewed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Find a Store</a></li>
+          <li><a href="#">Delivery &amp; Returns</a></li>
+          <li><a href="#">Register Your Bike</a></li>
+          <li><a href="#">Payment &amp; Financing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Retailers</h4>
+        <ul>
+          <li><a href="#">Trade Portal</a></li>
+          <li><a href="#">Become a Retailer</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Legal</h4>
+        <ul>
+          <li><a href="#">Terms of Sale</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow us</h4>
+        <ul>
+          <li><a href="#"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</a></li>
+          <li><a href="#"><i class="ti ti-brand-facebook" aria-hidden="true"></i> Facebook</a></li>
+          <li><a href="#"><i class="ti ti-brand-youtube" aria-hidden="true"></i> YouTube</a></li>
+          <li><a href="#"><i class="ti ti-brand-twitter" aria-hidden="true"></i> Twitter / X</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Brompton Bicycle Retail Limited 2026</span>
+      <div class="payment-icons">
+        <span class="payment-pill">Visa</span>
+        <span class="payment-pill">Mastercard</span>
+        <span class="payment-pill">Amex</span>
+        <span class="payment-pill">Apple Pay</span>
+        <span class="payment-pill">Klarna</span>
+        <span class="payment-pill">Cyclescheme</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function swapImg(thumb, src) {
+      document.getElementById('main-photo').src = src;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    document.querySelectorAll('.rf-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.rf-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.hbar-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.hbar-opt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.color-swatch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+      });
+    });
+
+    const qaDatabase = [
+      {
+        id: 'qa-1',
+        question: 'Is the 12-speed worth the premium over the 6-speed T Line for mostly flat city riding?',
+        summary: 'For flat cities the 6-speed is often sufficient, but the extra range pays off anywhere with hills, bridges, or headwinds.',
+        answeredBy: 'Community · 47 owners agree',
+        keywords: ['12-speed','12 speed','6-speed','6 speed','gears','speed','premium','flat','city','worth','upgrade','difference','gear range']
+      },
+      {
+        id: 'qa-2',
+        question: 'How does it compare to a full-size road bike for longer rides (30+ miles)?',
+        summary: 'Owners regularly do 40-mile rides. The geometry takes minutes to adapt to, and the 12-speed handles climbs well.',
+        answeredBy: 'Alex K. · Verified T Line owner',
+        keywords: ['road bike','road','longer','long ride','30 miles','40 miles','distance','touring','weekend','compare','comparison','performance']
+      },
+      {
+        id: 'qa-3',
+        question: 'How durable is the Blasted Titanium finish? Does it scratch easily?',
+        summary: 'Raw titanium is naturally corrosion-resistant. Surface marks blend into the matte texture over time and give it character.',
+        answeredBy: 'Brompton Customer Team',
+        keywords: ['titanium','blasted','finish','scratch','durable','durability','mark','wear','coating','ceratech','colour','color','rust','corrosion']
+      }
+    ];
+
+    function getMatches(query) {
+      const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+      return qaDatabase.filter(qa =>
+        words.some(word => qa.keywords.some(kw => kw.includes(word) || word.includes(kw)))
+      );
+    }
+
+    function submitQuestion() {
+      const input = document.getElementById('qa-input');
+      const suggestionsEl = document.getElementById('qa-suggestions');
+      const confirmEl = document.getElementById('qa-confirm');
+      const submitBtn = document.getElementById('qa-submit-btn');
+      const value = input.value.trim();
+
+      if (!value) {
+        input.style.borderColor = '#c0392b';
+        input.focus();
+        return;
+      }
+
+      const matches = getMatches(value);
+
+      if (matches.length > 0 && submitBtn.dataset.confirmed !== 'true') {
+        suggestionsEl.innerHTML = `
+          <div style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:2px;">
+            <i class="ti ti-bulb" style="font-size:13px;vertical-align:-1px;margin-right:4px;" aria-hidden="true"></i>
+            Owners have already answered similar questions — did any of these help?
+          </div>
+          ${matches.map(m => `
+            <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius-md);padding:12px 14px;">
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px;">${m.question}</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;margin-bottom:8px;">${m.summary}</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:11px;color:var(--text-secondary);">Answered by ${m.answeredBy}</span>
+                <a href="#${m.id}" style="font-size:12px;color:#1a1a1a;text-decoration:underline;font-weight:500;">Read full answer ↓</a>
+              </div>
+            </div>
+          `).join('')}
+          <div style="font-size:12px;color:var(--text-secondary);">None of these answered your question?
+            <button onclick="confirmSubmit()" style="background:none;border:none;font-size:12px;font-weight:500;color:#1a1a1a;text-decoration:underline;cursor:pointer;padding:0;margin-left:2px;">Submit anyway →</button>
+          </div>
+        `;
+        suggestionsEl.style.display = 'flex';
+        submitBtn.textContent = 'Submit anyway';
+        submitBtn.dataset.confirmed = 'true';
+        return;
+      }
+
+      confirmSubmit();
+    }
+
+    function confirmSubmit() {
+      const input = document.getElementById('qa-input');
+      const suggestionsEl = document.getElementById('qa-suggestions');
+      const confirmEl = document.getElementById('qa-confirm');
+      const submitBtn = document.getElementById('qa-submit-btn');
+      input.style.display = 'none';
+      suggestionsEl.style.display = 'none';
+      submitBtn.closest('div').style.display = 'none';
+      confirmEl.style.display = 'flex';
+    }
+
+    function submitEmail() {
+      const emailInput = document.getElementById('qa-email');
+      const emailConfirm = document.getElementById('qa-email-confirm');
+      if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
+        emailInput.style.borderColor = '#c0392b';
+        emailInput.focus();
+        return;
+      }
+      emailInput.style.display = 'none';
+      emailInput.nextElementSibling.style.display = 'none';
+      emailConfirm.style.display = 'flex';
+    }
+
+    document.getElementById('qa-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitQuestion();
+    });
+
+    // ── UGC Toggle ──────────────────────────────────
+    const ugcOrder = { off: 0, low: 1, medium: 2, high: 3 };
+    const ugcLabels = { off: 'Off', low: 'Low', medium: 'Medium', high: 'High' };
+    let currentUGC = 'high';
+
+    function setUGC(level) {
+      currentUGC = level;
+      document.querySelectorAll('[data-ugc]').forEach(el => {
+        const elLevel = el.getAttribute('data-ugc');
+        const show = level !== 'off' && ugcOrder[elLevel] <= ugcOrder[level];
+        el.classList.toggle('ugc-hidden', !show);
+      });
+      const pill = document.getElementById('ugc-current-label');
+      pill.textContent = ugcLabels[level];
+      pill.className = 'ugc-active-pill pill-' + level;
+      document.querySelectorAll('.ugc-opt').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.level === level);
+      });
+      document.getElementById('ugc-menu').classList.remove('open');
+    }
+
+    function toggleUGCMenu() {
+      document.getElementById('ugc-menu').classList.toggle('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!document.getElementById('ugc-toggle').contains(e.target)) {
+        document.getElementById('ugc-menu').classList.remove('open');
+      }
+    });
+
+    setUGC('high');
+
+    // ── 'U' key highlight ────────────────────────────
+    const ugcHighlightTargets = [
+      '.rating-row',
+      '.value-justifier',
+      '.social-proof-bar',
+      '.ugc-badge-strip',
+      '#reviews',
+      '#real-riders',
+      '#owner-photos',
+      '#qa',
+      '#video-reviews',
+      '[data-ugc="low"]'
+    ];
+
+    const highlightStyle = document.createElement('style');
+    highlightStyle.textContent = `
+      @keyframes ugc-flash {
+        0%   { outline: 2.5px solid transparent; outline-offset: 4px; }
+        20%  { outline: 2.5px solid #b8860b; outline-offset: 4px; background-color: rgba(184,134,11,0.07); }
+        80%  { outline: 2.5px solid #b8860b; outline-offset: 4px; background-color: rgba(184,134,11,0.07); }
+        100% { outline: 2.5px solid transparent; outline-offset: 4px; background-color: transparent; }
+      }
+      .ugc-flash { animation: ugc-flash 1.4s ease forwards; border-radius: var(--radius-md); }
+    `;
+    document.head.appendChild(highlightStyle);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'u' || e.key === 'U') {
+        ugcHighlightTargets.forEach(sel => {
+          document.querySelectorAll(sel).forEach(el => {
+            if (el.classList.contains('ugc-hidden')) return;
+            el.classList.remove('ugc-flash');
+            void el.offsetWidth;
+            el.classList.add('ugc-flash');
+            el.addEventListener('animationend', () => el.classList.remove('ugc-flash'), { once: true });
+          });
+        });
+      }
+    });
+
+    // ── Shorts carousel ─────────────────────────────
+    (function() {
+      const track = document.getElementById('shorts-track');
+      const prevBtn = document.getElementById('shorts-prev');
+      const nextBtn = document.getElementById('shorts-next');
+      const dotsEl = document.getElementById('shorts-dots');
+      const total = 4;
+      let perView = window.innerWidth <= 768 ? 1 : 3;
+      let current = 0;
+      const maxIndex = () => total - perView;
+
+      function buildDots() {
+        dotsEl.innerHTML = '';
+        const count = maxIndex() + 1;
+        for (let i = 0; i < count; i++) {
+          const d = document.createElement('button');
+          d.style.cssText = 'width:6px;height:6px;border-radius:50%;border:none;cursor:pointer;padding:0;transition:all 0.2s;background:' + (i === current ? '#1a1a1a' : 'rgba(0,0,0,0.2)');
+          d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          d.onclick = () => goTo(i);
+          dotsEl.appendChild(d);
+        }
+      }
+
+      function goTo(idx) {
+        current = Math.max(0, Math.min(idx, maxIndex()));
+        const slideWidth = track.children[0].offsetWidth + 16;
+        track.style.transform = 'translateX(-' + (current * slideWidth) + 'px)';
+        prevBtn.style.opacity = current === 0 ? '0.4' : '1';
+        nextBtn.style.opacity = current >= maxIndex() ? '0.4' : '1';
+        buildDots();
+      }
+
+      window.slideShorts = function(dir) { goTo(current + dir); };
+
+      buildDots();
+      goTo(0);
+
+      window.addEventListener('resize', () => {
+        perView = window.innerWidth <= 768 ? 1 : 3;
+        goTo(Math.min(current, maxIndex()));
+      });
+    })();
+  </script>
+
+</body>
+</html>
