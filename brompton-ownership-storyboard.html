@@ -86,6 +86,9 @@
   .sticky-phone { width:244px; background:#1A1A1A; border-radius:38px; padding:12px 10px; box-shadow:0 22px 56px rgba(0,0,0,0.25),0 0 0 1px rgba(0,0,0,0.12); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
   .sticky-notch { width:72px; height:21px; background:#1A1A1A; border-radius:0 0 13px 13px; margin:0 auto 7px; }
   .sticky-screen { background:white; border-radius:26px; overflow:hidden; min-height:440px; }
+  .sticky-phone.image-mode { background:transparent; box-shadow:none; padding:0; border-radius:0; }
+  .sticky-phone.image-mode .sticky-notch { display:none; }
+  .sticky-phone.image-mode .sticky-screen { background:transparent; border-radius:0; overflow:visible; min-height:0; }
 
   /* ── Shared phone UI primitives ── */
   .sph-hdr-blue { background:var(--blue); padding:16px 14px; text-align:center; }
@@ -551,14 +554,14 @@
        PHASE 10 · DEEPENING
   ═══════════════════════════════════════ -->
   <div class="sb-row" style="margin-top:80px;">
-    <div class="sb-phase-hdr">
+    <div class="sb-phase-hdr" data-trigger-screen="blank">
       <div class="sb-phase-num" style="background:var(--yellow);">10</div>
-      <div class="sb-phase-title" style="color:#8A6800;">Deepening — 250 Miles &amp; Beyond</div>
+      <div class="sb-phase-title" style="color:#8A6800;">A surprise &amp; a reminder</div>
     </div>
     <div class="chat-wrap">
       <div class="chat-hdr">📱 Andy hits 250 miles — the app sends stickers</div>
       <div class="chat-body2">
-        <div class="chat-ctx">A set of reflective customisation stickers arrives in the post. Andy lets his daughter decide where they go.</div>
+        <div class="chat-ctx" data-trigger-screen="stickers">A set of reflective customisation stickers arrives in the post. Andy lets his daughter decide where they go.</div>
         <div class="chat-msg2">
           <img class="ch-av" src="https://plus.unsplash.com/premium_photo-1726826637082-16602bf15ba8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGVhZHNob3QlMjB5b3VuZyUyMGdpcmx8ZW58MHwyfDB8fHww" alt="Stacey" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
@@ -566,6 +569,7 @@
             <div class="ch-b">"That one. And that one. And definitely that one."</div>
           </div>
         </div>
+        <div class="chat-hdr" style="margin-top:80px;">📱 Andy hits 500 miles</div>
         <div class="chat-ctx" style="margin-top:80px;">The app sends a service reminder: new tyres, brake pads, a full tune-up. Members can access a loaner bike while the bike's in the shop.</div>
         <div class="chat-msg2 r" data-trigger-screen="service">
           <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
@@ -682,7 +686,7 @@
           <img class="ch-av" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGhlYWRzaG90JTIwbWFuJTIwZW5nbGlzaHxlbnwwfDJ8MHx8fDA%3D" alt="Phil" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
             <div class="ch-nm">Phil</div>
-            <div class="ch-b">"Bring her — Brompton club members get free bike hire passes. Get her a bike." Andy hadn't known that.</div>
+            <div class="ch-b">"Bring her — Brompton club members get free bike hire passes. Get her a bike."</div>
           </div>
         </div>
         <div class="chat-ctx">Andy hires a Brompton for Ella through the app. They join Phil's ride on a Sunday morning — around twenty riders, a mix of ages and abilities.</div>
@@ -697,7 +701,7 @@
           <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
             <div class="ch-nm">Andy</div>
-            <div class="ch-b">"Don't tell me I was right."</div>
+            <div class="ch-b">"It's cool, right?"</div>
           </div>
         </div>
         <div class="chat-ctx">They ride through the park. Stop for coffee. Come home two hours later still talking about it.</div>
@@ -1142,6 +1146,11 @@
           </div>
         </div>
 
+        <!-- ── SCREEN: stickers ── -->
+        <div class="sb-pscr" id="sbscr-stickers">
+          <img src="StickerMockup1.jpg" style="width:100%;display:block;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.18);" alt="Brompton sticker pack"/>
+        </div>
+
         <!-- ── SCREEN: service ── -->
         <div class="sb-pscr" id="sbscr-service">
           <div class="sph-hdr-blue">
@@ -1151,7 +1160,7 @@
           <div class="sph-body">
             <div style="display:flex;gap:7px;">
               <div style="flex:1;background:var(--grey-light);border-radius:7px;padding:9px;text-align:center;border:1px solid var(--grey-mid);">
-                <div style="font-family:var(--font-brand);font-size:22px;color:var(--blue);">267</div>
+                <div style="font-family:var(--font-brand);font-size:22px;color:var(--blue);">514</div>
                 <div style="font-size:8px;color:var(--grey-dark);">miles ridden</div>
               </div>
               <div style="flex:1;background:var(--grey-light);border-radius:7px;padding:9px;text-align:center;border:1px solid var(--grey-mid);">
@@ -1344,7 +1353,7 @@
   <div style="max-width:960px;margin:40px auto 0;padding:24px 32px;background:var(--blue-pale);border:1px solid var(--blue);border-radius:8px;color:var(--blue);text-align:center;">
     <div style="font-family:var(--font-brand);font-size:20px;font-weight:400;margin-bottom:8px;">One sale. One family. One community. Three Bromptons.</div>
     <div style="font-size:15px;line-height:1.65;margin-bottom:20px;">Andy's journey shows how the ownership experience — not just the bike — is the product. Every touchpoint was earned. Nothing was pushed.</div>
-    <a href="brompton-storyboard.html" style="display:inline-block;background:var(--blue);color:white;border-radius:5px;padding:11px 22px;font-size:13px;font-weight:700;letter-spacing:0.5px;text-decoration:none;">← Back to In-Store Journey</a>
+    <a href="/index.html" style="display:inline-block;background:var(--blue);color:white;border-radius:5px;padding:11px 22px;font-size:13px;font-weight:700;letter-spacing:0.5px;text-decoration:none;">← Back to Mockups</a>
   </div>
 
 </section>
@@ -1428,6 +1437,11 @@
     clearChecklistTimers();
     sbScreens.forEach(function(s) { s.classList.remove('active'); });
     if (hideTimeout) { clearTimeout(hideTimeout); hideTimeout = null; }
+    if (screenId === 'stickers') {
+      stickyPhone.classList.add('image-mode');
+    } else {
+      stickyPhone.classList.remove('image-mode');
+    }
     if (screenId === 'blank') {
       stickyPhone.style.opacity = '0';
       hideTimeout = setTimeout(function() { stickyPhone.style.visibility = 'hidden'; hideTimeout = null; }, 500);
