@@ -53,11 +53,15 @@
   .chat-msg2.r .ch-nm { text-align:right; }
   .ch-b { background:white; border-radius:13px 13px 13px 3px; padding:10px 14px; font-size:15px; color:var(--black); line-height:1.55; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
   .chat-msg2.r .ch-b { background:var(--blue); color:white; border-radius:13px 13px 3px 13px; }
-  .chat-outcomes2 { padding:8px 12px 10px; border-top:1px solid var(--grey-light); display:flex; gap:5px; flex-wrap:wrap; }
-  .outcome-tag { font-size:10px; font-weight:700; padding:4px 9px; border-radius:10px; }
-  .outcome-tag.retail   { background:var(--yellow-pale); color:#7A5C00; border:1px solid rgba(232,181,0,0.35); }
-  .outcome-tag.customer { background:var(--blue-pale); color:var(--blue); border:1px solid rgba(0,47,167,0.25); }
-  .outcome-tag.brompton { background:var(--green-pale); color:var(--green); border:1px solid rgba(30,92,30,0.25); }
+  .chat-outcomes2 { padding:12px 12px 14px; border-top:1px solid var(--grey-light); display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto; gap:4px 8px; }
+  .outcomes-label { grid-row:1; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:0 4px 2px; }
+  .outcomes-label.customer { grid-column:1; color:var(--blue); }
+  .outcomes-label.retail   { grid-column:2; color:#7A5C00; }
+  .outcomes-label.brompton { grid-column:3; color:var(--green); }
+  .outcome-tag { grid-row:2; font-size:15px; font-weight:700; padding:10px 14px; border-radius:20px; line-height:1.45; }
+  .outcome-tag.retail   { grid-column:2; background:var(--yellow-pale); color:#7A5C00; border:1px solid rgba(232,181,0,0.35); }
+  .outcome-tag.customer { grid-column:1; background:var(--blue-pale); color:var(--blue); border:1px solid rgba(0,47,167,0.25); }
+  .outcome-tag.brompton { grid-column:3; background:var(--green-pale); color:var(--green); border:1px solid rgba(30,92,30,0.25); }
 
   @keyframes storyReveal {
     0%   { opacity:0; transform:translateY(32px); }
@@ -223,6 +227,9 @@
         <div class="chat-ctx">The bike feels real now.</div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">👤 Andy is identified from day one — before he's ridden a mile</span>
         <span class="outcome-tag retail">🏪 Balfes gets credit for the sale, even post-purchase</span>
         <span class="outcome-tag brompton">📊 Brompton owns the direct relationship from first open</span>
@@ -260,8 +267,11 @@
         <div class="chat-ctx">Over the next few evenings, he works through it. He's preparing. He's excited.</div>
       </div>
       <div class="chat-outcomes2">
-        <span class="outcome-tag brompton">📊 Segmentation data captured — Andy's content feed is now personalised</span>
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">👤 Confidence built before the first commute</span>
+        <span class="outcome-tag brompton">📊 Segmentation data captured — Andy's content feed is now personalised</span>
       </div>
     </div>
   </div>
@@ -296,6 +306,9 @@
         </div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">👤 Identity moment — Andy is now a Brompton rider, not just a buyer</span>
         <span class="outcome-tag brompton">📍 First ride data captured; usage patterns begin to build</span>
       </div>
@@ -339,6 +352,9 @@
         <div class="chat-ctx">Friday afternoon. He rides to WatchHouse near the river. Folds the bike beside him. Sits outside with his coffee watching the city. It's a good moment.</div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">☕ Tangible reward at a moment of high engagement</span>
         <span class="outcome-tag brompton">🤝 WatchHouse partnership delivers lifestyle alignment, not just discount</span>
       </div>
@@ -395,9 +411,12 @@
         </div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">🎁 Referral feels like generosity, not a programme</span>
         <span class="outcome-tag brompton">📈 Max is a new sale triggered by Andy — CAC near zero</span>
-        <span class="outcome-tag brompton">🏭 Factory tour deepens both Andy's and Max's brand commitment</span>
+        <span class="outcome-tag brompton" style="grid-row:3;">🏭 Factory tour deepens both Andy's and Max's brand commitment</span>
       </div>
     </div>
   </div>
@@ -424,6 +443,9 @@
         <div class="chat-ctx">He follows it alone. It's one of the better Saturdays he's had in a while.</div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">🗺 The bike reshapes how Andy experiences the city</span>
         <span class="outcome-tag brompton">📍 Route data and engagement signals build the ride profile</span>
       </div>
@@ -515,8 +537,11 @@
         <div class="chat-ctx">He's surprised by how good it feels. Phil was right.</div>
       </div>
       <div class="chat-outcomes2">
-        <span class="outcome-tag retail">🏪 Balfes drives a toolkit sale and a service booking — the app sent the customer back</span>
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">🔧 Andy gains confidence and belonging simultaneously</span>
+        <span class="outcome-tag retail">🏪 Balfes drives a toolkit sale and a service booking — the app sent the customer back</span>
         <span class="outcome-tag brompton">🔄 Community behaviour self-replicates without Brompton orchestrating it</span>
       </div>
     </div>
@@ -559,8 +584,11 @@
         <div class="chat-ctx">The app content has started to shift too — less emergency prep, more stories of weekend tours and countryside rides. He starts clicking on them.</div>
       </div>
       <div class="chat-outcomes2">
-        <span class="outcome-tag retail">🔧 Proactive service booking drives Balfes revenue</span>
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">👤 Loaner bike removes the only barrier to booking</span>
+        <span class="outcome-tag retail">🔧 Proactive service booking drives Balfes revenue</span>
         <span class="outcome-tag brompton">📊 Content feed evolution mirrors Andy's growing rider identity</span>
       </div>
     </div>
@@ -623,6 +651,9 @@
         </div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">🌍 Community feeling made tangible — strangers become friends</span>
         <span class="outcome-tag brompton">❤️ The event is the product. No ad spend could replicate this</span>
       </div>
@@ -686,9 +717,12 @@
         </div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">👫 The product extends into Andy's closest relationships</span>
-        <span class="outcome-tag brompton">📈 Ella is the next sale — no campaign required</span>
         <span class="outcome-tag retail">🏪 Hire drives a purchase; another Balfes customer in the making</span>
+        <span class="outcome-tag brompton">📈 Ella is the next sale — no campaign required</span>
       </div>
     </div>
   </div>
@@ -739,9 +773,12 @@
         <div class="chat-ctx">He's fitter than he's been in a decade. Ella rides on weekends. Their daughter has started asking when she gets a bike. Max is somewhere around 400 miles of his own.</div>
       </div>
       <div class="chat-outcomes2">
+        <span class="outcomes-label customer">Customer</span>
+        <span class="outcomes-label retail">Retailer</span>
+        <span class="outcomes-label brompton">Brompton</span>
         <span class="outcome-tag customer">🌍 The Brompton has restructured Andy's life — not just his commute</span>
         <span class="outcome-tag brompton">📈 Three household Bromptons. Paris trip imminent. Another city guide opened.</span>
-        <span class="outcome-tag brompton">🔄 The flywheel: one sale in-store became a family, a community, and a trip abroad</span>
+        <span class="outcome-tag brompton" style="grid-row:3;">🔄 The flywheel: one sale in-store became a family, a community, and a trip abroad</span>
       </div>
     </div>
   </div>
