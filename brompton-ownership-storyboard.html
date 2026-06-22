@@ -90,12 +90,15 @@
   .sb-phone-sticky { position:sticky; top:32px; }
   .sb-pscr { display:none; }
   .sb-pscr.active { display:block; }
-  .sticky-phone { width:244px; background:var(--grey-light); border-radius:36px; padding:6px 6px 0; box-shadow:0 8px 32px rgba(0,0,0,0.18); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
+  .sticky-phone { width:244px; background:#202020; border-radius:36px; padding:6px 6px 6px; box-shadow:0 8px 32px rgba(0,0,0,0.18); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
   .sticky-notch { display:none; }
   .sticky-screen { background:white; border-radius:30px; overflow:hidden; min-height:528px; }
   .sticky-phone.image-mode { background:transparent; box-shadow:none; padding:0; border-radius:0; }
   .sticky-phone.image-mode .sticky-notch { display:none; }
   .sticky-phone.image-mode .sticky-screen { background:transparent; border-radius:0; overflow:visible; min-height:0; }
+  .sticky-phone.receipt-mode { background:transparent; box-shadow:none; padding:0; border-radius:0; }
+  .sticky-phone.receipt-mode .sticky-screen { background:transparent; border-radius:0; overflow:visible; min-height:0; }
+  .sticky-phone.receipt-mode .sb-pscr.active { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.22)); }
 
   /* ── Shared phone UI primitives ── */
   .sph-hdr-blue { background:var(--blue); padding:16px 14px; text-align:center; }
@@ -467,7 +470,7 @@
         <div id="ref-branch-selector" style="margin:40px 0 0;padding:20px 24px;background:var(--grey-light);border:1px solid var(--grey-mid);border-radius:10px;text-align:center;">
           <div style="font-size:13px;font-weight:700;color:var(--grey-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">How does Andy share?</div>
           <div style="display:flex;gap:10px;justify-content:center;">
-            <button onclick="selectRefBranch('ride-pass')" style="background:var(--blue);color:white;border:none;border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Share ride pass</button>
+            <button onclick="selectRefBranch('ride-pass')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Share ride pass</button>
             <button onclick="selectRefBranch('share-discount')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Share discount</button>
           </div>
         </div>
@@ -1087,7 +1090,6 @@
   <!-- ── Sticky phone column ── -->
   <div class="sb-phone-sticky">
     <div class="sticky-phone">
-      <div class="sticky-notch"></div>
       <div class="sticky-screen">
 
         <!-- ── SCREEN: delivery ── -->
@@ -1751,7 +1753,7 @@
         <div class="sb-pscr" id="sbscr-ref-d-receipt">
           <div style="background:#f5f5f0;padding:16px 14px 10px;font-family:'Courier New',Courier,monospace;font-size:10px;color:#111;overflow-y:auto;">
             <div style="text-align:center;margin-bottom:10px;">
-              <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5ead516895915b0001843030/0x0.png" style="height:28px;width:auto;object-fit:contain;margin-bottom:6px;" alt="Balfes Bikes"/>
+              <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5ead516895915b0001843030/0x0.png" style="height:56px;width:auto;object-fit:contain;margin-bottom:6px;" alt="Balfes Bikes"/>
               <div style="font-size:10px;font-weight:700;letter-spacing:1px;">BALFES BIKES</div>
               <div style="font-size:10px;color:#555;">9 Fade St, Dublin 2</div>
               <div style="font-size:10px;color:#555;">Tel: +353 1 679 4046</div>
@@ -2204,6 +2206,11 @@
     } else {
       stickyPhone.classList.remove('image-mode');
     }
+    if (screenId === 'ref-d-receipt') {
+      stickyPhone.classList.add('receipt-mode');
+    } else {
+      stickyPhone.classList.remove('receipt-mode');
+    }
     if (screenId === 'blank') {
       stickyPhone.style.opacity = '0';
       hideTimeout = setTimeout(function() { stickyPhone.style.visibility = 'hidden'; hideTimeout = null; }, 500);
@@ -2350,7 +2357,7 @@ function resetRefBranch() {
   if (sel) {
     sel.innerHTML = '<div style="font-size:13px;font-weight:700;color:var(--grey-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">How does Andy share?</div>'
       + '<div style="display:flex;gap:10px;justify-content:center;">'
-      + '<button onclick="selectRefBranch(\'ride-pass\')" style="background:var(--blue);color:white;border:none;border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Share ride pass</button>'
+      + '<button onclick="selectRefBranch(\'ride-pass\')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Share ride pass</button>'
       + '<button onclick="selectRefBranch(\'share-discount\')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Share discount</button>'
       + '</div>';
     sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
