@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brompton In-Store Storyboard</title>
+<style>
+  @font-face {
+    font-family: 'BromptonSlab';
+    src: url('Brand/BromptonSlab-Regular.woff') format('woff'),
+         url('Brand/BromptonSlab-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:        #002FA7;
+    --blue-mid:    #1A4BC4;
+    --blue-light:  #E8EEFB;
+    --blue-pale:   #F0F3FC;
+    --black:       #000000;
+    --white:       #FFFFFF;
+    --grey-dark:   #707070;
+    --grey-mid:    #DBDBDB;
+    --grey-light:  #F6F6F6;
+    --navy:        #1F3263;
+    --yellow:      #E8B500;
+    --yellow-pale: #FEF7D9;
+    --green:       #1E5C1E;
+    --green-pale:  #E6F0E6;
+    --purple:      #5C2D91;
+    --purple-pale: #EDE4F5;
+    --red:         #C00000;
+    --red-pale:    #FCE8E8;
+    --font-brand: 'BromptonSlab', Georgia, 'Times New Roman', serif;
+    --font-body:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.5;
+    zoom: 1.25;
+  }
+
+  section {
+    padding: 64px 48px;
+    scroll-margin-top: 70px;
+  }
+
+  section.alt-bg { background: var(--grey-light); }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: var(--font-brand);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--black);
+    margin-bottom: 12px;
+    max-width: 640px;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+    color: var(--grey-dark);
+    max-width: 640px;
+    margin-bottom: 48px;
+    line-height: 1.65;
+  }
+
+  /* ════════════════════════════════════════════
+     STORYBOARD
+     ════════════════════════════════════════════ */
+  #storyboard { background: var(--grey-light); }
+
+  .storyboard { display: flex; flex-direction: column; }
+
+  .story-phase {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 20px;
+    align-items: start;
+    position: relative;
+  }
+
+  .story-phase::before {
+    content: '';
+    position: absolute;
+    left: 54px;
+    top: 50px;
+    bottom: -20px;
+    width: 2px;
+    background: var(--grey-mid);
+  }
+
+  .story-phase:last-child::before { display: none; }
+
+  .story-step-num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-brand);
+    font-size: 16px;
+    font-weight: 400;
+    border: 2px solid;
+    background: var(--grey-light);
+    margin-bottom: 5px;
+  }
+
+  .story-phase-label {
+    font-size: 8px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .story-content {
+    background: white;
+    border: 1px solid var(--grey-mid);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+  }
+
+  .story-content::before {
+    content: '';
+    position: absolute;
+    left: 110px;
+    top: 32px;
+    border: 7px solid transparent;
+    border-right-color: var(--grey-mid);
+  }
+
+  .story-content h3 { font-family: var(--font-brand); font-size: 16px; font-weight: 400; color: var(--black); margin-bottom: 6px; }
+  .story-content p { font-size: 13px; color: var(--grey-dark); line-height: 1.65; margin-bottom: 10px; }
+  .story-content p:last-of-type { margin-bottom: 0; }
+
+  .story-outcome { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+
+  .outcome-tag {
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: 20px;
+    line-height: 1.45;
+  }
+
+  .outcome-tag.retail   { background: var(--yellow-pale);  color: #7A5C00; border: 1px solid rgba(232,181,0,0.35); grid-column: 2; }
+  .outcome-tag.customer { background: var(--blue-pale);    color: var(--blue); border: 1px solid rgba(0,47,167,0.25); grid-column: 1; }
+  .outcome-tag.brompton { background: var(--green-pale);   color: var(--green); border: 1px solid rgba(30,92,30,0.25); grid-column: 3; }
+
+  /* ── Storyboard Chat v2 ── */
+  .char-key { display:flex; gap:14px; margin-bottom:40px; flex-wrap:wrap; max-width:960px; justify-content:center; }
+  .char-pill { display:flex; align-items:center; gap:11px; background:white; border:1px solid var(--grey-mid); border-radius:8px; padding:10px 16px; }
+  .char-pill strong { display:block; font-size:13px; font-weight:700; color:var(--black); margin-bottom:1px; }
+  .char-pill span { font-size:11px; color:var(--grey-dark); }
+
+  .sb-phases { display:flex; flex-direction:column; gap:24px; }
+
+  .sb-row { display:block; }
+
+  .mini-phone { width:174px; background:#1A1A1A; border-radius:26px; padding:8px 7px; box-shadow:0 12px 30px rgba(0,0,0,0.22); }
+  .mini-notch { width:50px; height:14px; background:#1A1A1A; border-radius:0 0 9px 9px; margin:0 auto 5px; }
+  .mini-screen { background:white; border-radius:17px; overflow:hidden; min-height:280px; }
+
+  .mini-browser { border:1px solid var(--grey-mid); border-radius:7px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.08); }
+  .mbr-bar { background:var(--grey-light); padding:5px 8px; display:flex; align-items:center; gap:3px; border-bottom:1px solid var(--grey-mid); }
+  .mbr-d { width:7px; height:7px; border-radius:50%; }
+  .mbr-d:nth-child(1){background:#FF5F56;} .mbr-d:nth-child(2){background:#FFBD2E;} .mbr-d:nth-child(3){background:#27C93F;}
+  .mbr-u { flex:1; background:white; border-radius:3px; padding:2px 5px; font-size:8px; color:var(--grey-dark); margin-left:4px; border:1px solid var(--grey-mid); }
+
+  .sb-phase-hdr { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .sb-phase-num { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:white; flex-shrink:0; }
+  .sb-phase-title { font-size:15px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+
+  .chat-wrap { background:transparent; }
+  .chat-hdr { background:var(--grey-light); padding:10px 12px; border-bottom:1px solid var(--grey-mid); font-size:15px; color:var(--grey-dark); display:flex; align-items:center; gap:6px; }
+  .chat-body2 { padding:12px; display:flex; flex-direction:column; gap:9px; }
+  .chat-ctx { background:var(--grey-light); border-radius:5px; padding:8px 12px; font-size:15px; color:var(--grey-dark); font-style:italic; text-align:center; }
+
+  .chat-msg2 { display:flex; align-items:flex-end; gap:7px; }
+  .chat-msg2.r { flex-direction:row-reverse; }
+  .ch-av { width:63px; height:63px; border-radius:50%; flex-shrink:0; overflow:hidden; object-fit:cover; }
+  .ch-bw { max-width:82%; display:flex; flex-direction:column; gap:2px; }
+  .ch-nm { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--grey-dark); padding:0 4px; }
+  .chat-msg2.r .ch-nm { text-align:right; }
+  .ch-b { background:white; border-radius:13px 13px 13px 3px; padding:10px 14px; font-size:15px; color:var(--black); line-height:1.55; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+  .chat-msg2.r .ch-b { background:var(--blue); color:white; border-radius:13px 13px 3px 13px; }
+  .chat-outcomes2 { padding:12px 12px 14px; border-top:1px solid var(--grey-light); display:grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; gap:4px 8px; }
+  .outcomes-label { grid-row: 1; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 0 4px 2px; }
+  .outcomes-label.customer { grid-column: 1; color: var(--blue); }
+  .outcomes-label.retail   { grid-column: 2; color: #7A5C00; }
+  .outcomes-label.brompton { grid-column: 3; color: var(--green); }
+  .outcome-tag { grid-row: 2; }
+
+  /* ── Branch selector ── */
+  [data-branch] .sb-phase-hdr,
+  [data-branch] .chat-hdr,
+  [data-branch] .chat-ctx,
+  [data-branch] .chat-msg2,
+  [data-branch] .chat-outcomes2 {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: none;
+  }
+  [data-branch] .sb-phase-hdr.revealed,
+  [data-branch] .chat-hdr.revealed,
+  [data-branch] .chat-ctx.revealed,
+  [data-branch] .chat-msg2.revealed,
+  [data-branch] .chat-outcomes2.revealed {
+    animation: storyReveal 0.75s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+  }
+
+  /* ── Storyboard scroll-reveal ── */
+  @keyframes storyReveal {
+    0%   { opacity: 0; transform: translateY(32px); }
+    65%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  #storyboard .sb-phase-hdr,
+  #storyboard .chat-hdr,
+  #storyboard .chat-ctx,
+  #storyboard .chat-msg2,
+  #storyboard .chat-outcomes2 {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: none;
+  }
+  #storyboard .sb-phase-hdr.revealed,
+  #storyboard .chat-hdr.revealed,
+  #storyboard .chat-ctx.revealed,
+  #storyboard .chat-msg2.revealed,
+  #storyboard .chat-outcomes2.revealed {
+    animation: storyReveal 0.75s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+  }
+
+  /* Mini sign-up screen */
+  .ms-hero { background:var(--blue); padding:14px 10px; text-align:center; }
+  .ms-brand { font-size:7px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:5px; }
+  .ms-h2 { font-family:var(--font-brand); font-size:14px; color:white; font-weight:400; line-height:1.2; }
+  .ms-body { padding:9px; }
+  .ms-offer { background:var(--blue-pale); border:1px solid var(--blue); border-radius:4px; padding:6px 8px; margin-bottom:8px; font-size:9px; color:var(--blue); line-height:1.3; }
+  .ms-offer strong { display:block; font-size:10px; font-weight:700; }
+  .ms-field { background:var(--grey-light); border:1px solid var(--grey-mid); border-radius:4px; padding:5px 7px; margin-bottom:5px; }
+  .ms-flbl { font-size:7px; letter-spacing:1px; text-transform:uppercase; color:var(--grey-dark); margin-bottom:1px; }
+  .ms-fval { font-size:10px; color:var(--black); }
+  .ms-chk { display:flex; align-items:center; gap:5px; font-size:8px; color:var(--grey-dark); margin:4px 0; }
+  .ms-chk .ck { width:11px; height:11px; border-radius:2px; background:var(--blue); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:7px; color:white; }
+  .ms-btn { background:var(--blue); color:white; text-align:center; border-radius:4px; padding:8px; font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-top:9px; }
+
+  /* Mini associate screen */
+  .ma-hdr { background:var(--black); padding:9px; }
+  .ma-role { font-size:7px; letter-spacing:1.5px; text-transform:uppercase; color:#4A7FD4; }
+  .ma-name { font-family:var(--font-brand); font-size:13px; color:white; font-weight:400; }
+  .ma-body { background:var(--grey-light); padding:8px; display:flex; flex-direction:column; gap:6px; }
+  .ma-kpi { background:white; border:1px solid var(--grey-mid); border-radius:5px; padding:8px; }
+  .ma-klbl { font-size:7px; letter-spacing:1px; text-transform:uppercase; color:var(--grey-dark); margin-bottom:4px; }
+  .ma-bar { background:var(--grey-mid); border-radius:3px; height:6px; margin-bottom:4px; overflow:hidden; }
+  .ma-bar-f { height:100%; border-radius:3px; }
+  .ma-kst { display:flex; justify-content:space-between; font-size:8px; color:var(--grey-dark); }
+  .ma-kst .ach { color:var(--green); font-weight:700; }
+  .ma-unlock { background:var(--blue); border-radius:5px; padding:10px; text-align:center; }
+  .ma-ui { font-size:18px; }
+  .ma-ut { font-family:var(--font-brand); font-size:11px; color:white; font-weight:400; margin:3px 0; }
+  .ma-ud { font-size:8px; color:rgba(255,255,255,0.75); margin-bottom:7px; }
+  .ma-ub { background:white; color:var(--blue); border-radius:3px; padding:5px; font-size:8px; font-weight:700; text-align:center; letter-spacing:1px; text-transform:uppercase; }
+
+  /* Mini order confirm screen */
+  .mc-body { padding:10px; }
+  .mc-confirm { background:var(--green); color:white; padding:9px; border-radius:4px; margin-bottom:9px; display:flex; align-items:center; gap:7px; }
+  .mc-confirm .ct { font-size:14px; }
+  .mc-confirm h4 { font-family:var(--font-brand); font-size:11px; font-weight:400; }
+  .mc-confirm p { font-size:8px; opacity:0.85; }
+  .mc-enroll { border:1.5px solid var(--blue); border-radius:5px; padding:9px; }
+  .mc-enroll h4 { font-family:var(--font-brand); font-size:10px; color:var(--black); font-weight:400; margin-bottom:3px; }
+  .mc-enroll p { font-size:8px; color:var(--grey-dark); margin-bottom:7px; line-height:1.4; }
+  .mc-bos { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-bottom:7px; }
+  .mc-bo { background:var(--grey-light); border:1px solid var(--grey-mid); border-radius:3px; padding:5px 6px; }
+  .mc-bo:first-child { border-color:var(--blue); background:var(--blue-pale); }
+  .mc-bo .bi { font-size:11px; }
+  .mc-bo .bt { font-size:7px; color:var(--black); font-weight:600; line-height:1.3; }
+  .mc-btn { background:var(--blue); color:white; border-radius:3px; padding:6px; font-size:8px; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-align:center; }
+
+  /* Sticky phone layout */
+  .sb-outer-grid { display:grid; grid-template-columns:1fr 248px; gap:32px; align-items:start; max-width:960px; margin-left:auto; margin-right:auto; }
+  .sb-phone-sticky { position:sticky; top:32px; }
+  .sb-pscr { display:none; }
+  .sb-pscr.active { display:block; }
+
+  .sticky-phone.receipt-mode { background:transparent; box-shadow:none; padding:0; border-radius:0; }
+  .sticky-phone.receipt-mode .sticky-notch { display:none; }
+  .sticky-phone.receipt-mode .sticky-screen { background:transparent; border-radius:0; overflow:visible; min-height:0; }
+  .sticky-phone.receipt-mode .sb-pscr.active { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.22)); }
+
+  .sticky-phone { width:244px; background:#1A1A1A; border-radius:38px; padding:12px 10px; box-shadow:0 22px 56px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
+  .sticky-notch { width:72px; height:21px; background:#1A1A1A; border-radius:0 0 13px 13px; margin:0 auto 7px; }
+  .sticky-screen { background:white; border-radius:26px; overflow:hidden; min-height:440px; }
+  .sph-label { text-align:center; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--grey-dark); margin-top:10px; }
+
+  /* Sticky screen shared elements */
+  .sph-hdr-blue { background:var(--blue); padding:16px 14px; text-align:center; }
+  .sph-brand { font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:6px; }
+  .sph-title { font-family:var(--font-brand); font-size:17px; color:white; font-weight:400; line-height:1.2; }
+  .sph-body { padding:12px; display:flex; flex-direction:column; gap:9px; }
+  .sph-stat-row { display:flex; gap:8px; }
+  .sph-stat { flex:1; background:var(--grey-light); border-radius:6px; padding:10px; text-align:center; border:1px solid var(--grey-mid); }
+  .sph-stat .sn { font-family:var(--font-brand); font-size:24px; color:var(--blue); display:block; line-height:1; margin-bottom:3px; }
+  .sph-stat .sl { font-size:9px; color:var(--grey-dark); line-height:1.3; }
+  .sph-card { background:var(--blue); border-radius:8px; padding:12px; }
+  .sph-card .sc-tier { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:4px; }
+  .sph-card .sc-big { font-family:var(--font-brand); font-size:30px; color:white; font-weight:400; line-height:1; }
+  .sph-card .sc-sub { font-size:9px; color:rgba(255,255,255,0.65); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+  .sph-pb { background:rgba(255,255,255,0.2); border-radius:3px; height:5px; margin-bottom:4px; }
+  .sph-pb-f { height:100%; border-radius:3px; background:white; }
+  .sph-pb-lbl { display:flex; justify-content:space-between; font-size:9px; color:rgba(255,255,255,0.65); }
+  .sph-qa { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+  .sph-qa-item { background:white; border-radius:7px; padding:9px; text-align:center; border:1px solid var(--grey-mid); }
+  .sph-qa-item .qi { font-size:18px; margin-bottom:3px; }
+  .sph-qa-item .ql { font-size:8px; font-weight:700; color:var(--black); text-transform:uppercase; letter-spacing:0.5px; }
+  .sph-ms-item { display:flex; align-items:center; gap:9px; background:var(--grey-light); border-radius:7px; padding:8px 10px; }
+  .sph-ms-item.e { background:var(--green-pale); border:1px solid rgba(30,92,30,0.2); }
+  .sph-ms-ic { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+  .sph-ms-ic.e { background:var(--green); }
+  .sph-ms-ic.l { background:var(--grey-mid); }
+  .sph-ms-name { font-size:10px; font-weight:700; color:var(--black); }
+  .sph-ms-desc { font-size:8px; color:var(--grey-dark); }
+  .sph-ms-badge { font-size:8px; font-weight:700; padding:2px 6px; border-radius:10px; margin-left:auto; }
+  .sph-ms-badge.e { background:var(--green); color:white; }
+  .sph-ms-badge.l { background:var(--grey-mid); color:var(--grey-dark); }
+  .sph-phase-tag { font-size:9px; letter-spacing:2px; text-transform:uppercase; text-align:center; font-weight:700; padding:8px; background:var(--blue-pale); border-top:1px solid var(--blue); border-bottom:1px solid var(--blue); color:var(--blue); }
+
+  @media (max-width: 900px) {
+    section { padding: 40px 20px; }
+    .story-phase { grid-template-columns: 60px 1fr; }
+    .story-phase::before { left: 29px; }
+    .story-content::before { left: 60px; }
+    .sb-outer-grid { grid-template-columns: 1fr; }
+    .sb-phone-sticky { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     STORYBOARD
+     ════════════════════════════════════════════ -->
+<section id="storyboard" class="alt-bg">
+  <div class="section-label">In-Store Experience</div>
+  <h2 class="section-title">In-store</h2>
+  <p class="section-subtitle">How a single in-store interaction creates a cascade of value — told as it unfolds for Andy, Sally, and Sam.</p>
+
+  <!-- Character key -->
+  <div class="char-key">
+    <div class="char-pill">
+      <img src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Andy"/>
+      <div><strong>Andy</strong><span>Customer</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Sally"/>
+      <div><strong>Sally</strong><span>Store Associate · Balfes Bikes</span></div>
+    </div>
+    <div class="char-pill">
+      <img src="https://media.istockphoto.com/id/805012064/photo/portrait-of-mature-hispanic-man.jpg?s=612x612&w=0&k=20&c=AfNa1ay8LPzaO-NOJZspqULvYavyhXg4rnJ9U_tvJY4=" width="88" height="88" style="border-radius:50%;display:block;object-fit:cover;object-position:center top;flex-shrink:0;" alt="Sam"/>
+      <div><strong>Sam</strong><span>Brompton Sales Team</span></div>
+    </div>
+  </div>
+
+  <div class="sb-outer-grid">
+  <div class="sb-phases">
+
+    <!-- ── Phase 1: In-Store Meeting ── -->
+    <div class="sb-row" data-sbscr="1" data-sblabel="Phase 1 · In-Store">
+
+      <div>
+        <div class="sb-phase-hdr">
+          <div class="sb-phase-num" style="background:var(--blue);">1</div>
+          <div class="sb-phase-title" style="color:var(--blue);">Test Ride</div>
+        </div>
+        <div class="chat-wrap">
+          <div class="chat-hdr">📍 Balfes Bike Shop, London</div>
+          <div class="chat-body2">
+            <div class="chat-ctx">Andy spots a Brompton in the window and steps inside.</div>
+            <div class="chat-msg2">
+              <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Andy</div>
+                <div class="ch-b">"What can you tell me about Brompton? I keep seeing them everywhere."</div>
+              </div>
+            </div>
+            <div class="chat-msg2 r">
+              <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sally</div>
+                <div class="ch-b">"They're incredible — I'm honestly close to getting one myself. Let me tell you about it..."</div>
+              </div>
+            </div>
+            <div class="chat-ctx">A few minutes of conversation later...</div>
+            <div class="chat-msg2" data-trigger-screen="1">
+              <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Andy</div>
+                <div class="ch-b">"But how do they actually ride?"</div>
+              </div>
+            </div>
+            <div class="chat-msg2 r">
+              <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sally</div>
+                <div class="ch-b" data-trigger-screen="2">"The only way to find out is a test ride! Scan this QR to complete our safety waiver — and get 10% off accessories when you do."</div>
+              </div>
+            </div>
+            <div class="chat-ctx">📱 Andy scans Sally's QR code on his phone</div>
+          </div>
+          <div class="chat-outcomes2">
+            <span class="outcomes-label customer">Customer</span>
+            <span class="outcomes-label retail">Retailer</span>
+            <span class="outcomes-label brompton">Brompton</span>
+            <span class="outcome-tag customer">👤 Andy has an incentive to buy now and is thinking about accessories</span>
+            <span class="outcome-tag retail">🏪 Sally earns toward her Brompton for every enrollment</span>
+            <span class="outcome-tag brompton">📊 Brompton captures data before any purchase</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Phase 2: Closing the Sale ── -->
+    <div class="sb-row" data-sbscr="2" data-sblabel="Phase 2 · Closing the Sale" style="margin-top:80px;">
+      <div>
+        <div class="sb-phase-hdr" data-trigger-screen="blank">
+          <div class="sb-phase-num" style="background:var(--blue);">2</div>
+          <div class="sb-phase-title" style="color:var(--blue);">Closing the Sale</div>
+        </div>
+        <div class="chat-wrap">
+          <div class="chat-body2">
+            <div class="chat-ctx" data-trigger-screen="2b" style="margin-top:80px;margin-bottom:80px;">Andy takes the test ride. Returns beaming.</div>
+            <div class="chat-msg2">
+              <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Andy</div>
+                <div class="ch-b">"I love it! Do you have one in red?"</div>
+              </div>
+            </div>
+            <div class="chat-msg2 r" style="margin-bottom:80px;">
+              <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sally</div>
+                <div class="ch-b">"We can order one for you — it'll be here in 2 days."</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-outcomes2">
+            <span class="outcomes-label customer">Customer</span>
+            <span class="outcomes-label retail">Retailer</span>
+            <span class="outcomes-label brompton">Brompton</span>
+            <span class="outcome-tag customer">👤 Andy knows he can get the bike he wants fast</span>
+            <span class="outcome-tag retail">🏪 Balfes is empowered to close the sale even without stock</span>
+            <span class="outcome-tag brompton">📊 Brompton is enabling sell-through at a high-intent moment</span>
+          </div>
+          <!-- ── Branch Selector ── -->
+          <div id="branch-selector" style="margin:40px 12px 0;padding:20px 24px;background:var(--grey-light);border:1px solid var(--grey-mid);border-radius:10px;text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:var(--grey-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Where does Andy buy?</div>
+            <div style="display:flex;gap:10px;justify-content:center;">
+              <button onclick="selectBranch('dealer')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Dealer</button>
+              <button onclick="selectBranch('ecommerce')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">eCommerce</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         eCOMMERCE BRANCH
+         ══════════════════════════════════════════ -->
+    <div data-branch="ecommerce" style="display:none;">
+
+      <!-- Phase 2 tail (eCommerce) -->
+      <div class="sb-row" style="margin-top:40px;">
+        <div>
+          <div class="chat-wrap">
+            <div class="chat-body2">
+              <div class="chat-msg2" style="margin-top:40px;">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Ok cool. I need to sleep on it. But in the meantime, what can I use my accessories discount on?"</div>
+                </div>
+              </div>
+              <div class="chat-msg2 r">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally</div>
+                  <div class="ch-b">"No worries — let me show you the toolkit, basket bag, and phone mount."</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Associate Win (eCommerce) -->
+      <div class="sb-row" data-sblabel="Phase 3 · Associate Win" style="margin-top:80px;">
+        <div>
+          <div class="sb-phase-hdr">
+            <div class="sb-phase-num" style="background:var(--green);">3</div>
+            <div class="sb-phase-title" style="color:var(--green);">Sally's Win — Brompton Champion</div>
+          </div>
+          <div class="chat-wrap">
+            <div class="chat-hdr">📲 Later that day — Sally checks the Brompton Club app</div>
+            <div class="chat-body2">
+              <div class="chat-ctx" data-trigger-screen="3" style="margin-top:80px;margin-bottom:40px;">Sally checks the Brompton Champion app. Each test ride milestone this month has unlocked something small — coffee, a cap, almost a gift card. But she's really watching the big one.</div>
+              <div class="chat-msg2 r" style="margin-bottom:80px;">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally (to herself)</div>
+                  <div class="ch-b">"11 enrollments — I hit it! That's 60% off a Brompton for me..."</div>
+                </div>
+              </div>
+              <div class="chat-ctx" style="margin-bottom:80px;">Sally taps "Order My Brompton" directly in the app.</div>
+            </div>
+            <div class="chat-outcomes2">
+              <span class="outcomes-label customer">Customer</span>
+              <span class="outcomes-label retail">Retailer</span>
+              <span class="outcomes-label brompton">Brompton</span>
+              <span class="outcome-tag customer">👤 Engaged and attentive staff who know the brand</span>
+              <span class="outcome-tag retail">🚲 Sally earns a deeply discounted Brompton — becomes a true ambassador</span>
+              <span class="outcome-tag brompton">📊 Incentive drives enrollment effort naturally across the shopfloor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4: Andy Buys Online — A Month Later (eCommerce) -->
+      <div class="sb-row" data-sblabel="Phase 4 · D2C Purchase" style="margin-top:80px;">
+        <div>
+          <div class="sb-phase-hdr">
+            <div class="sb-phase-num" style="background:var(--blue);">4</div>
+            <div class="sb-phase-title" style="color:var(--blue);">Andy Buys Online — A Month Later</div>
+          </div>
+          <div class="chat-wrap">
+            <div class="chat-hdr" data-trigger-screen="4">💻 brompton.com — Andy's home, Saturday morning</div>
+            <div class="chat-body2">
+              <div class="chat-ctx" style="margin-top:80px;margin-bottom:80px;">Andy adds an Electric C Line and accessories to his cart. His 10% member discount applies automatically.</div>
+              <div class="chat-msg2" data-trigger-screen="4b">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Oh nice — it remembered me from the shop. Let me make the most of that accessories discount!"</div>
+                </div>
+              </div>
+              <div class="chat-ctx" style="margin-top:80px;">Order confirmed. The membership activation screen loads.</div>
+              <div class="chat-msg2">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Free flat tyre service for six months — that's exactly the reassurance I needed."</div>
+                </div>
+              </div>
+              <div class="chat-ctx" style="margin-bottom:80px;">Andy activates his membership.</div>
+            </div>
+            <div class="chat-outcomes2">
+              <span class="outcomes-label customer">Customer</span>
+              <span class="outcomes-label retail">Retailer</span>
+              <span class="outcomes-label brompton">Brompton</span>
+              <span class="outcome-tag customer">👤 Seamless offline-online incentive. Immediate reward for purchase relieves buyers remorse.</span>
+              <span class="outcome-tag retail">💻 Balfes earns showrooming commission — no channel conflict</span>
+              <span class="outcome-tag brompton">📈 10% incentive drove faster conversion at higher AOV</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ecommerce branch -->
+
+    <!-- ══════════════════════════════════════════
+         DEALER BRANCH
+         ══════════════════════════════════════════ -->
+    <div data-branch="dealer" style="display:none;">
+
+      <!-- Phase 4 (Dealer): Andy buys in-store, the same day -->
+      <div class="sb-row" data-sblabel="Phase 4 · In-Store Purchase" style="margin-top:80px;">
+        <div>
+          <div class="sb-phase-hdr">
+            <div class="sb-phase-num" style="background:var(--blue);">4</div>
+            <div class="sb-phase-title" style="color:var(--blue);">Andy Buys In-Store — The Same Day</div>
+          </div>
+          <div class="chat-wrap">
+            <div class="chat-body2">
+              <div class="chat-msg2" style="margin-top:40px;">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Ok - let's do it! I'll take the C Line in Red. What accessories should I use my discount on?"</div>
+                </div>
+              </div>
+              <div class="chat-msg2 r">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally</div>
+                  <div class="ch-b">"Awesome! I recommend the toolkit, basket bag, and phone mount."</div>
+                </div>
+              </div>
+              <div class="chat-ctx" style="margin-top:80px;margin-bottom:80px;">Sally rings Andy up. She asks Andy to check his email for the 10% off discount code.</div>
+              <div class="chat-msg2" data-trigger-screen="d-email">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Here's the code."</div>
+                </div>
+              </div>
+              <div class="chat-msg2 r" data-trigger-screen="d-verify">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally</div>
+                  <div class="ch-b">"Great, I'll just scan that to redeem it."</div>
+                </div>
+              </div>
+              <div class="chat-ctx" style="margin-top:80px;margin-bottom:80px;">Sally scans the barcode in her Brompton app to verify</div>
+              <div class="chat-ctx" data-trigger-screen="d-receipt" style="margin-bottom:80px;">Sally rings Andy up via Balfes POS, noting the discount code.</div>
+              <div class="chat-msg2 r">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally</div>
+                  <div class="ch-b">"Ok, you're all set Andy! We'll call you when your bike arrives."</div>
+                </div>
+              </div>
+              <div class="chat-msg2">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Thanks so much!"</div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-outcomes2">
+              <span class="outcomes-label customer">Customer</span>
+              <span class="outcomes-label retail">Retailer</span>
+              <span class="outcomes-label brompton">Brompton</span>
+              <span class="outcome-tag customer">👤 Immediate in-store purchase with personalised incentive</span>
+              <span class="outcome-tag retail">🏪 Balfes closes the sale on the spot — no channel conflict</span>
+              <span class="outcome-tag brompton">📈 10% incentive drove same-day conversion at full AOV</span>
+            </div>
+            <div class="chat-body2">
+              <div class="chat-msg2 r" data-trigger-screen="4b" style="margin-top:80px;">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally</div>
+                  <div class="ch-b">"Don't forget to activate your Brompton membership. There are some nice discounts and offers for new members."</div>
+                </div>
+              </div>
+              <div class="chat-msg2">
+                <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Andy</div>
+                  <div class="ch-b">"Free flat tyre service for six months - wow! Can I redeem that here?"</div>
+                </div>
+              </div>
+              <div class="chat-msg2 r">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally</div>
+                  <div class="ch-b">"Yep - and it actually works at any Brompton dealer."</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Sally's Win (Dealer — follows Phase 4) -->
+      <div class="sb-row" data-sblabel="Phase 3 · Associate Win" style="margin-top:160px;">
+        <div>
+          <div class="sb-phase-hdr">
+            <div class="sb-phase-num" style="background:var(--green);">3</div>
+            <div class="sb-phase-title" style="color:var(--green);">Sally's Win — Brompton Champion</div>
+          </div>
+          <div class="chat-wrap">
+            <div class="chat-hdr">📲 Later that day — Sally checks the Brompton Club app</div>
+            <div class="chat-body2">
+              <div class="chat-ctx" data-trigger-screen="3" style="margin-top:80px;margin-bottom:40px;">Sally checks the Brompton Champion app. Each test ride milestone this month has unlocked something small — coffee, a cap, almost a gift card. But she's really watching the big one.</div>
+              <div class="chat-msg2 r" style="margin-bottom:80px;">
+                <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+                <div class="ch-bw">
+                  <div class="ch-nm">Sally (to herself)</div>
+                  <div class="ch-b">"11 enrollments — I hit it! That's 60% off a Brompton for me..."</div>
+                </div>
+              </div>
+              <div class="chat-ctx" style="margin-bottom:80px;">Sally taps "Order My Brompton" directly in the app.</div>
+            </div>
+            <div class="chat-outcomes2">
+              <span class="outcomes-label customer">Customer</span>
+              <span class="outcomes-label retail">Retailer</span>
+              <span class="outcomes-label brompton">Brompton</span>
+              <span class="outcome-tag customer">👤 Engaged and attentive staff who know the brand</span>
+              <span class="outcome-tag retail">🚲 Sally earns a deeply discounted Brompton — becomes a true ambassador</span>
+              <span class="outcome-tag brompton">📊 Incentive drives enrollment effort naturally across the shopfloor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dealer branch -->
+
+    <div id="post-branch-content" style="display:none;">
+
+    <!-- ── Phase 5: Brand Ride ── -->
+    <div class="sb-row" data-sbscr="5" data-sblabel="Phase 5 · Brand Ride" style="margin-top:80px;">
+
+      <div>
+        <div class="sb-phase-hdr">
+          <div class="sb-phase-num" style="background:var(--yellow);">5</div>
+          <div class="sb-phase-title" style="color:#8A6800;">Brand Reward — Top Data Capture &amp; Sales</div>
+        </div>
+        <div class="chat-wrap">
+          <div class="chat-hdr">One month later, 📞 Sam calls Balfes</div>
+          <div class="chat-body2">
+            <div class="chat-ctx" data-trigger-screen="blank">Balfes is named a top test ride location for the spring.</div>
+            <div class="chat-msg2" data-trigger-screen="5b">
+              <img class="ch-av" src="https://media.istockphoto.com/id/805012064/photo/portrait-of-mature-hispanic-man.jpg?s=612x612&w=0&k=20&c=AfNa1ay8LPzaO-NOJZspqULvYavyhXg4rnJ9U_tvJY4=" alt="Sam" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sam</div>
+                <div class="ch-b">"Hey Sally — your store is a top test ride location this spring. As a thank you we'd like to invite your team to join us for a gravel ride to Forty Hall Vineyard."</div>
+              </div>
+            </div>
+            <div class="chat-msg2 r">
+              <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sally</div>
+                <div class="ch-b">"Are you serious?! The team have been working so hard — they'll absolutely love this."</div>
+              </div>
+            </div>
+            <div class="chat-ctx">One month later — riding G Line bikes along the Lee Valley Pathway...</div>
+            <div class="chat-msg2 r">
+              <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sally</div>
+                <div class="ch-b">"Thanks Sam. We all love the bikes. This is brilliant."</div>
+              </div>
+            </div>
+            <div class="chat-msg2">
+              <img class="ch-av" src="https://media.istockphoto.com/id/805012064/photo/portrait-of-mature-hispanic-man.jpg?s=612x612&w=0&k=20&c=AfNa1ay8LPzaO-NOJZspqULvYavyhXg4rnJ9U_tvJY4=" alt="Sam" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sam</div>
+                <div class="ch-b">"No sweat — you guys are the best. Let's get a glass! I can share a preview of the new X Line. Maybe we put your £2,500 account credit there?"</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-outcomes2">
+            <span class="outcomes-label customer">Customer</span>
+            <span class="outcomes-label retail">Retailer</span>
+            <span class="outcomes-label brompton">Brompton</span>
+            <span class="outcome-tag retail">🍷 Deep brand relationship; first access to new product previews</span>
+            <span class="outcome-tag brompton">❤️ Retailer becomes genuine brand advocate, not just a sales channel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Phase 6: Flywheel ── -->
+    <div class="sb-row" data-sbscr="6" data-sblabel="Phase 6 · Flywheel" style="margin-top:80px;">
+
+      <div>
+        <div class="sb-phase-hdr">
+          <div class="sb-phase-num" style="background:var(--green);">6</div>
+          <div class="sb-phase-title" style="color:var(--green);">The Flywheel Completes</div>
+        </div>
+        <div class="chat-wrap">
+          <div class="chat-hdr" data-trigger-screen="6">🌀 Three months later — Andy is now a Promoter</div>
+          <div class="chat-body2">
+            <div class="chat-msg2">
+              <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Andy (to a friend)</div>
+                <div class="ch-b">"Honestly — best thing I've bought in years. You have to try one. Go to Balfes and ask for Sally."</div>
+              </div>
+            </div>
+            <div class="chat-ctx">Two of Andy's friends walk into Balfes the following week. Sally signs them both up for a test ride.</div>
+            <div class="chat-msg2 r">
+              <img class="ch-av" src="https://media.istockphoto.com/id/1084661230/photo/elegant-woman-smiling-on-white-background.jpg?s=612x612&w=0&k=20&c=lDhyAV11NpXb8Qgwy8JAlTDgn-qSywGDB5ujLEwXPM0=" alt="Sally" style="object-fit:cover;object-position:center top;"/>
+              <div class="ch-bw">
+                <div class="ch-nm">Sally</div>
+                <div class="ch-b">"Two more referrals from Andy this week. The flywheel's working." 📈</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-outcomes2">
+            <span class="outcomes-label customer">Customer</span>
+            <span class="outcomes-label retail">Retailer</span>
+            <span class="outcomes-label brompton">Brompton</span>
+            <span class="outcome-tag customer">🌟 Identity reinforced; belongs to something real</span>
+            <span class="outcome-tag retail">🏪 Two new walk-ins, data captured for both</span>
+            <span class="outcome-tag brompton">📈 CAC falls; referral margin rises; flywheel self-reinforces</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /post-branch-content -->
+
+  </div><!-- /sb-phases -->
+
+  <!-- ── Sticky phone column ── -->
+  <div class="sb-phone-sticky">
+    <div class="sticky-phone">
+      <div class="sticky-notch"></div>
+      <div class="sticky-screen">
+
+        <!-- Screen 1: Sally's QR / In-Store -->
+        <div class="sb-pscr" id="sbscr-1">
+          <div style="background:var(--black);padding:12px;">
+            <div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#A07FD4;">Brompton Champion · Balfes Bikes</div>
+            <div style="font-family:var(--font-brand);font-size:15px;color:white;font-weight:400;">Sally</div>
+          </div>
+          <div style="background:var(--grey-light);padding:10px;display:flex;flex-direction:column;gap:8px;">
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:8px;font-weight:700;">My Test Ride QR</div>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" style="width:90px;height:90px;margin:0 auto 8px;display:block;border-radius:4px;" alt="QR code"/>
+              <div style="font-size:10px;color:var(--grey-dark);">Show customer to scan &amp; enroll</div>
+            </div>
+            <div style="background:var(--blue-pale);border:1px solid var(--blue);border-radius:7px;padding:10px;">
+              <div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:4px;">Today's Welcome Offer</div>
+              <div style="font-size:13px;font-weight:700;color:var(--blue);line-height:1.3;margin-bottom:3px;">10% off accessories</div>
+              <div style="font-size:9px;color:var(--grey-dark);">Valid 30 days.</div>
+            </div>
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:7px;padding:9px;">
+              <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:5px;">Monthly Goal</div>
+              <div style="background:var(--grey-mid);border-radius:3px;height:6px;margin-bottom:4px;overflow:hidden;"><div style="width:30%;height:100%;border-radius:3px;background:var(--blue);"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--grey-dark);"><span>3 / 10 enrollments</span><span style="color:var(--blue);font-weight:700;">30%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 2: Andy's Sign-Up Form -->
+        <div class="sb-pscr" id="sbscr-2">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">Brompton Club</div>
+            <div class="sph-title">Welcome to<br>the fold.</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:var(--blue-pale);border:1px solid var(--blue);border-radius:5px;padding:8px 10px;font-size:10px;color:var(--blue);line-height:1.35;">
+              <strong style="display:block;font-size:11px;margin-bottom:2px;">🎁 10% off accessories</strong>New member offer, valid 30 days.
+            </div>
+            <div style="background:var(--grey-light);border:1px solid var(--grey-mid);border-radius:5px;padding:8px 10px;">
+              <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">First name</div>
+              <div style="font-size:13px;color:var(--black);">Andy</div>
+            </div>
+            <div style="background:var(--grey-light);border:1px solid var(--grey-mid);border-radius:5px;padding:8px 10px;">
+              <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">Email address</div>
+              <div style="font-size:13px;color:var(--black);">andy@email.com</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--grey-dark);">
+              <div style="width:14px;height:14px;border-radius:3px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:9px;color:white;flex-shrink:0;">✓</div>
+              Accept terms &amp; conditions
+            </div>
+            <div style="background:var(--blue);color:white;text-align:center;border-radius:5px;padding:11px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Test Ride &amp; Claim Offer</div>
+            <div style="text-align:center;font-size:10px;color:var(--grey-dark);text-decoration:underline;cursor:pointer;padding-top:2px;">Just the test ride please.</div>
+          </div>
+        </div>
+
+        <!-- Screen 2b: Sell from Stock -->
+        <div class="sb-pscr" id="sbscr-2b">
+          <div style="background:var(--black);padding:12px;">
+            <div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#A07FD4;">Store · Balfes Bikes</div>
+            <div style="font-family:var(--font-brand);font-size:15px;color:white;font-weight:400;">Sell from Stock</div>
+          </div>
+          <!-- Filter bar -->
+          <div style="background:var(--grey-light);padding:8px 10px;border-bottom:1px solid var(--grey-mid);display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:4px;padding:4px 9px;font-size:9px;color:var(--black);display:flex;align-items:center;gap:4px;">🔍 C Line</div>
+            <div style="background:var(--red);border-radius:4px;padding:4px 9px;font-size:9px;color:white;font-weight:700;">Red ×</div>
+            <div style="margin-left:auto;font-size:9px;color:var(--grey-dark);">1 result</div>
+          </div>
+          <!-- Product card -->
+          <div style="padding:10px;">
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:8px;overflow:hidden;">
+              <div style="background:white;height:110px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1759/images/61404/M4R0QQB00C00R000C0070120QQQQ00_1__46217.1764164269.1280.1280.jpg?c=1" style="height:110px;width:auto;object-fit:contain;" alt="C Line Plum Red"/>
+                <div style="position:absolute;top:7px;right:7px;background:var(--green);color:white;font-size:7px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:3px;padding:2px 6px;">In Stock</div>
+              </div>
+              <div style="padding:11px;">
+                <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:3px;">Brompton</div>
+                <div style="font-family:var(--font-brand);font-size:15px;color:var(--black);font-weight:400;margin-bottom:2px;">C Line with Roller Rack</div>
+                <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;">
+                  <div style="width:10px;height:10px;border-radius:50%;background:#7B2D42;border:1px solid rgba(0,0,0,0.15);flex-shrink:0;"></div>
+                  <div style="font-size:10px;color:var(--grey-dark);">Plum Red · Mid bars</div>
+                </div>
+                <div style="font-size:9px;color:var(--grey-dark);margin-bottom:10px;">4-speed · Steel · 26.1 lb</div>
+                <div style="font-family:var(--font-brand);font-size:20px;color:var(--black);font-weight:400;margin-bottom:11px;">£1,950</div>
+                <div style="background:var(--blue);color:white;border-radius:5px;padding:10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;margin-bottom:6px;">Sell from Stock</div>
+                <div id="sfs-delivery-date" style="text-align:center;font-size:10px;color:var(--grey-dark);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 3: Associate Dashboard - Tiered Rewards -->
+        <div class="sb-pscr" id="sbscr-3">
+          <div style="background:var(--black);padding:12px;">
+            <div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#A07FD4;">Brompton Champion · Balfes Bikes</div>
+            <div style="font-family:var(--font-brand);font-size:13px;color:white;font-weight:400;line-height:1.2;">Sally, you're a<br>Brompton Champion</div>
+          </div>
+          <div style="background:var(--grey-light);padding:10px;display:flex;flex-direction:column;gap:8px;">
+
+            <!-- Quick Wins -->
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:7px;padding:9px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+                <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);">Quick Wins — Test Rides</div>
+                <div style="font-size:8px;color:var(--grey-dark);">17 / 20 this month</div>
+              </div>
+              <div style="background:var(--grey-mid);border-radius:3px;height:5px;margin-bottom:8px;overflow:hidden;">
+                <div id="bar3-1" style="width:0;height:100%;border-radius:3px;background:var(--blue);transition:width 1s ease-out;"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:5px;background:#F0FAF4;">
+                  <span style="font-size:14px;line-height:1;">☕</span>
+                  <div style="flex:1;font-size:8.5px;font-weight:600;color:var(--black);">5 rides → Free WatchHouse coffee</div>
+                  <span style="font-size:8px;font-weight:700;color:var(--green);white-space:nowrap;">✓ Done</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:5px;background:#F0FAF4;">
+                  <span style="font-size:14px;line-height:1;">🧢</span>
+                  <div style="flex:1;font-size:8.5px;font-weight:600;color:var(--black);">10 rides → Brompton cap</div>
+                  <span style="font-size:8px;font-weight:700;color:var(--green);white-space:nowrap;">✓ Done</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:5px;background:#FFFAED;border:1px solid #F0D060;">
+                  <span style="font-size:14px;line-height:1;">🎁</span>
+                  <div style="flex:1;font-size:8.5px;font-weight:600;color:var(--black);">20 rides → £10 M&amp;S or Amazon gift card</div>
+                  <span style="font-size:8px;font-weight:700;color:#9A7000;white-space:nowrap;">3 to go</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Big Goal -->
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:7px;padding:9px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+                <div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);">Big Goal — Members Enrolled</div>
+                <div style="font-size:8px;color:var(--green);font-weight:700;">✅ Goal hit!</div>
+              </div>
+              <div style="background:var(--grey-mid);border-radius:3px;height:5px;margin-bottom:8px;overflow:hidden;">
+                <div id="bar3-2" style="width:0;height:100%;border-radius:3px;background:var(--green);transition:width 1.2s ease-out;"></div>
+              </div>
+              <div style="font-size:8.5px;color:var(--grey-dark);margin-bottom:8px;">11 / 10 members enrolled</div>
+              <div style="background:var(--blue);border-radius:5px;padding:10px;text-align:center;">
+                <div style="font-size:18px;margin-bottom:3px;">🚲</div>
+                <div style="font-family:var(--font-brand);font-size:12px;color:white;font-weight:400;margin-bottom:2px;">Milestone Unlocked!</div>
+                <div style="font-size:8.5px;color:rgba(255,255,255,0.8);margin-bottom:8px;">60% off your own Brompton — you've earned it.</div>
+                <div style="background:white;color:var(--blue);border-radius:4px;padding:7px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Order My Brompton</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Screen 4: Order Summary -->
+        <div class="sb-pscr" id="sbscr-4">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">brompton.com</div>
+            <div class="sph-title">Order Summary</div>
+          </div>
+          <div style="padding:10px 12px;overflow-y:auto;">
+            <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--grey-light);align-items:flex-start;">
+              <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/products/1090/images/67426/MLL099B0BBT20Q00T0070120999B00_4__74732.1764069689.1280.1280.jpg?c=1" style="width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;"/>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:9px;font-weight:700;color:var(--black);line-height:1.35;">T Line Urban · 2-speed</div>
+                <div style="font-size:8px;color:var(--grey-dark);">Black</div>
+              </div>
+              <div style="font-size:10px;font-weight:700;color:var(--black);white-space:nowrap;padding-left:4px;">£4,969</div>
+            </div>
+            <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--grey-light);align-items:flex-start;">
+              <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/product_images/attribute_rule_images/1229_thumb_1775738658.jpg" style="width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;"/>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:9px;font-weight:700;color:var(--black);line-height:1.35;">Quad Lock Phone Mount</div>
+                <div style="font-size:8px;color:var(--grey-dark);margin-bottom:3px;">Black</div>
+                <div style="display:inline-flex;align-items:center;gap:3px;background:var(--yellow-pale);border:1px solid var(--yellow);border-radius:3px;padding:1px 5px;">
+                  <span style="font-size:7px;font-weight:700;color:#7A5E00;letter-spacing:0.3px;">★ New member offer</span>
+                </div>
+              </div>
+              <div style="text-align:right;padding-left:4px;white-space:nowrap;">
+                <div style="font-size:9px;color:var(--grey-dark);text-decoration:line-through;">£48</div>
+                <div style="font-size:10px;font-weight:700;color:var(--green);">£43.20</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--grey-light);align-items:flex-start;">
+              <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/product_images/attribute_rule_images/1261_thumb_1765198502.png" style="width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;"/>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:9px;font-weight:700;color:var(--black);line-height:1.35;">Brompton Toolkit</div>
+                <div style="font-size:8px;color:var(--grey-dark);margin-bottom:3px;">Black</div>
+                <div style="display:inline-flex;align-items:center;gap:3px;background:var(--yellow-pale);border:1px solid var(--yellow);border-radius:3px;padding:1px 5px;">
+                  <span style="font-size:7px;font-weight:700;color:#7A5E00;letter-spacing:0.3px;">★ New member offer</span>
+                </div>
+              </div>
+              <div style="text-align:right;padding-left:4px;white-space:nowrap;">
+                <div style="font-size:9px;color:var(--grey-dark);text-decoration:line-through;">£65</div>
+                <div style="font-size:10px;font-weight:700;color:var(--green);">£58.50</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--grey-mid);align-items:flex-start;">
+              <img src="https://cdn11.bigcommerce.com/s-y6rxtt0m81/product_images/attribute_rule_images/6591_thumb_1761562527.jpg" style="width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;"/>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:9px;font-weight:700;color:var(--black);line-height:1.35;">Storage Mat</div>
+                <div style="font-size:8px;color:var(--grey-dark);margin-bottom:3px;">Black</div>
+                <div style="display:inline-flex;align-items:center;gap:3px;background:var(--yellow-pale);border:1px solid var(--yellow);border-radius:3px;padding:1px 5px;">
+                  <span style="font-size:7px;font-weight:700;color:#7A5E00;letter-spacing:0.3px;">★ New member offer</span>
+                </div>
+              </div>
+              <div style="text-align:right;padding-left:4px;white-space:nowrap;">
+                <div style="font-size:9px;color:var(--grey-dark);text-decoration:line-through;">£30</div>
+                <div style="font-size:10px;font-weight:700;color:var(--green);">£27.00</div>
+              </div>
+            </div>
+            <div style="padding:10px 0;display:flex;flex-direction:column;gap:5px;border-bottom:1px solid var(--grey-mid);margin-bottom:8px;">
+              <div style="display:flex;flex-direction:column;gap:3px;padding:5px 0;border-top:1px solid var(--grey-light);margin-top:2px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:1px;"><span>Member savings</span><span>£49.30</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--green);"><span>10% off accessories</span><span style="white-space:nowrap;">−£14.30</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--green);"><span>Free shipping</span><span style="white-space:nowrap;">−£35.00</span></div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+              <span style="font-size:10px;font-weight:700;color:var(--black);">Total (GBP)</span>
+              <span style="font-family:var(--font-brand);font-size:18px;color:var(--black);font-weight:400;">£5,097.70</span>
+            </div>
+            <div style="background:var(--blue);color:white;text-align:center;border-radius:5px;padding:11px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Checkout →</div>
+          </div>
+        </div>
+
+        <!-- Screen 4b: Order Confirmation + Membership Activation -->
+        <div class="sb-pscr" id="sbscr-4b">
+          <div class="sph-hdr-blue">
+            <div class="sph-brand">brompton.com</div>
+            <div class="sph-title">Order<br>Confirmed ✓</div>
+          </div>
+          <div class="sph-body">
+            <div style="background:var(--green);color:white;padding:10px;border-radius:6px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:18px;">✅</span>
+              <div>
+                <div style="font-size:9px;opacity:0.85;">Your bike arrives at Balfes in 2–3 days.</div>
+              </div>
+            </div>
+            <div style="background:var(--blue-pale);border:1.5px solid var(--blue);border-radius:7px;padding:11px;">
+              <div style="font-family:var(--font-brand);font-size:13px;color:var(--black);font-weight:400;margin-bottom:4px;">Claim your welcome offer.</div>
+              <div style="font-size:10px;color:var(--grey-dark);margin-bottom:9px;line-height:1.4;">Pick your benefit and we'll activate your membership.</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:9px;">
+                <div style="background:var(--blue);border-radius:4px;padding:7px;"><div style="font-size:13px;">🛡️</div><div style="font-size:8px;color:white;font-weight:600;line-height:1.3;margin-top:2px;">Free flat tyre service 6 months</div></div>
+                <div style="background:white;border:1px solid var(--grey-mid);border-radius:4px;padding:7px;"><div style="font-size:13px;">📅</div><div style="font-size:8px;color:var(--black);font-weight:600;line-height:1.3;margin-top:2px;">2-year extended warranty</div></div>
+                <div style="background:white;border:1px solid var(--grey-mid);border-radius:4px;padding:7px;"><div style="font-size:13px;">🏷️</div><div style="font-size:8px;color:var(--black);font-weight:600;line-height:1.3;margin-top:2px;">10% off next purchase</div></div>
+                <div style="background:white;border:1px solid var(--grey-mid);border-radius:4px;padding:7px;"><div style="font-size:13px;">💰</div><div style="font-size:8px;color:var(--black);font-weight:600;line-height:1.3;margin-top:2px;">£5 per 500 miles ridden</div></div>
+              </div>
+              <div style="background:var(--blue);color:white;border-radius:4px;padding:8px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;">Activate My Membership →</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen blank -->
+        <div class="sb-pscr" id="sbscr-blank" style="min-height:200px;"></div>
+
+        <!-- Screen 5b: Email from Sam to Balfes -->
+        <div class="sb-pscr" id="sbscr-5b">
+          <div style="background:var(--grey-light);padding:8px 10px;border-bottom:1px solid var(--grey-mid);display:flex;align-items:center;gap:6px;">
+            <div style="font-size:10px;font-weight:700;color:var(--black);">✉ Mail</div>
+          </div>
+          <div style="overflow-y:auto;max-height:480px;">
+            <div style="padding:10px 12px;border-bottom:1px solid var(--grey-light);">
+              <div style="font-size:9px;color:var(--grey-dark);margin-bottom:2px;">From: <strong style="color:var(--black);">sam@brompton.com</strong></div>
+              <div style="font-size:9px;color:var(--grey-dark);margin-bottom:2px;">To: <strong style="color:var(--black);">info@balfesbikes.com</strong></div>
+              <div style="font-size:10px;font-weight:700;color:var(--black);margin-top:5px;">You've won a Q1 2026 Brompton Award! 🏆</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#002FA7 0%,#1A4BC4 100%);padding:18px 12px 16px;text-align:center;">
+              <div style="font-size:28px;letter-spacing:4px;margin-bottom:10px;">🎊 🎉 🎊</div>
+              <div style="display:inline-block;background:var(--yellow);border-radius:10px;padding:12px 18px;box-shadow:0 4px 16px rgba(0,0,0,0.25);">
+                <div style="font-size:8px;font-weight:700;color:#5A3E00;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Q1 2026 · Quarterly Award</div>
+                <div style="font-family:var(--font-brand);font-size:16px;color:#2A1800;font-weight:400;line-height:1.2;">Top Retailer<br>United Kingdom</div>
+              </div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.75);margin-top:10px;letter-spacing:0.3px;">Awarded to Balfes Bikes</div>
+            </div>
+            <div style="padding:10px 12px;border-bottom:1px solid var(--grey-light);text-align:center;">
+              <div style="font-size:10px;color:var(--black);line-height:1.55;margin-bottom:10px;">As a thank you, please join us for an afternoon ride to <strong>Forty Hall Vineyard</strong> — lunch and transport included!</div>
+              <div style="background:var(--blue);color:white;border-radius:5px;padding:9px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;">Select Date →</div>
+            </div>
+            <div style="padding:10px 12px;border-bottom:1px solid var(--grey-light);">
+              <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:8px;">London Retailer Leaderboard</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="background:var(--yellow-pale);border:1px solid var(--yellow);border-radius:6px;padding:7px 9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                    <div style="font-size:10px;font-weight:700;color:var(--black);">🥇 Balfes Bikes</div>
+                    <div style="font-size:8px;font-weight:700;color:#5A3E00;background:var(--yellow);border-radius:3px;padding:2px 5px;">#1</div>
+                  </div>
+                  <div style="display:flex;gap:8px;font-size:8px;color:var(--grey-dark);"><span>142 test rides</span><span>63 members</span><span>40 sold</span></div>
+                </div>
+                <div style="background:var(--grey-light);border-radius:6px;padding:7px 9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
+                    <div style="font-size:10px;font-weight:700;color:var(--black);">Evans Cycles</div>
+                    <div style="font-size:8px;color:var(--grey-dark);">#2</div>
+                  </div>
+                  <div style="display:flex;gap:8px;font-size:8px;color:var(--grey-dark);"><span>98 rides</span><span>41 members</span><span>25 sold</span></div>
+                </div>
+                <div style="background:var(--grey-light);border-radius:6px;padding:7px 9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
+                    <div style="font-size:10px;font-weight:700;color:var(--black);">Condor Cycles</div>
+                    <div style="font-size:8px;color:var(--grey-dark);">#3</div>
+                  </div>
+                  <div style="display:flex;gap:8px;font-size:8px;color:var(--grey-dark);"><span>87 rides</span><span>35 members</span><span>19 sold</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="margin:10px 12px;border:1.5px solid var(--blue);border-radius:7px;padding:10px 12px;text-align:center;">
+              <div style="font-size:9px;color:var(--grey-dark);line-height:1.4;margin-bottom:4px;">Don't forget, you've got unclaimed account credits!</div>
+              <div style="font-family:var(--font-brand);font-size:28px;color:var(--blue);font-weight:400;line-height:1;margin-bottom:10px;">£2,500</div>
+              <div style="background:var(--blue);color:white;border-radius:5px;padding:8px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;">Go to Trade Platform →</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 5: Member Home (Andy post-purchase) -->
+        <div class="sb-pscr" id="sbscr-5">
+          <div style="background:var(--black);padding:12px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;">Welcome back</div>
+              <div style="font-family:var(--font-brand);font-size:15px;color:white;font-weight:400;">Andy</div>
+            </div>
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;">A</div>
+          </div>
+          <div style="background:var(--blue);margin:10px;border-radius:8px;padding:13px;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:-20px;right:-14px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.08);"></div>
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:4px;">⭐ Club Member</div>
+            <div style="font-family:var(--font-brand);font-size:28px;color:white;font-weight:400;line-height:1;">847</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;">miles ridden</div>
+            <div style="background:rgba(255,255,255,0.2);border-radius:3px;height:5px;margin-bottom:4px;"><div style="width:67%;height:100%;border-radius:3px;background:white;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:8px;color:rgba(255,255,255,0.65);"><span>153mi to next reward</span><span>1,000mi</span></div>
+          </div>
+          <div style="margin:0 10px;background:white;border-radius:8px;overflow:hidden;border:1px solid var(--grey-mid);">
+            <div style="height:100px;background:var(--grey-light);position:relative;overflow:hidden;">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOTplNHtF385oimS7liI_vejFnmSsR7gcmCQ&s" style="width:100%;height:100%;object-fit:cover;object-position:center;" alt="Community ride"/>
+              <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.5));padding:8px;">
+                <div style="font-size:9px;color:white;font-weight:700;">📸 Andy just shared a photo</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:10px;">
+            <div style="background:var(--blue-pale);border:1px solid var(--blue);border-radius:7px;padding:9px 11px;">
+              <div style="font-size:8px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">🔔 First In Line</div>
+              <div style="font-size:10px;color:var(--black);line-height:1.4;">New G Line colourways drop tomorrow. Your 48hr window opens at 9am.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 6: Rewards / Flywheel -->
+        <div class="sb-pscr" id="sbscr-6">
+          <div style="background:var(--green);padding:14px;">
+            <div style="font-family:var(--font-brand);font-size:16px;color:white;font-weight:400;">Rewards &amp; Milestones</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.7);">Collect at your local retailer</div>
+          </div>
+          <div style="padding:10px;display:flex;flex-direction:column;gap:7px;">
+            <div class="sph-ms-item e"><div class="sph-ms-ic e">🚴</div><div><div class="sph-ms-name">First 500 Miles</div><div class="sph-ms-desc">£5 in-store credit</div></div><div class="sph-ms-badge e">Earned</div></div>
+            <div class="sph-ms-item e"><div class="sph-ms-ic e">🔧</div><div><div class="sph-ms-name">First Service</div><div class="sph-ms-desc">Brompton patch kit collectible</div></div><div class="sph-ms-badge e">Earned</div></div>
+            <div class="sph-ms-item e"><div class="sph-ms-ic e">⭐</div><div><div class="sph-ms-name">Verified Review Posted</div><div class="sph-ms-desc">T Line product page</div></div><div class="sph-ms-badge e">Earned</div></div>
+            <div class="sph-ms-item"><div class="sph-ms-ic l">🌍</div><div><div class="sph-ms-name">1,000 Miles</div><div class="sph-ms-desc">Limited edition enamel badge</div></div><div class="sph-ms-badge l">153mi away</div></div>
+            <div class="sph-ms-item"><div class="sph-ms-ic l">🏭</div><div><div class="sph-ms-name">Factory Pass</div><div class="sph-ms-desc">Lottery for HQ tour</div></div><div class="sph-ms-badge l">2,500mi</div></div>
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:7px;overflow:hidden;">
+              <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);padding:7px 10px 4px;">📸 My Community Photos</div>
+              <div style="display:flex;gap:3px;padding:0 7px 7px;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOTplNHtF385oimS7liI_vejFnmSsR7gcmCQ&s" style="width:56px;height:44px;object-fit:cover;border-radius:4px;flex-shrink:0;" alt="Ride photo"/>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3SypItI37t-pQ9MbtAweXzqfyxIQTrAZh7A&s" style="width:56px;height:44px;object-fit:cover;border-radius:4px;flex-shrink:0;" alt="Ride photo"/>
+                <img src="https://www.theurbanmobilitystore.com/wp-content/uploads/2023/05/tums.berlin.brommielovee-648x800.jpeg" style="width:56px;height:44px;object-fit:cover;border-radius:4px;flex-shrink:0;" alt="Ride photo"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen d-email: Reward email (Dealer path) -->
+        <div class="sb-pscr" id="sbscr-d-email">
+          <div style="background:var(--grey-light);padding:10px 12px;border-bottom:1px solid var(--grey-mid);">
+            <div style="font-size:8px;font-weight:700;color:var(--grey-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">✉️ Mail</div>
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <div style="font-size:8px;color:var(--grey-dark);"><span style="font-weight:700;">From:</span> rewards@brompton.com</div>
+              <div style="font-size:8px;color:var(--grey-dark);"><span style="font-weight:700;">To:</span> andy@email.com</div>
+              <div style="font-size:9px;font-weight:700;color:var(--black);margin-top:3px;">Your Brompton test ride offer</div>
+            </div>
+          </div>
+          <div style="padding:14px 12px;">
+            <div style="font-size:15px;color:var(--grey-dark);line-height:1.55;margin-bottom:14px;">Thanks for test riding Andy! Use this code online or show the barcode in-store to claim your offer.</div>
+            <div style="text-align:center;background:var(--blue-pale);border:1px solid var(--blue);border-radius:7px;padding:12px 10px;">
+              <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">10% off accessories</div>
+              <div style="font-family:monospace;font-size:16px;font-weight:700;color:var(--blue);letter-spacing:3px;margin-bottom:10px;">1X923FD23</div>
+              <svg viewBox="0 0 120 40" width="120" height="40" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
+                <rect x="0" y="0" width="2" height="40" fill="#000"/><rect x="4" y="0" width="1" height="40" fill="#000"/><rect x="7" y="0" width="3" height="40" fill="#000"/><rect x="12" y="0" width="1" height="40" fill="#000"/><rect x="15" y="0" width="2" height="40" fill="#000"/><rect x="19" y="0" width="1" height="40" fill="#000"/><rect x="22" y="0" width="3" height="40" fill="#000"/><rect x="27" y="0" width="1" height="40" fill="#000"/><rect x="30" y="0" width="2" height="40" fill="#000"/><rect x="34" y="0" width="1" height="40" fill="#000"/><rect x="37" y="0" width="3" height="40" fill="#000"/><rect x="42" y="0" width="2" height="40" fill="#000"/><rect x="46" y="0" width="1" height="40" fill="#000"/><rect x="49" y="0" width="3" height="40" fill="#000"/><rect x="54" y="0" width="1" height="40" fill="#000"/><rect x="57" y="0" width="2" height="40" fill="#000"/><rect x="61" y="0" width="1" height="40" fill="#000"/><rect x="64" y="0" width="3" height="40" fill="#000"/><rect x="69" y="0" width="2" height="40" fill="#000"/><rect x="73" y="0" width="1" height="40" fill="#000"/><rect x="76" y="0" width="2" height="40" fill="#000"/><rect x="80" y="0" width="1" height="40" fill="#000"/><rect x="83" y="0" width="3" height="40" fill="#000"/><rect x="88" y="0" width="1" height="40" fill="#000"/><rect x="91" y="0" width="2" height="40" fill="#000"/><rect x="95" y="0" width="3" height="40" fill="#000"/><rect x="100" y="0" width="1" height="40" fill="#000"/><rect x="103" y="0" width="2" height="40" fill="#000"/><rect x="107" y="0" width="1" height="40" fill="#000"/><rect x="110" y="0" width="3" height="40" fill="#000"/><rect x="115" y="0" width="2" height="40" fill="#000"/><rect x="118" y="0" width="2" height="40" fill="#000"/>
+              </svg>
+              <div style="font-size:9px;color:var(--blue);margin-top:8px;">Expires <span class="email-expiry-date"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen d-verify: Code verification (Dealer path) -->
+        <div class="sb-pscr" id="sbscr-d-verify">
+          <div style="background:var(--black);padding:10px 12px;">
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:2px;">Brompton Champions</div>
+            <div style="font-family:var(--font-brand);font-size:13px;color:white;">Balfes Bikes</div>
+          </div>
+          <div style="padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--green-pale);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:26px;">✅</div>
+            <div style="font-family:var(--font-brand);font-size:18px;color:var(--green);text-align:center;line-height:1.2;">Code verified!</div>
+            <div style="background:var(--green-pale);border:1px solid var(--green);border-radius:8px;padding:12px 14px;text-align:center;width:100%;">
+              <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px;">10% off accessories</div>
+              <div style="font-size:9px;color:var(--grey-dark);margin-bottom:2px;">Valid only for Andy</div>
+              <div style="font-size:9px;color:var(--grey-dark);">Expires <span class="verify-expiry-date"></span></div>
+            </div>
+            <div style="background:var(--green);color:white;border-radius:6px;padding:10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;width:100%;">Redeem In-Store</div>
+          </div>
+        </div>
+
+        <!-- Screen d-receipt: Paper receipt at Balfes Bikes (Dealer path) -->
+        <div class="sb-pscr" id="sbscr-d-receipt">
+          <div style="background:#f5f5f0;padding:16px 14px 10px;font-family:'Courier New',Courier,monospace;font-size:8px;color:#111;overflow-y:auto;">
+            <!-- Logo + header -->
+            <div style="text-align:center;margin-bottom:10px;">
+              <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5ead516895915b0001843030/0x0.png" style="height:28px;width:auto;object-fit:contain;margin-bottom:6px;" alt="Balfes Bikes"/>
+              <div style="font-size:9px;font-weight:700;letter-spacing:1px;">BALFES BIKES</div>
+              <div style="font-size:7px;color:#555;">9 Fade St, Dublin 2</div>
+              <div style="font-size:7px;color:#555;">Tel: +353 1 679 4046</div>
+            </div>
+            <div style="border-top:1px dashed #aaa;margin-bottom:8px;"></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:2px;font-size:7px;color:#555;">
+              <span class="receipt-date-dealer"></span>
+              <span>Receipt #2847</span>
+            </div>
+            <div style="border-top:1px dashed #aaa;margin:8px 0;"></div>
+            <!-- Items -->
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span style="flex:1;padding-right:4px;">Brompton C Line<br><span style="color:#555;font-size:7px;">Plum Red</span></span>
+              <span style="white-space:nowrap;">£1,950.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span style="flex:1;padding-right:4px;">Toolkit<br><span style="color:#555;font-size:7px;">Black</span></span>
+              <span style="white-space:nowrap;">£58.50</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span style="flex:1;padding-right:4px;">Storage Mat<br><span style="color:#555;font-size:7px;">Black</span></span>
+              <span style="white-space:nowrap;">£27.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span style="flex:1;padding-right:4px;">Quadlock Phone Mount</span>
+              <span style="white-space:nowrap;">£43.20</span>
+            </div>
+            <div style="border-top:1px dashed #aaa;margin:8px 0;"></div>
+            <!-- Discounts -->
+            <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Member Savings</div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span>10% off accessories</span><span>−£14.30</span>
+            </div>
+            <div style="border-top:1px dashed #aaa;margin:8px 0;"></div>
+            <!-- Total -->
+            <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;margin-bottom:12px;">
+              <span>TOTAL (GBP)</span><span>£2,064.40</span>
+            </div>
+          </div>
+          <!-- Sawtooth tear edge -->
+          <svg viewBox="0 0 224 14" width="100%" height="14" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+            <polygon fill="#f5f5f0" points="0,0 224,0 224,7 217,14 210,7 203,14 196,7 189,14 182,7 175,14 168,7 161,14 154,7 147,14 140,7 133,14 126,7 119,14 112,7 105,14 98,7 91,14 84,7 77,14 70,7 63,14 56,7 49,14 42,7 35,14 28,7 21,14 14,7 7,14 0,7"/>
+          </svg>
+        </div>
+
+      </div><!-- /sticky-screen -->
+    </div><!-- /sticky-phone -->
+  </div><!-- /sb-phone-sticky -->
+
+  </div><!-- /sb-outer-grid -->
+
+  <div id="post-branch-callout" style="display:none;max-width:960px;margin:40px auto 0;padding:24px 32px;background:var(--blue-pale);border:1px solid var(--blue);border-radius:8px;color:var(--blue);text-align:center;">
+    <div style="font-size:15px;font-weight:600;line-height:1.65;margin-bottom:6px;">The flywheel completes — and accelerates.</div>
+    <div style="font-size:15px;font-weight:600;line-height:1.65;margin-bottom:20px;">Now let's see how we can leverage the ownership experience to drive conversion.</div>
+    <a href="/brompton-ownership-storyboard.html" style="display:inline-block;background:var(--blue);color:white;border-radius:5px;padding:11px 22px;font-size:13px;font-weight:700;letter-spacing:0.5px;text-decoration:none;">Onward ownership journey →</a>
+  </div>
+</section>
+
+<script>
+// ── Storyboard scroll-reveal ──────────────────────────────────────────────────
+(function () {
+  var storyboard = document.getElementById('storyboard');
+  if (!storyboard) return;
+
+  var SELECTORS = [
+    '.sb-phase-hdr',
+    '.chat-hdr',
+    '.chat-ctx',
+    '.chat-msg2',
+    '.chat-outcomes2'
+  ].join(',');
+
+  var allItems = Array.from(storyboard.querySelectorAll(SELECTORS));
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0,
+    rootMargin: '0px 0px -20% 0px'
+  });
+
+  allItems.forEach(function (el) { observer.observe(el); });
+
+  // ── Bidirectional screen switching via scroll ─────────────────────────────
+  var triggerEls = Array.from(storyboard.querySelectorAll('[data-trigger-screen]'));
+  var stickyPhone = document.querySelector('.sticky-phone');
+  var sbScreens = document.querySelectorAll('.sb-pscr');
+  var lastScreenId = null;
+  var hideTimeout = null;
+
+  // ── Dynamic dates ─────────────────────────────────────────────────────────
+  (function() {
+    var today = new Date();
+    var d2 = new Date(today); d2.setDate(today.getDate() + 2);
+    var d10 = new Date(today); d10.setDate(today.getDate() + 10);
+    var d30 = new Date(today); d30.setDate(today.getDate() + 30);
+    var opts = { day: 'numeric', month: 'long' };
+    var optsShort = { day: 'numeric', month: 'short', year: 'numeric' };
+    var d2str = d2.toLocaleDateString('en-GB', opts);
+    var d10str = d10.toLocaleDateString('en-GB', opts);
+    var d30str = d30.toLocaleDateString('en-GB', opts);
+    var todayStr = today.toLocaleDateString('en-GB', optsShort);
+    document.querySelectorAll('.delivery-date-dealer').forEach(function(el) { el.textContent = d2str; });
+    document.querySelectorAll('.verify-expiry-date').forEach(function(el) { el.textContent = d10str; });
+    document.querySelectorAll('.email-expiry-date').forEach(function(el) { el.textContent = d30str; });
+    document.querySelectorAll('.receipt-date-dealer').forEach(function(el) { el.textContent = todayStr; });
+  })();
+
+  function activateSbScreen(screenId) {
+    sbScreens.forEach(function(s) { s.classList.remove('active'); });
+    if (hideTimeout) { clearTimeout(hideTimeout); hideTimeout = null; }
+    if (screenId === 'd-receipt') {
+      stickyPhone.classList.add('receipt-mode');
+    } else {
+      stickyPhone.classList.remove('receipt-mode');
+    }
+    if (screenId === 'blank') {
+      stickyPhone.style.opacity = '0';
+      hideTimeout = setTimeout(function() { stickyPhone.style.visibility = 'hidden'; hideTimeout = null; }, 500);
+    } else {
+      stickyPhone.style.visibility = 'visible';
+      stickyPhone.style.opacity = '1';
+      var t = document.getElementById('sbscr-' + screenId);
+      if (t) t.classList.add('active');
+      if (screenId === '3') {
+        var b1 = document.getElementById('bar3-1');
+        var b2 = document.getElementById('bar3-2');
+        if (b1) { b1.style.width = '0'; requestAnimationFrame(function() { requestAnimationFrame(function() { b1.style.width = '85%'; }); }); }
+        if (b2) { b2.style.width = '0'; setTimeout(function() { b2.style.width = '100%'; }, 300); }
+      }
+    }
+  }
+
+  function updateActiveScreen() {
+    var threshold = window.innerHeight * 0.60;
+    var active = null;
+
+    triggerEls.forEach(function (el) {
+      if (el.offsetParent === null) return; // skip elements in hidden branches
+      var rect = el.getBoundingClientRect();
+      if (rect.top < threshold) {
+        if (!active || rect.top > active.getBoundingClientRect().top) {
+          active = el;
+        }
+      }
+    });
+
+    var newId = active ? active.dataset.triggerScreen : null;
+    if (newId === lastScreenId) return;
+    lastScreenId = newId;
+
+    if (!newId) {
+      if (stickyPhone) { stickyPhone.style.visibility = 'hidden'; stickyPhone.style.opacity = '0'; }
+    } else {
+      activateSbScreen(newId);
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveScreen, { passive: true });
+  updateActiveScreen();
+})();
+
+// ── Branch selection ──────────────────────────────────────────────────────────
+function selectBranch(branch) {
+  // Show chosen branch, hide other
+  document.querySelectorAll('[data-branch]').forEach(function(el) {
+    el.style.display = el.dataset.branch === branch ? '' : 'none';
+  });
+
+  // Collapse selector to a small pill so user can switch back
+  var sel = document.getElementById('branch-selector');
+  if (sel) {
+    sel.innerHTML = '<div style="display:flex;align-items:center;gap:10px;justify-content:center;">'
+      + '<span style="font-size:12px;color:var(--grey-dark);">Viewing: <strong style="color:var(--blue);">' + (branch === 'dealer' ? 'Dealer' : 'eCommerce') + '</strong></span>'
+      + '<button onclick="resetBranch()" style="background:none;border:1px solid var(--grey-mid);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--grey-dark);cursor:pointer;">Switch</button>'
+      + '</div>';
+  }
+
+  // Reset phone screen
+  document.querySelectorAll('.sb-pscr').forEach(function(s) { s.classList.remove('active'); });
+  var phone = document.querySelector('.sticky-phone');
+  if (phone) { phone.style.opacity = '0'; phone.style.visibility = 'hidden'; }
+
+  // Observe newly visible elements for scroll-reveal
+  var storyboard = document.getElementById('storyboard');
+  var SELECTORS = ['.sb-phase-hdr','.chat-hdr','.chat-ctx','.chat-msg2','.chat-outcomes2'].join(',');
+  var branchEl = document.querySelector('[data-branch="' + branch + '"]');
+  if (branchEl) {
+    var newItems = Array.from(branchEl.querySelectorAll(SELECTORS));
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('revealed'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -20% 0px' });
+    newItems.forEach(function(el) { if (!el.classList.contains('revealed')) obs.observe(el); });
+  }
+
+  // Reveal post-branch content (Phase 5, 6) and callout
+  var postBranch = document.getElementById('post-branch-content');
+  if (postBranch) postBranch.style.display = '';
+  var postCallout = document.getElementById('post-branch-callout');
+  if (postCallout) postCallout.style.display = '';
+
+  // Scroll to branch start smoothly
+  var branchDiv = document.querySelector('[data-branch="' + branch + '"]');
+  if (branchDiv) { branchDiv.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+
+function resetBranch() {
+  document.querySelectorAll('[data-branch]').forEach(function(el) { el.style.display = 'none'; });
+  var postBranch = document.getElementById('post-branch-content');
+  if (postBranch) postBranch.style.display = 'none';
+  var postCallout = document.getElementById('post-branch-callout');
+  if (postCallout) postCallout.style.display = 'none';
+  var sel = document.getElementById('branch-selector');
+  if (sel) {
+    sel.innerHTML = '<div style="font-size:13px;font-weight:700;color:var(--grey-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Where does Andy buy?</div>'
+      + '<div style="display:flex;gap:10px;justify-content:center;">'
+      + '<button onclick="selectBranch(\'dealer\')" style="background:var(--blue);color:white;border:none;border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Dealer</button>'
+      + '<button onclick="selectBranch(\'ecommerce\')" style="background:white;color:var(--blue);border:2px solid var(--blue);border-radius:6px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">eCommerce</button>'
+      + '</div>';
+  }
+  sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+<script>
+  (function() {
+    var d = new Date();
+    d.setDate(d.getDate() + 2);
+    var dateStr = d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+    var el = document.getElementById('sfs-delivery-date');
+    if (el) el.textContent = 'Delivery by ' + dateStr;
+  })();
+</script>
+
+</body>
+</html>

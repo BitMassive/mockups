@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="stylesheet" href="Problem/Loyalty/brompton-club-app.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Andy's Ownership Journey — Brompton</title>
 <style>
-  @font-face {
-    font-family: 'BromptonSlab';
-    src: url('Brand/BromptonSlab-Regular.woff') format('woff'),
          url('Brand/BromptonSlab-Regular.otf') format('opentype');
-    font-weight: 400; font-style: normal;
-  }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --blue: #002FA7; --blue-mid: #1A4BC4; --blue-light: #E8EEFB; --blue-pale: #F0F3FC;
-    --black: #000000; --white: #FFFFFF;
-    --grey-dark: #707070; --grey-mid: #DBDBDB; --grey-light: #F6F6F6;
-    --yellow: #E8B500; --yellow-pale: #FEF7D9;
-    --green: #1E5C1E; --green-pale: #E6F0E6;
-    --font-brand: 'BromptonSlab', Georgia, 'Times New Roman', serif;
-    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Aliases to Brompton Club design system tokens */
+    --blue:        var(--bc-blue);
+    --blue-mid:    #1A4BC4;
+    --blue-light:  #E8EEFB;
+    --blue-pale:   var(--bc-blue-pale);
+    --black:       var(--bc-black);
+    --white:       #FFFFFF;
+    --grey-dark:   var(--bc-grey-dark);
+    --grey-mid:    var(--bc-grey-mid);
+    --grey-light:  var(--bc-grey-light);
+    --yellow:      var(--bc-yellow);
+    --yellow-pale: var(--bc-yellow-pale);
+    --green:       var(--bc-green);
+    --green-pale:  var(--bc-green-pale);
+    --font-brand:  var(--bc-font-heading);
+    --font-body:   var(--bc-font-body);
   }
   html { scroll-behavior: smooth; }
   body { font-family: var(--font-body); background: var(--white); color: var(--black); line-height: 1.5; zoom: 1.25; }
@@ -83,9 +90,9 @@
   .sb-phone-sticky { position:sticky; top:32px; }
   .sb-pscr { display:none; }
   .sb-pscr.active { display:block; }
-  .sticky-phone { width:244px; background:#1A1A1A; border-radius:38px; padding:12px 10px; box-shadow:0 22px 56px rgba(0,0,0,0.25),0 0 0 1px rgba(0,0,0,0.12); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
-  .sticky-notch { width:72px; height:21px; background:#1A1A1A; border-radius:0 0 13px 13px; margin:0 auto 7px; }
-  .sticky-screen { background:white; border-radius:26px; overflow:hidden; min-height:440px; }
+  .sticky-phone { width:244px; background:var(--grey-light); border-radius:36px; padding:6px 6px 0; box-shadow:0 8px 32px rgba(0,0,0,0.18); visibility:hidden; opacity:0; transition:opacity 0.5s ease; }
+  .sticky-notch { display:none; }
+  .sticky-screen { background:white; border-radius:30px; overflow:hidden; min-height:528px; }
   .sticky-phone.image-mode { background:transparent; box-shadow:none; padding:0; border-radius:0; }
   .sticky-phone.image-mode .sticky-notch { display:none; }
   .sticky-phone.image-mode .sticky-screen { background:transparent; border-radius:0; overflow:visible; min-height:0; }
@@ -136,6 +143,17 @@
     .sb-outer-grid { grid-template-columns: 1fr; }
     .sb-phone-sticky { display: none; }
   }
+
+
+      /* Screen-1 referral variants: flex column so inner body can scroll */
+      #sbscr-ref-s1-zero.active,
+      #sbscr-ref-s1-rode.active,
+      #sbscr-ref-s1-bought.active { display:flex !important; flex-direction:column; height:528px; }
+      /* ── Phase 6 referral progress bar animations ── */
+      #sbscr-ref-s1-rode.active .ref-rode-fill { animation: refRodeBar 1.2s 0.5s ease-out forwards; width: 0%; }
+      #sbscr-ref-s1-bought.active .ref-bought-fill { animation: refBoughtBar 1.2s 0.5s ease-out forwards; width: 0%; }
+      @keyframes refRodeBar { from { width: 0%; } to { width: 13%; } }
+      @keyframes refBoughtBar { from { width: 0%; } to { width: 20%; } }
 </style>
 </head>
 <body>
@@ -368,48 +386,65 @@
        PHASE 6 · THE REFERRAL
   ═══════════════════════════════════════ -->
   <div class="sb-row" style="margin-top:80px;">
-    <div class="sb-phase-hdr" data-trigger-screen="friendpass">
+    <div class="sb-phase-hdr" data-trigger-screen="ref-notify">
       <div class="sb-phase-num" style="background:var(--green);">6</div>
-      <div class="sb-phase-title" style="color:var(--green);">100 Miles — The Friend Pass</div>
+      <div class="sb-phase-title" style="color:var(--green);">100 Miles — The Referral Loop</div>
     </div>
     <div class="chat-wrap">
-      <div class="chat-hdr">📱 Andy hits 100 miles</div>
+      <div class="chat-hdr"><i class="ph ph-bicycle"></i> Andy crosses 100 miles</div>
       <div class="chat-body2">
-        <div class="chat-ctx">The app unlocks a 3-Day Friend Pass — a Brompton hire voucher to send to anyone.</div>
+        <div class="chat-ctx">His phone buzzes with a notification.</div>
+        <div class="chat-ctx" data-trigger-screen="ref-s1-zero" style="margin-top:72px;">He taps the notification. The referral screen opens — everything at zero, all rewards waiting.</div>
+        <div class="chat-msg2 r">
+          <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
+          <div class="ch-bw">
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Huh. They make it pretty easy to share Brompton with friends."</div>
+          </div>
+        </div>
+        <div class="chat-ctx" style="margin-top:20px;">Max has been asking about the bike ever since Andy got it. He finds him in contacts and opens the 3-Day Pass.</div>
+
+        <div class="chat-ctx" data-trigger-screen="ref-s2" style="margin-top:72px;">Andy sends the friend pass to Max.</div>
         <div class="chat-msg2 r">
           <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
             <div class="ch-nm">Andy (texts Max)</div>
-            <div class="ch-b">"Got you something. Three days on a Brompton, on me. Well — on them."</div>
+            <div class="ch-b">"Got you something — three days on a Brompton. On them."</div>
           </div>
         </div>
+
+        <div class="chat-ctx" data-trigger-screen="ref-s4" style="margin-top:72px;">Max gets a text with a link.</div>
         <div class="chat-msg2">
           <img class="ch-av" src="https://images.unsplash.com/photo-1726160182266-f5ff7f78682d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGhlYWRzaG90JTIwbWFuJTIwYnJvd24lMjBza2luJTIwZnJpZW5kbHl8ZW58MHwyfDB8fHww" alt="Max" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
             <div class="ch-nm">Max</div>
-            <div class="ch-b">"Is this real? I've been going on about these things for months."</div>
+            <div class="ch-b">"I've been meaning to try one of these — and there's a dock around the corner from the office. This will be fun!"</div>
           </div>
         </div>
-        <div class="chat-ctx" data-trigger-screen="maxtour" style="margin-top:80px;">A week or so later. Andy's phone lights up.</div>
+
+        <div class="chat-ctx" data-trigger-screen="ref-s1-rode" style="margin-top:72px;">Two days later. Andy checks the app. The bar for 'For friends who try' ticks from 0 to 1. The first reward unlocks.</div>
         <div class="chat-msg2 r">
           <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
-            <div class="ch-nm">Andy (calls Ella)</div>
-            <div class="ch-b">"Max got one. They're inviting us to the factory."</div>
+            <div class="ch-nm">Andy</div>
+            <div class="ch-b">"Ah — Max must've got on one! I wonder how he liked it."</div>
           </div>
         </div>
         <div class="chat-msg2">
           <img class="ch-av" src="https://images.unsplash.com/photo-1710777932534-2a58edf3603d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWRzaG90JTIwd29tYW4lMjBicm93biUyMHNraW58ZW58MHwyfDB8fHww" alt="Ella" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
             <div class="ch-nm">Ella</div>
-            <div class="ch-b">"Us? The factory? In Greenford?"</div>
+            <div class="ch-b">"He sent a selfie riding home from work. Looked pretty happy."</div>
           </div>
         </div>
+
+        <div class="chat-ctx" data-trigger-screen="ref-notify-bought" style="margin-top:72px;">One week later. Another notification.</div>
+        <div class="chat-ctx" data-trigger-screen="ref-s1-bought"></div>
         <div class="chat-msg2 r">
           <img class="ch-av" src="https://media.istockphoto.com/id/522189109/photo/dont-take-life-too-seriously.jpg?s=612x612&w=0&k=20&c=eA_QnFIMQT8PSDhj1go2OBcxktr0D7zBLdWZO8q8iN0=" alt="Andy" style="object-fit:cover;object-position:center top;"/>
           <div class="ch-bw">
             <div class="ch-nm">Andy</div>
-            <div class="ch-b">"Just like Willy Wonka, right?" He laughs.</div>
+            <div class="ch-b">"Max did it! I'll invite him to join me for the factory tour to celebrate."</div>
           </div>
         </div>
       </div>
@@ -417,9 +452,9 @@
         <span class="outcomes-label customer">Customer</span>
         <span class="outcomes-label retail">Retailer</span>
         <span class="outcomes-label brompton">Brompton</span>
-        <span class="outcome-tag customer">🎁 Referral feels like generosity, not a programme</span>
-        <span class="outcome-tag brompton">📈 Max is a new sale triggered by Andy — CAC near zero</span>
-        <span class="outcome-tag brompton" style="grid-row:3;">🏭 Factory tour deepens both Andy's and Max's brand commitment</span>
+        <span class="outcome-tag customer"><i class="ph ph-gift"></i> Referral feels like generosity, not a programme</span>
+        <span class="outcome-tag brompton"><i class="ph ph-trend-up"></i> Max is a new sale — CAC near zero</span>
+        <span class="outcome-tag brompton" style="grid-row:3;"><i class="ph ph-factory"></i> Factory tour deepens both riders' brand commitment</span>
       </div>
     </div>
   </div>
@@ -829,7 +864,7 @@
           <div style="background:#1C1C1E;padding:16px 12px 12px;">
             <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:right;margin-bottom:12px;">09:41</div>
             <div class="sph-notif" style="margin:0;">
-              <div class="sph-notif-ic">🚲</div>
+              <div class="sph-notif-ic"><i class="ph ph-bicycle" style="font-size:14px;"></i></div>
               <div>
                 <div class="sph-notif-app">Brompton</div>
                 <div class="sph-notif-msg" style="font-size:12px;font-weight:600;">Your Brompton T Line has been delivered.</div>
@@ -845,7 +880,7 @@
               </div>
               <div style="padding:12px;display:flex;flex-direction:column;gap:8px;">
                 <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--green-pale);border-radius:6px;border:1px solid rgba(30,92,30,0.2);">
-                  <span style="font-size:16px;">✅</span>
+                  <i class="ph-fill ph-check-circle" style="font-size:18px;color:var(--green);flex-shrink:0;"></i>
                   <div>
                     <div style="font-size:10px;font-weight:700;color:var(--green);">Delivered</div>
                     <div style="font-size:8px;color:var(--grey-dark);">T Line · Electric · Flame Lacquer</div>
@@ -867,10 +902,10 @@
           <div class="sph-body">
             <div class="sph-field">
               <div class="sph-flbl">Serial Number</div>
-              <div class="sph-fval">T24-08847-LDN ✓</div>
+              <div class="sph-fval" style="display:flex;align-items:center;gap:5px;">T24-08847-LDN <i class="ph-fill ph-check-circle" style="color:var(--green);font-size:12px;"></i></div>
             </div>
             <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.25);border-radius:8px;padding:11px;display:flex;flex-direction:column;gap:5px;">
-              <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:2px;">Bike found ✓</div>
+              <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:2px;display:flex;align-items:center;gap:4px;"><i class="ph-fill ph-check-circle" style="font-size:10px;"></i> Bike found</div>
               <div style="font-size:11px;font-weight:700;color:var(--black);">Brompton T Line Electric</div>
               <div style="font-size:9px;color:var(--grey-dark);">Flame Lacquer · 4-speed</div>
               <div style="border-top:1px solid rgba(30,92,30,0.15);margin-top:4px;padding-top:6px;">
@@ -938,7 +973,7 @@
         <div class="sb-pscr" id="sbscr-badge">
           <div style="background:var(--black);padding:16px 14px;text-align:center;">
             <div class="sph-brand">Brompton</div>
-            <div style="font-size:36px;margin:8px 0;">🏅</div>
+            <div style="font-size:36px;margin:8px 0;"><i class="ph-fill ph-medal" style="color:var(--yellow);"></i></div>
             <div class="sph-title">Verified Owner</div>
             <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:6px;">1 mile logged</div>
           </div>
@@ -979,11 +1014,11 @@
             <div style="background:var(--grey-light);border-radius:8px;padding:10px;font-size:10px;color:var(--grey-dark);line-height:1.55;font-style:italic;">"Congrats on your first 25 miles. I remember mine — I knew straight away this was different. Keep going."</div>
             <div style="display:flex;gap:8px;">
               <div style="flex:1;background:var(--green-pale);border-radius:6px;padding:8px;text-align:center;">
-                <div style="font-size:16px;">💬</div>
+                <div style="font-size:20px;"><i class="ph ph-chat-circle-dots"></i></div>
                 <div style="font-size:8px;font-weight:700;color:var(--green);margin-top:2px;">Reply</div>
               </div>
               <div style="flex:1;background:var(--blue-pale);border-radius:6px;padding:8px;text-align:center;">
-                <div style="font-size:16px;">📤</div>
+                <div style="font-size:20px;"><i class="ph ph-share-fat"></i></div>
                 <div style="font-size:8px;font-weight:700;color:var(--blue);margin-top:2px;">Share</div>
               </div>
             </div>
@@ -994,13 +1029,13 @@
         <div class="sb-pscr" id="sbscr-coffee">
           <div style="background:var(--black);padding:16px 14px 12px;text-align:center;">
             <div class="sph-brand">50 Miles</div>
-            <div style="font-size:34px;margin:6px 0;">☕</div>
+            <div style="font-size:34px;margin:6px 0;"><i class="ph ph-coffee" style="color:rgba(255,255,255,0.9);"></i></div>
             <div class="sph-title">Your reward<br>is waiting</div>
           </div>
           <div class="sph-body">
             <div style="background:white;border:1px solid var(--grey-mid);border-radius:10px;overflow:hidden;">
               <div style="background:#1A1A1A;padding:12px;display:flex;align-items:center;gap:9px;">
-                <div style="font-size:22px;">☕</div>
+                <div style="font-size:22px;"><i class="ph ph-coffee" style="color:white;"></i></div>
                 <div>
                   <div style="font-size:11px;font-weight:700;color:white;">One Free Coffee</div>
                   <div style="font-size:9px;color:rgba(255,255,255,0.5);">WatchHouse · Any London location</div>
@@ -1022,90 +1057,442 @@
           </div>
         </div>
 
-        <!-- ── SCREEN: friendpass ── -->
-        <div class="sb-pscr" id="sbscr-friendpass">
-          <div style="background:var(--black);padding:16px 14px 12px;text-align:center;">
-            <div class="sph-brand">100 Miles</div>
-            <div style="font-size:30px;margin:6px 0;">🎁</div>
-          </div>
-          <div class="sph-body">
-            <div style="background:white;border:1.5px solid var(--blue);border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:6px;">3-Day Friend Pass</div>
-              <div style="font-family:var(--font-brand);font-size:18px;color:var(--black);font-weight:400;line-height:1.25;margin-bottom:4px;">Free Brompton<br>hire for someone<br>you choose</div>
-              <div style="font-size:9px;color:var(--grey-dark);line-height:1.4;margin-bottom:10px;">Any Brompton hire location. No card required. Just send the pass.</div>
-              <div class="sph-btn-blue" style="font-size:10px;">Share Friend Pass</div>
+        <!-- ── SCREEN: ref-notify ── -->
+        <div class="sb-pscr" id="sbscr-ref-notify">
+          <div style="background:#1C1C1E;padding:16px 12px 18px;min-height:100%;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.35);text-align:right;margin-bottom:16px;">9:41</div>
+            <div class="sph-notif">
+              <div class="sph-notif-ic" style="background:var(--blue);">
+                <i class="ph-fill ph-bicycle" style="font-size:14px;color:white;"></i>
+              </div>
+              <div>
+                <div class="sph-notif-app">Brompton Club</div>
+                <div class="sph-notif-msg">Congrats on 100 mi! Give a friend their first taste of Brompton.</div>
+              </div>
             </div>
-            <div style="font-size:9px;color:var(--grey-dark);text-align:center;">You can send this to one person. Choose wisely.</div>
           </div>
         </div>
 
-        <!-- ── SCREEN: maxtour ── -->
-        <div class="sb-pscr" id="sbscr-maxtour">
-          <div style="background:#1C1C1E;padding:16px 12px 12px;">
-            <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:right;margin-bottom:10px;">10:22</div>
-            <div class="sph-notif" style="margin:0 0 8px;">
-              <div class="sph-notif-ic">🎉</div>
-              <div>
-                <div class="sph-notif-app">Brompton</div>
-                <div class="sph-notif-msg">Max just bought a Brompton!</div>
+        <!-- ── SCREEN: ref-s1-zero ── -->
+        <div class="sb-pscr" id="sbscr-ref-s1-zero">
+          <div style="background:var(--blue);padding:13px 13px 18px;flex-shrink:0;">
+          <div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Refer a friend</div>
+          <div style="font-family:var(--font-brand);font-size:16px;color:white;line-height:1.2;margin-bottom:5px;">Share the ride.</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.85);line-height:1.5;">Give a friend their first taste of Brompton. The more they ride, the more you both get.</div>
+        </div>
+          <div style="flex:1;overflow-y:auto;background:var(--grey-light);-ms-overflow-style:none;scrollbar-width:none;">          <div style="display:flex;gap:7px;margin:10px 10px 0;">
+              <div style="flex:1;background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1.5px solid var(--grey-mid);display:flex;flex-direction:column;">
+                <div style="font-size:7px;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">Free rides</div>
+                <div style="font-family:var(--font-brand);font-size:11px;line-height:1.2;margin-bottom:4px;">3-Day Pass</div>
+                <div style="font-size:8px;color:var(--grey-dark);line-height:1.35;flex:1;">Three days of Brompton Bike Hire. No card, no commitment.</div>
+                <div style="margin-top:5px;font-size:8px;color:var(--blue);font-weight:600;">Valid 30 days</div>
+                <button style="margin-top:7px;width:100%;background:var(--blue);color:white;border:none;border-radius:6px;padding:5px;font-size:8px;cursor:pointer;">Share</button>
+              </div>
+              <div style="flex:1;background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1.5px solid var(--grey-mid);display:flex;flex-direction:column;">
+                <div style="font-size:7px;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">1st bike discount</div>
+                <div style="font-family:var(--font-brand);font-size:11px;line-height:1.2;margin-bottom:4px;">Give £25,<br>get £25</div>
+                <div style="font-size:8px;color:var(--grey-dark);line-height:1.35;flex:1;">Everybody wins when someone new gets on a Brompton.</div>
+                <div style="margin-top:5px;font-size:8px;color:var(--blue);font-weight:600;">Terms apply</div>
+                <button style="margin-top:7px;width:100%;background:var(--blue);color:white;border:none;border-radius:6px;padding:5px;font-size:8px;cursor:pointer;">Share</button>
               </div>
             </div>
-            <div class="sph-notif" style="margin:0;">
-              <div class="sph-notif-ic">🏭</div>
+          <div style="padding:0 10px 12px;">
+            <!-- Rewards heading -->
+            <div style="font-family:var(--font-brand);font-size:13px;color:var(--black);margin-top:14px;margin-bottom:10px;">Rewards</div>
+
+            <!-- Friends who tried one -->
+            <div style="background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:8px;">
+              <div style="font-family:var(--font-brand);font-size:10px;color:var(--black);margin-bottom:7px;">Friends who tried one</div>
+              <div style="position:relative;margin-bottom:5px;">
+                <div style="font-size:8px;font-weight:700;color:var(--yellow);position:absolute;top:-14px;left:80%;transform:translateX(-50%);white-space:nowrap;">6 ✦</div>
+                <div style="height:8px;background:var(--grey-light);border-radius:999px;margin-bottom:10px;border:1px solid var(--grey-mid);overflow:visible;position:relative;">
+                  <div style="height:100%;background:linear-gradient(90deg,#1A4BC4,var(--blue));border-radius:999px;position:absolute;top:0;left:0;z-index:2;width:0%;"></div>
+                  <div style="position:absolute;top:0;right:0;height:100%;width:20%;border-radius:0 999px 999px 0;background:linear-gradient(90deg,var(--yellow),#FF6B35,#9B59B6);opacity:0.3;z-index:1;"></div>
+                  <div style="position:absolute;top:-3px;bottom:-3px;left:80%;width:2px;background:var(--yellow);border-radius:2px;z-index:3;"></div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.55;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">1</div>
+                  <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">1 trial</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">50% off a flat fix</div></div>
+                  <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+                </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.45;">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">3</div>
+                <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">3 trials</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">Brompton cap</div></div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.35;">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">5</div>
+                <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">5 trials</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">£20 off a £100 purchase</div></div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),#FF6B35,#9B59B6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:white;">✦</div>
+                <div style="flex:1;">
+                  <div style="font-size:8px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.06em;">6+ trials</div>
+                  <div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">A surprise. Trust us.</div>
+                </div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="margin-top:7px;font-size:8px;color:var(--grey-dark);border-top:1px solid var(--grey-mid);padding-top:6px;">Rewards reset every 6 months</div>
+            </div>
+
+            <!-- Friends who bought one -->
+            <div style="background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+              <div style="font-family:var(--font-brand);font-size:10px;color:var(--black);margin-bottom:7px;">Friends who bought one</div>
+              <div style="position:relative;margin-bottom:5px;">
+                <div style="font-size:8px;font-weight:700;color:var(--yellow);position:absolute;top:-14px;left:80%;transform:translateX(-50%);white-space:nowrap;">4 ✦</div>
+                <div style="height:8px;background:var(--grey-light);border-radius:999px;margin-bottom:10px;border:1px solid var(--grey-mid);overflow:visible;position:relative;">
+                  <div style="height:100%;background:linear-gradient(90deg,#1A6B1A,var(--green));border-radius:999px;position:absolute;top:0;left:0;z-index:2;width:0%;"></div>
+                  <div style="position:absolute;top:0;right:0;height:100%;width:20%;border-radius:0 999px 999px 0;background:linear-gradient(90deg,var(--yellow),#FF6B35,#9B59B6);opacity:0.3;z-index:1;"></div>
+                  <div style="position:absolute;top:-3px;bottom:-3px;left:80%;width:2px;background:var(--yellow);border-radius:2px;z-index:3;"></div>
+                </div>
+              </div>
+              <div style="background:var(--blue-pale);border-radius:7px;padding:8px;margin-bottom:7px;">
+                <div style="font-size:7px;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;font-weight:600;">Each purchase earns your choice of:</div>
+                <div style="display:flex;gap:4px;margin-top:4px;">
+                  <div style="flex:1;background:#EDE4F5;color:#5C2D91;border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid #C9A0E8;">50% off Factory Service</div>
+                  <div style="flex:1;background:var(--yellow-pale);color:#7a5c00;border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid var(--yellow);">BWC VIP Upgrade</div>
+                  <div style="flex:1;background:var(--green-pale);color:var(--green);border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid var(--green);">Factory Pass for you +1</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;margin-top:6px;margin-bottom:0;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),#FF6B35,#9B59B6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:white;">✦</div>
+                <div style="flex:1;">
+                  <div style="font-size:8px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.06em;">4 referrals</div>
+                  <div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">10% off your next Brompton</div>
+                </div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="margin-top:7px;font-size:8px;color:var(--grey-dark);border-top:1px solid var(--grey-mid);padding-top:6px;">Valid at any Brompton stockist worldwide</div>
+            </div>
+          </div>
+          </div>
+          <nav style="display:flex;justify-content:space-around;align-items:center;background:white;border-top:1px solid var(--grey-mid);padding:8px 0 14px;flex-shrink:0;"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-house" style="font-size:18px;"></i>Home</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--blue);opacity:1;"><i class="ph-fill ph-share-network" style="font-size:18px;"></i>Refer</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-trophy" style="font-size:18px;"></i>Rewards</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-user" style="font-size:18px;"></i>Profile</div></nav>
+        </div>
+
+        <!-- ── SCREEN: ref-s2 ── -->
+        <div class="sb-pscr" id="sbscr-ref-s2">
+          <div style="background:var(--blue);padding:8px 12px 10px;display:flex;align-items:center;gap:8px;">
+            <i class="ph ph-caret-left" style="font-size:14px;color:rgba(255,255,255,0.8);"></i>
+            <div style="font-size:9px;color:rgba(255,255,255,0.8);">Refer</div>
+          </div>
+          <div style="flex:1;overflow:hidden;background:var(--grey-light);padding:10px;">
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:10px;overflow:hidden;margin-bottom:8px;">
+              <div style="background:linear-gradient(135deg,#002FA7,#1A4BC4);padding:12px;">
+                <div style="font-size:7px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.6);margin-bottom:2px;">Brompton Bike Hire</div>
+                <div style="font-family:var(--font-brand);font-size:14px;color:white;line-height:1.2;">3-Day<br>Hire Pass</div>
+                <div style="display:inline-block;background:var(--yellow);color:var(--black);font-size:7px;font-weight:700;border-radius:4px;padding:2px 6px;margin-top:6px;">Friend Pass</div>
+              </div>
+              <div style="padding:9px 11px;">
+                <div style="font-size:8.5px;color:var(--grey-dark);line-height:1.5;margin-bottom:8px;">Three days on a Brompton — no card, no commitment. Pick up from any Brompton Bike Hire location.</div>
+                <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;gap:6px;font-size:8px;color:var(--grey-dark);"><i class="ph ph-map-pin" style="font-size:12px;"></i> Any Brompton Bike Hire location</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:8px;color:var(--grey-dark);"><i class="ph ph-credit-card" style="font-size:12px;"></i> No card required</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:8px;color:var(--grey-dark);"><i class="ph ph-lock-open" style="font-size:12px;"></i> Single use · Valid 30 days</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.15);border-radius:7px;padding:8px;font-size:8.5px;color:var(--grey-dark);margin-bottom:10px;display:flex;align-items:flex-start;gap:6px;">
+              <i class="ph ph-lightbulb" style="font-size:14px;flex-shrink:0;color:var(--blue);"></i>
+              Once your friend rides, you're one step closer to your next reward.
+            </div>
+            <div class="sph-btn-blue">Send to a friend</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: ref-s4 ── -->
+        <div class="sb-pscr" id="sbscr-ref-s4">
+          <div style="background:#1F3263;padding:14px 12px 14px;">
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:3px;">You've got a gift</div>
+            <div style="font-family:var(--font-brand);font-size:14px;color:white;line-height:1.25;">A 3-day Brompton pass.<br>Courtesy of a friend.</div>
+          </div>
+          <div style="flex:1;overflow:hidden;background:var(--grey-light);padding:10px;">
+            <div style="background:white;border:1px solid var(--grey-mid);border-radius:10px;overflow:hidden;margin-bottom:8px;">
+              <div style="background:linear-gradient(135deg,#1F3263,#002FA7);padding:12px;text-align:center;">
+                <div style="font-size:7px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.55);margin-bottom:2px;">Brompton Bike Hire</div>
+                <div style="font-family:var(--font-brand);font-size:14px;color:white;">3-Day Pass</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.65);margin-top:3px;">Folded up small. Yours to explore.</div>
+              </div>
+              <div style="padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;align-items:flex-start;gap:7px;">
+                  <i class="ph ph-calendar" style="font-size:14px;color:var(--grey-dark);flex-shrink:0;"></i>
+                  <div><div style="font-size:8.5px;font-weight:700;">3 consecutive days</div><div style="font-size:8px;color:var(--grey-dark);">Valid for 30 days</div></div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:7px;">
+                  <i class="ph ph-credit-card" style="font-size:14px;color:var(--grey-dark);flex-shrink:0;"></i>
+                  <div><div style="font-size:8.5px;font-weight:700;">No card required</div><div style="font-size:8px;color:var(--grey-dark);">Just show up with this pass</div></div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:7px;">
+                  <i class="ph ph-map-pin" style="font-size:14px;color:var(--grey-dark);flex-shrink:0;"></i>
+                  <div><div style="font-size:8.5px;font-weight:700;">Any Brompton Bike Hire location</div><div style="font-size:8px;color:var(--grey-dark);">Find your nearest spot</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="sph-btn-blue">Find nearby hire bikes</div>
+          </div>
+        </div>
+
+        <!-- ── SCREEN: ref-s1-rode ── -->
+        <div class="sb-pscr" id="sbscr-ref-s1-rode">
+          <div style="background:var(--blue);padding:13px 13px 18px;flex-shrink:0;">
+          <div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Refer a friend</div>
+          <div style="font-family:var(--font-brand);font-size:16px;color:white;line-height:1.2;margin-bottom:5px;">Share the ride.</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.85);line-height:1.5;">Give a friend their first taste of Brompton. The more they ride, the more you both get.</div>
+        </div>
+          <div style="flex:1;overflow-y:auto;background:var(--grey-light);-ms-overflow-style:none;scrollbar-width:none;">          <div style="display:flex;gap:7px;margin:10px 10px 0;">
+              <div style="flex:1;background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1.5px solid var(--grey-mid);display:flex;flex-direction:column;">
+                <div style="font-size:7px;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">Free rides</div>
+                <div style="font-family:var(--font-brand);font-size:11px;line-height:1.2;margin-bottom:4px;">3-Day Pass</div>
+                <div style="font-size:8px;color:var(--grey-dark);line-height:1.35;flex:1;">Three days of Brompton Bike Hire. No card, no commitment.</div>
+                <div style="margin-top:5px;font-size:8px;color:var(--blue);font-weight:600;">Valid 30 days</div>
+                <button style="margin-top:7px;width:100%;background:var(--blue);color:white;border:none;border-radius:6px;padding:5px;font-size:8px;cursor:pointer;">Share</button>
+              </div>
+              <div style="flex:1;background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1.5px solid var(--grey-mid);display:flex;flex-direction:column;">
+                <div style="font-size:7px;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">1st bike discount</div>
+                <div style="font-family:var(--font-brand);font-size:11px;line-height:1.2;margin-bottom:4px;">Give £25,<br>get £25</div>
+                <div style="font-size:8px;color:var(--grey-dark);line-height:1.35;flex:1;">Everybody wins when someone new gets on a Brompton.</div>
+                <div style="margin-top:5px;font-size:8px;color:var(--blue);font-weight:600;">Terms apply</div>
+                <button style="margin-top:7px;width:100%;background:var(--blue);color:white;border:none;border-radius:6px;padding:5px;font-size:8px;cursor:pointer;">Share</button>
+              </div>
+            </div>
+          <div style="padding:0 10px 12px;">
+            <!-- Rewards heading -->
+            <div style="font-family:var(--font-brand);font-size:13px;color:var(--black);margin-top:14px;margin-bottom:10px;">Rewards</div>
+
+            <!-- Friends who tried one -->
+            <div style="background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:8px;">
+              <div style="font-family:var(--font-brand);font-size:10px;color:var(--black);margin-bottom:7px;">Friends who tried one</div>
+              <div style="position:relative;margin-bottom:5px;">
+                <div style="font-size:8px;font-weight:700;color:var(--yellow);position:absolute;top:-14px;left:80%;transform:translateX(-50%);white-space:nowrap;">6 ✦</div>
+                <div style="height:8px;background:var(--grey-light);border-radius:999px;margin-bottom:10px;border:1px solid var(--grey-mid);overflow:visible;position:relative;">
+                  <div class="ref-rode-fill" style="height:100%;background:linear-gradient(90deg,#1A4BC4,var(--blue));border-radius:999px;position:absolute;top:0;left:0;z-index:2;width:0%;"></div>
+                  <div style="position:absolute;top:0;right:0;height:100%;width:20%;border-radius:0 999px 999px 0;background:linear-gradient(90deg,var(--yellow),#FF6B35,#9B59B6);opacity:0.3;z-index:1;"></div>
+                  <div style="position:absolute;top:-3px;bottom:-3px;left:80%;width:2px;background:var(--yellow);border-radius:2px;z-index:3;"></div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:var(--blue);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">1</div>
+                  <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">1 trial</div><div style="font-size:9px;font-family:var(--font-brand);line-height:1.2;">50% off a flat fix</div></div>
+                  <button style="background:var(--blue);color:white;border:none;border-radius:5px;padding:4px 7px;font-size:8px;cursor:pointer;white-space:nowrap;">Redeem</button>
+                </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.45;">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">3</div>
+                <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">3 trials</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">Brompton cap</div></div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.35;">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">5</div>
+                <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">5 trials</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">£20 off a £100 purchase</div></div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),#FF6B35,#9B59B6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:white;">✦</div>
+                <div style="flex:1;">
+                  <div style="font-size:8px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.06em;">6+ trials</div>
+                  <div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">A surprise. Trust us.</div>
+                </div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="margin-top:7px;font-size:8px;color:var(--grey-dark);border-top:1px solid var(--grey-mid);padding-top:6px;">Rewards reset every 6 months</div>
+            </div>
+
+            <!-- Friends who bought one -->
+            <div style="background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+              <div style="font-family:var(--font-brand);font-size:10px;color:var(--black);margin-bottom:7px;">Friends who bought one</div>
+              <div style="position:relative;margin-bottom:5px;">
+                <div style="font-size:8px;font-weight:700;color:var(--yellow);position:absolute;top:-14px;left:80%;transform:translateX(-50%);white-space:nowrap;">4 ✦</div>
+                <div style="height:8px;background:var(--grey-light);border-radius:999px;margin-bottom:10px;border:1px solid var(--grey-mid);overflow:visible;position:relative;">
+                  <div style="height:100%;background:linear-gradient(90deg,#1A6B1A,var(--green));border-radius:999px;position:absolute;top:0;left:0;z-index:2;width:0%;"></div>
+                  <div style="position:absolute;top:0;right:0;height:100%;width:20%;border-radius:0 999px 999px 0;background:linear-gradient(90deg,var(--yellow),#FF6B35,#9B59B6);opacity:0.3;z-index:1;"></div>
+                  <div style="position:absolute;top:-3px;bottom:-3px;left:80%;width:2px;background:var(--yellow);border-radius:2px;z-index:3;"></div>
+                </div>
+              </div>
+              <div style="background:var(--blue-pale);border-radius:7px;padding:8px;margin-bottom:7px;">
+                <div style="font-size:7px;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;font-weight:600;">Each purchase earns your choice of:</div>
+                <div style="display:flex;gap:4px;margin-top:4px;">
+                  <div style="flex:1;background:#EDE4F5;color:#5C2D91;border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid #C9A0E8;">50% off Factory Service</div>
+                  <div style="flex:1;background:var(--yellow-pale);color:#7a5c00;border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid var(--yellow);">BWC VIP Upgrade</div>
+                  <div style="flex:1;background:var(--green-pale);color:var(--green);border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid var(--green);">Factory Pass for you +1</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;margin-top:6px;margin-bottom:0;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),#FF6B35,#9B59B6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:white;">✦</div>
+                <div style="flex:1;">
+                  <div style="font-size:8px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.06em;">4 referrals</div>
+                  <div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">10% off your next Brompton</div>
+                </div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="margin-top:7px;font-size:8px;color:var(--grey-dark);border-top:1px solid var(--grey-mid);padding-top:6px;">Valid at any Brompton stockist worldwide</div>
+            </div>
+          </div>
+          </div>
+          <nav style="display:flex;justify-content:space-around;align-items:center;background:white;border-top:1px solid var(--grey-mid);padding:8px 0 14px;flex-shrink:0;"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-house" style="font-size:18px;"></i>Home</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--blue);opacity:1;"><i class="ph-fill ph-share-network" style="font-size:18px;"></i>Refer</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-trophy" style="font-size:18px;"></i>Rewards</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-user" style="font-size:18px;"></i>Profile</div></nav>
+        </div>
+
+        <!-- ── SCREEN: ref-notify-bought ── -->
+        <div class="sb-pscr" id="sbscr-ref-notify-bought">
+          <div style="background:#1C1C1E;padding:16px 12px 18px;min-height:100%;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.35);text-align:right;margin-bottom:16px;">10:22</div>
+            <div class="sph-notif">
+              <div class="sph-notif-ic" style="background:var(--green);">
+                <i class="ph-fill ph-confetti" style="font-size:14px;color:white;"></i>
+              </div>
               <div>
-                <div class="sph-notif-app">Brompton</div>
-                <div class="sph-notif-msg">You're both invited to the factory.</div>
+                <div class="sph-notif-app">Brompton Club</div>
+                <div class="sph-notif-msg">Max bought a Brompton! Claim your reward.</div>
               </div>
             </div>
           </div>
-          <div class="sph-body" style="background:var(--grey-light);">
-            <div style="background:white;border-radius:10px;overflow:hidden;border:1px solid var(--grey-mid);">
-              <div style="background:linear-gradient(135deg,#1A1A2E,#002FA7);padding:16px 12px;text-align:center;">
-                <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">Referral Reward</div>
-                <div style="font-family:var(--font-brand);font-size:15px;color:white;font-weight:400;">Private Factory Tour</div>
-                <div style="font-size:9px;color:rgba(255,255,255,0.65);margin-top:4px;">Brompton HQ · Greenford, London</div>
+        </div>
+
+        <!-- ── SCREEN: ref-s1-bought ── -->
+        <div class="sb-pscr" id="sbscr-ref-s1-bought">
+          <div style="background:var(--blue);padding:13px 13px 18px;flex-shrink:0;">
+          <div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Refer a friend</div>
+          <div style="font-family:var(--font-brand);font-size:16px;color:white;line-height:1.2;margin-bottom:5px;">Share the ride.</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.85);line-height:1.5;">Give a friend their first taste of Brompton. The more they ride, the more you both get.</div>
+        </div>
+          <div style="flex:1;overflow-y:auto;background:var(--grey-light);-ms-overflow-style:none;scrollbar-width:none;">          <div style="display:flex;gap:7px;margin:10px 10px 0;">
+              <div style="flex:1;background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1.5px solid var(--grey-mid);display:flex;flex-direction:column;">
+                <div style="font-size:7px;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">Free rides</div>
+                <div style="font-family:var(--font-brand);font-size:11px;line-height:1.2;margin-bottom:4px;">3-Day Pass</div>
+                <div style="font-size:8px;color:var(--grey-dark);line-height:1.35;flex:1;">Three days of Brompton Bike Hire. No card, no commitment.</div>
+                <div style="margin-top:5px;font-size:8px;color:var(--blue);font-weight:600;">Valid 30 days</div>
+                <button style="margin-top:7px;width:100%;background:var(--blue);color:white;border:none;border-radius:6px;padding:5px;font-size:8px;cursor:pointer;">Share</button>
               </div>
-              <div style="padding:10px 12px;font-size:9px;color:var(--grey-dark);line-height:1.55;">Andy and Max, plus guests — you're invited for a behind-the-scenes tour of where every Brompton is made.</div>
-              <div style="padding:0 12px 10px;"><div class="sph-btn-blue" style="font-size:9px;">Choose a date →</div></div>
+              <div style="flex:1;background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1.5px solid var(--grey-mid);display:flex;flex-direction:column;">
+                <div style="font-size:7px;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey-dark);margin-bottom:2px;">1st bike discount</div>
+                <div style="font-family:var(--font-brand);font-size:11px;line-height:1.2;margin-bottom:4px;">Give £25,<br>get £25</div>
+                <div style="font-size:8px;color:var(--grey-dark);line-height:1.35;flex:1;">Everybody wins when someone new gets on a Brompton.</div>
+                <div style="margin-top:5px;font-size:8px;color:var(--blue);font-weight:600;">Terms apply</div>
+                <button style="margin-top:7px;width:100%;background:var(--blue);color:white;border:none;border-radius:6px;padding:5px;font-size:8px;cursor:pointer;">Share</button>
+              </div>
+            </div>
+          <div style="padding:0 10px 12px;">
+            <!-- Rewards heading -->
+            <div style="font-family:var(--font-brand);font-size:13px;color:var(--black);margin-top:14px;margin-bottom:10px;">Rewards</div>
+
+            <!-- Friends who tried one -->
+            <div style="background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:8px;">
+              <div style="font-family:var(--font-brand);font-size:10px;color:var(--black);margin-bottom:7px;">Friends who tried one</div>
+              <div style="position:relative;margin-bottom:5px;">
+                <div style="font-size:8px;font-weight:700;color:var(--yellow);position:absolute;top:-14px;left:80%;transform:translateX(-50%);white-space:nowrap;">6 ✦</div>
+                <div style="height:8px;background:var(--grey-light);border-radius:999px;margin-bottom:10px;border:1px solid var(--grey-mid);overflow:visible;position:relative;">
+                  <div style="height:100%;background:linear-gradient(90deg,#1A4BC4,var(--blue));border-radius:999px;position:absolute;top:0;left:0;z-index:2;width:13%;"></div>
+                  <div style="position:absolute;top:0;right:0;height:100%;width:20%;border-radius:0 999px 999px 0;background:linear-gradient(90deg,var(--yellow),#FF6B35,#9B59B6);opacity:0.3;z-index:1;"></div>
+                  <div style="position:absolute;top:-3px;bottom:-3px;left:80%;width:2px;background:var(--yellow);border-radius:2px;z-index:3;"></div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:var(--blue);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">1</div>
+                  <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">1 trial</div><div style="font-size:9px;font-family:var(--font-brand);line-height:1.2;">50% off a flat fix</div></div>
+                  <button style="background:var(--blue);color:white;border:none;border-radius:5px;padding:4px 7px;font-size:8px;cursor:pointer;white-space:nowrap;">Redeem</button>
+                </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.45;">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">3</div>
+                <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">3 trials</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">Brompton cap</div></div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;opacity:0.35;">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--grey-mid);border:2px solid var(--grey-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:white;">5</div>
+                <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">5 trials</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);line-height:1.2;">£20 off a £100 purchase</div></div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),#FF6B35,#9B59B6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:white;">✦</div>
+                <div style="flex:1;">
+                  <div style="font-size:8px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.06em;">6+ trials</div>
+                  <div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">A surprise. Trust us.</div>
+                </div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="margin-top:7px;font-size:8px;color:var(--grey-dark);border-top:1px solid var(--grey-mid);padding-top:6px;">Rewards reset every 6 months</div>
+            </div>
+
+            <!-- Friends who bought one -->
+            <div style="background:white;border-radius:10px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+              <div style="font-family:var(--font-brand);font-size:10px;color:var(--black);margin-bottom:7px;">Friends who bought one</div>
+              <div style="position:relative;margin-bottom:5px;">
+                <div style="font-size:8px;font-weight:700;color:var(--yellow);position:absolute;top:-14px;left:80%;transform:translateX(-50%);white-space:nowrap;">4 ✦</div>
+                <div style="height:8px;background:var(--grey-light);border-radius:999px;margin-bottom:10px;border:1px solid var(--grey-mid);overflow:visible;position:relative;">
+                  <div class="ref-bought-fill" style="height:100%;background:linear-gradient(90deg,#1A6B1A,var(--green));border-radius:999px;position:absolute;top:0;left:0;z-index:2;width:0%;"></div>
+                  <div style="position:absolute;top:0;right:0;height:100%;width:20%;border-radius:0 999px 999px 0;background:linear-gradient(90deg,var(--yellow),#FF6B35,#9B59B6);opacity:0.3;z-index:1;"></div>
+                  <div style="position:absolute;top:-3px;bottom:-3px;left:80%;width:2px;background:var(--yellow);border-radius:2px;z-index:3;"></div>
+                </div>
+              </div>
+              <div style="background:var(--blue-pale);border-radius:7px;padding:8px;margin-bottom:7px;">
+                <div style="font-size:7px;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;font-weight:600;">Each purchase earns your choice of:</div>
+                <div style="display:flex;gap:4px;margin-top:4px;">
+                  <div style="flex:1;background:#EDE4F5;color:#5C2D91;border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid #C9A0E8;">50% off Factory Service</div>
+                  <div style="flex:1;background:var(--yellow-pale);color:#7a5c00;border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid var(--yellow);">BWC VIP Upgrade</div>
+                  <div style="flex:1;background:var(--green-pale);color:var(--green);border-radius:6px;padding:5px;font-size:8px;line-height:1.3;text-align:center;border:1.5px solid var(--green);">Factory Pass for you +1</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:0;align-items:center;background:#E8F5E9;border:1.5px solid var(--green);border-radius:7px;padding:6px 7px;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:var(--green);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:white;">1</div>
+                  <div style="flex:1;"><div style="font-size:8px;color:var(--grey-dark);">Each purchase</div><div style="font-size:9px;font-family:var(--font-brand);color:var(--green);line-height:1.2;">Factory Pass</div></div>
+                  <button style="background:var(--green);color:white;border:none;border-radius:5px;padding:4px 7px;font-size:8px;cursor:pointer;white-space:nowrap;">Claim</button>
+                </div>
+              <div style="display:flex;gap:5px;margin-top:6px;margin-bottom:0;align-items:center;">
+                <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),#FF6B35,#9B59B6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:white;">✦</div>
+                <div style="flex:1;">
+                  <div style="font-size:8px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.06em;">4 referrals</div>
+                  <div style="font-size:9px;font-family:var(--font-brand);color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">10% off your next Brompton</div>
+                </div>
+                <i class="ph ph-lock" style="font-size:11px;color:var(--grey-dark);"></i>
+              </div>
+              <div style="margin-top:7px;font-size:8px;color:var(--grey-dark);border-top:1px solid var(--grey-mid);padding-top:6px;">Valid at any Brompton stockist worldwide</div>
             </div>
           </div>
+          </div>
+          <nav style="display:flex;justify-content:space-around;align-items:center;background:white;border-top:1px solid var(--grey-mid);padding:8px 0 14px;flex-shrink:0;"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-house" style="font-size:18px;"></i>Home</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--blue);opacity:1;"><i class="ph-fill ph-share-network" style="font-size:18px;"></i>Refer</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-trophy" style="font-size:18px;"></i>Rewards</div><div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;font-size:8px;color:var(--grey-dark);opacity:0.4;"><i class="ph ph-user" style="font-size:18px;"></i>Profile</div></nav>
         </div>
 
         <!-- ── SCREEN: cityguide ── -->
         <div class="sb-pscr" id="sbscr-cityguide">
           <div class="sph-hdr-blue">
-            <div class="sph-brand">City Guides</div>
-            <div class="sph-title">East London</div>
+            <div class="sph-brand">City Guide</div>
+            <div class="sph-title">East London<br>Loop</div>
           </div>
           <div class="sph-body">
-            <div style="background:var(--grey-light);border-radius:8px;overflow:hidden;border:1px solid var(--grey-mid);">
-              <div style="height:80px;background:linear-gradient(135deg,#1a3a5c,#2d6a4f);display:flex;align-items:center;justify-content:center;">
-                <div style="font-size:28px;">🗺</div>
-              </div>
-              <div style="padding:9px 10px;">
-                <div style="font-size:11px;font-weight:700;color:var(--black);margin-bottom:2px;">East London Loop</div>
-                <div style="display:flex;gap:8px;font-size:9px;color:var(--grey-dark);">
-                  <span>8.4 miles</span><span>·</span><span>55 min</span><span>·</span><span>⭐ 4.9 (142)</span>
+            <div style="background:var(--blue-pale);border-radius:8px;overflow:hidden;border:1px solid rgba(0,47,167,0.12);margin-bottom:8px;">
+              <div style="height:100px;background:linear-gradient(160deg,#1a3a6e 0%,#2a5298 50%,#3d6bbd 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                <div style="position:absolute;inset:0;opacity:0.25;">
+                  <div style="position:absolute;top:30%;left:20%;width:60%;height:1px;background:rgba(255,255,255,0.6);transform:rotate(-8deg);"></div>
+                  <div style="position:absolute;top:50%;left:10%;width:40%;height:1px;background:rgba(255,255,255,0.5);transform:rotate(12deg);"></div>
+                  <div style="position:absolute;top:65%;left:35%;width:50%;height:1px;background:rgba(255,255,255,0.4);transform:rotate(-5deg);"></div>
                 </div>
-                <div style="font-size:9px;color:var(--grey-dark);margin-top:5px;line-height:1.4;">Wapping → Whitechapel → Victoria Park → The Mayflower, Rotherhithe.</div>
+                <div style="position:relative;text-align:center;">
+                  <div style="font-size:9px;color:rgba(255,255,255,0.7);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Wapping to The Mayflower</div>
+                  <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 10px;">
+                    <i class="ph ph-map-pin" style="font-size:11px;color:white;"></i>
+                    <span style="font-size:9px;color:white;font-weight:600;">8 stops along the route</span>
+                  </div>
+                </div>
+              </div>
+              <div style="padding:9px 10px;display:flex;gap:16px;">
+                <div style="text-align:center;"><div style="font-size:13px;font-weight:700;color:var(--blue);">8</div><div style="font-size:7px;color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.5px;">miles</div></div>
+                <div style="text-align:center;"><div style="font-size:13px;font-weight:700;color:var(--blue);">~1h</div><div style="font-size:7px;color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.5px;">riding</div></div>
+                <div style="text-align:center;"><div style="font-size:13px;font-weight:700;color:var(--blue);">Easy</div><div style="font-size:7px;color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.5px;">level</div></div>
               </div>
             </div>
+            <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--grey-dark);margin-bottom:6px;">Highlights</div>
             <div style="display:flex;flex-direction:column;gap:5px;">
-              <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);">Along the route</div>
-              <div style="display:flex;align-items:center;gap:7px;background:white;border-radius:6px;padding:7px 9px;border:1px solid var(--grey-mid);">
-                <span style="font-size:13px;">☕</span>
-                <div><div style="font-size:10px;font-weight:600;color:var(--black);">Allpress Espresso</div><div style="font-size:8px;color:var(--grey-dark);">Bikes welcome inside · Dalston</div></div>
+              <div style="display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--grey-mid);border-radius:7px;padding:7px 9px;">
+                <i class="ph ph-coffee" style="font-size:15px;color:var(--blue);"></i>
+                <div><div style="font-size:9px;font-weight:600;">Monmouth Coffee, Borough</div><div style="font-size:8px;color:var(--grey-dark);">Brompton welcome inside</div></div>
               </div>
-              <div style="display:flex;align-items:center;gap:7px;background:white;border-radius:6px;padding:7px 9px;border:1px solid var(--grey-mid);">
-                <span style="font-size:13px;">🍺</span>
-                <div><div style="font-size:10px;font-weight:600;color:var(--black);">The Mayflower</div><div style="font-size:8px;color:var(--grey-dark);">Fold and leave beside you · Rotherhithe</div></div>
+              <div style="display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--grey-mid);border-radius:7px;padding:7px 9px;">
+                <i class="ph ph-beer-bottle" style="font-size:15px;color:var(--blue);"></i>
+                <div><div style="font-size:9px;font-weight:600;">The Mayflower, Rotherhithe</div><div style="font-size:8px;color:var(--grey-dark);">Riverside finish · bikes inside</div></div>
               </div>
             </div>
-            <div class="sph-btn-blue" style="font-size:9px;">Start this route →</div>
           </div>
         </div>
 
-        <!-- ── SCREEN: academy ── -->
+                <!-- ── SCREEN: academy ── -->
         <div class="sb-pscr" id="sbscr-academy">
           <div style="background:var(--black);padding:12px 14px;">
             <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:4px;">Brompton Academy</div>
@@ -1122,7 +1509,7 @@
               <div style="padding:9px 10px;font-size:9px;color:var(--grey-dark);line-height:1.5;">Spare tube, tyre levers, pump. You'll need three things — and about four minutes.</div>
             </div>
             <div style="background:var(--yellow-pale);border:1px solid rgba(232,181,0,0.4);border-radius:8px;padding:10px;">
-              <div style="font-size:9px;font-weight:700;color:#7A5C00;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">🎓 Want hands-on practice?</div>
+              <div style="font-size:9px;font-weight:700;color:#7A5C00;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;display:flex;align-items:center;gap:4px;"><i class="ph ph-graduation-cap" style="font-size:12px;"></i> Want hands-on practice?</div>
               <div style="font-size:10px;color:var(--black);margin-bottom:7px;line-height:1.4;">Brompton Maintenance 101 at Balfes Bikes. 1 hour · <strong>£10</strong>. Free spare tube included.</div>
               <div style="background:var(--yellow);color:#3A2A00;text-align:center;border-radius:4px;padding:7px;font-size:9px;font-weight:700;letter-spacing:0.5px;">Book at Balfes →</div>
             </div>
@@ -1137,7 +1524,7 @@
           </div>
           <div class="sph-body">
             <div style="display:flex;align-items:center;gap:9px;background:var(--green-pale);border-radius:8px;padding:10px;border:1px solid rgba(30,92,30,0.2);">
-              <span style="font-size:20px;">📅</span>
+              <i class="ph ph-calendar" style="font-size:22px;color:var(--green);flex-shrink:0;"></i>
               <div>
                 <div style="font-size:11px;font-weight:700;color:var(--black);">Saturday, 10:00am</div>
                 <div style="font-size:9px;color:var(--grey-dark);">Balfes Bikes, London Bridge</div>
@@ -1146,11 +1533,11 @@
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;">
               <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);">What you'll learn</div>
-              <div class="sph-ms-item e"><div class="sph-ms-ic e" style="font-size:10px;">✅</div><div><div class="sph-ms-name">How to fix a flat tyre</div></div></div>
-              <div class="sph-ms-item e"><div class="sph-ms-ic e" style="font-size:10px;">✅</div><div><div class="sph-ms-name">Brake pad adjustment</div></div></div>
-              <div class="sph-ms-item e"><div class="sph-ms-ic e" style="font-size:10px;">✅</div><div><div class="sph-ms-name">Chain care & gear indexing</div></div></div>
+              <div class="sph-ms-item e"><div class="sph-ms-ic e"><i class="ph-fill ph-check" style="color:white;font-size:12px;"></i></div><div><div class="sph-ms-name">How to fix a flat tyre</div></div></div>
+              <div class="sph-ms-item e"><div class="sph-ms-ic e"><i class="ph-fill ph-check" style="color:white;font-size:12px;"></i></div><div><div class="sph-ms-name">Brake pad adjustment</div></div></div>
+              <div class="sph-ms-item e"><div class="sph-ms-ic e"><i class="ph-fill ph-check" style="color:white;font-size:12px;"></i></div><div><div class="sph-ms-name">Chain care & gear indexing</div></div></div>
             </div>
-            <div style="background:var(--grey-light);border-radius:7px;padding:9px;font-size:9px;color:var(--grey-dark);line-height:1.4;">🎁 Free spare tube included with any Brompton toolkit purchase on the day.</div>
+            <div style="background:var(--grey-light);border-radius:7px;padding:9px;font-size:9px;color:var(--grey-dark);line-height:1.4;display:flex;gap:6px;align-items:flex-start;"><i class="ph ph-gift" style="font-size:12px;flex-shrink:0;margin-top:1px;"></i><span>Free spare tube included with any Brompton toolkit purchase on the day.</span></div>
           </div>
         </div>
 
@@ -1172,13 +1559,13 @@
                 <div style="font-size:8px;color:var(--grey-dark);">miles ridden</div>
               </div>
               <div style="flex:1;background:var(--grey-light);border-radius:7px;padding:9px;text-align:center;border:1px solid var(--grey-mid);">
-                <div style="font-family:var(--font-brand);font-size:22px;color:var(--yellow);">⚠</div>
+                <div style="font-size:22px;"><i class="ph ph-warning" style="color:var(--yellow);"></i></div>
                 <div style="font-size:8px;color:var(--grey-dark);">service due</div>
               </div>
             </div>
             <div style="background:var(--yellow-pale);border:1px solid rgba(232,181,0,0.4);border-radius:8px;padding:10px;font-size:9px;color:#5A3E00;line-height:1.5;">Based on your mileage: <strong>new tyres</strong>, <strong>brake pads</strong>, and a full tune-up are recommended.</div>
             <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.2);border-radius:8px;padding:10px;">
-              <div style="font-size:9px;font-weight:700;color:var(--blue);margin-bottom:4px;">🚲 Members-only loaner bike</div>
+              <div style="font-size:9px;font-weight:700;color:var(--blue);margin-bottom:4px;display:flex;align-items:center;gap:4px;"><i class="ph ph-bicycle" style="font-size:12px;"></i> Members-only loaner bike</div>
               <div style="font-size:9px;color:var(--grey-dark);line-height:1.4;">We'll have a bike waiting for you while yours is in the shop. No extra charge.</div>
             </div>
             <div class="sph-btn-blue" style="font-size:9px;">Book priority service at Balfes →</div>
@@ -1198,12 +1585,12 @@
                 <div style="font-size:9px;font-weight:700;color:#7A5C00;text-transform:uppercase;letter-spacing:0.5px;">Your Ticket</div>
                 <div style="font-family:'Courier New',monospace;font-size:15px;font-weight:700;letter-spacing:2px;color:var(--black);margin-top:3px;">BWC-ANDY-01</div>
               </div>
-              <div style="padding:9px 12px;font-size:9px;color:var(--grey-dark);line-height:1.55;">Fancy dress encouraged. Fold-off competitions. Riders from 30+ countries.</div>
+              <div style="padding:9px 12px;font-size:9px;color:var(--grey-dark);line-height:1.55;">Best dressed encouraged. Fastest fold contests. Riders from 30+ countries.</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;">
-              <div class="sph-ms-item"><div class="sph-ms-ic" style="font-size:11px;">🎭</div><div><div class="sph-ms-name">Fancy Dress Competition</div></div></div>
-              <div class="sph-ms-item"><div class="sph-ms-ic" style="font-size:11px;">⚡</div><div><div class="sph-ms-name">Fold-Off Championship</div></div></div>
-              <div class="sph-ms-item"><div class="sph-ms-ic" style="font-size:11px;">🌍</div><div><div class="sph-ms-name">30+ Countries Represented</div></div></div>
+              <div class="sph-ms-item"><div class="sph-ms-ic"><i class="ph ph-cowboy-hat" style="font-size:14px;"></i></div><div><div class="sph-ms-name">Best Dressed Competition</div></div></div>
+              <div class="sph-ms-item"><div class="sph-ms-ic"><i class="ph-fill ph-lightning" style="font-size:14px;"></i></div><div><div class="sph-ms-name">Fastest Fold Contest</div></div></div>
+              <div class="sph-ms-item"><div class="sph-ms-ic"><i class="ph ph-globe" style="font-size:14px;"></i></div><div><div class="sph-ms-name">30+ Countries Represented</div></div></div>
             </div>
           </div>
         </div>
@@ -1221,7 +1608,7 @@
               <div style="font-size:9px;color:var(--grey-dark);margin-top:3px;">Starts 9am · Approach Road Gate</div>
             </div>
             <div style="background:var(--blue-pale);border:1px solid rgba(0,47,167,0.2);border-radius:8px;padding:10px;">
-              <div style="font-size:9px;font-weight:700;color:var(--blue);margin-bottom:5px;">🚲 Member Benefit</div>
+              <div style="font-size:9px;font-weight:700;color:var(--blue);margin-bottom:5px;display:flex;align-items:center;gap:4px;"><i class="ph ph-bicycle" style="font-size:12px;"></i> Member Benefit</div>
               <div style="font-size:9px;color:var(--grey-dark);line-height:1.5;margin-bottom:7px;">Get a free Brompton Bike Hire pass for your friends when you start any City Guide route or join any Community Ride.</div>
               <div class="sph-btn-blue" style="font-size:9px;">Hire a Brompton →</div>
             </div>
@@ -1251,21 +1638,21 @@
                 <div style="font-size:8px;color:var(--grey-dark);">friends referred</div>
               </div>
             </div>
-            <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.2);border-radius:8px;padding:10px;font-size:9px;color:var(--green);line-height:1.5;font-weight:600;">🏅 Limited edition enamel badge on its way to you.</div>
+            <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.2);border-radius:8px;padding:10px;font-size:9px;color:var(--green);line-height:1.5;font-weight:600;display:flex;gap:6px;align-items:flex-start;"><i class="ph-fill ph-medal" style="font-size:13px;flex-shrink:0;margin-top:1px;"></i><span>Limited edition enamel badge on its way to you.</span></div>
             <div class="sph-btn-blue" style="font-size:9px;">Explore multi-day routes →</div>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:white;border:1px solid var(--grey-mid);border-radius:8px;">
-                <span style="font-size:16px;">🗺</span>
+                <i class="ph ph-map-trifold" style="font-size:18px;"></i>
                 <div style="font-size:10px;font-weight:600;color:var(--black);">How to travel with Brompton</div>
                 <span style="margin-left:auto;font-size:10px;color:var(--grey-dark);">›</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:white;border:1px solid var(--grey-mid);border-radius:8px;">
-                <span style="font-size:16px;">🗼</span>
+                <i class="ph ph-map-pin" style="font-size:18px;"></i>
                 <div style="font-size:10px;font-weight:600;color:var(--black);">Paris City Guide</div>
                 <span style="margin-left:auto;font-size:10px;color:var(--grey-dark);">›</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:white;border:1px solid var(--grey-mid);border-radius:8px;">
-                <span style="font-size:16px;">🤝</span>
+                <i class="ph ph-handshake" style="font-size:18px;"></i>
                 <div style="font-size:10px;font-weight:600;color:var(--black);">Contact a Local Host</div>
                 <span style="margin-left:auto;font-size:10px;color:var(--grey-dark);">›</span>
               </div>
@@ -1295,22 +1682,22 @@
                 <div style="font-size:8px;color:var(--grey-dark);">friends referred</div>
               </div>
             </div>
-            <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.2);border-radius:8px;padding:10px;font-size:9px;color:var(--green);line-height:1.5;font-weight:600;">🏅 Limited edition enamel badge on its way to you.</div>
+            <div style="background:var(--green-pale);border:1px solid rgba(30,92,30,0.2);border-radius:8px;padding:10px;font-size:9px;color:var(--green);line-height:1.5;font-weight:600;"><i class="ph-fill ph-medal" style="font-size:13px;flex-shrink:0;margin-top:1px;"></i><span>Limited edition enamel badge on its way to you.</span></div>
             <div class="sph-btn-blue" style="font-size:9px;">Explore multi-day routes →</div>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:white;border:1px solid var(--grey-mid);border-radius:8px;">
-                <span style="font-size:16px;">🗺</span>
+                <i class="ph ph-map-trifold" style="font-size:18px;"></i>
                 <div style="font-size:10px;font-weight:600;color:var(--black);">How to travel with Brompton</div>
                 <span style="margin-left:auto;font-size:10px;color:var(--grey-dark);">›</span>
               </div>
               <!-- Paris City Guide — bookmarked state -->
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:var(--blue);border:1px solid var(--blue);border-radius:8px;">
-                <span style="font-size:16px;">🗼</span>
+                <i class="ph ph-map-pin" style="font-size:18px;"></i>
                 <div style="flex:1;font-size:10px;font-weight:700;color:white;">Paris City Guide</div>
-                <span style="font-size:13px;">🔖</span>
+                <i class="ph-fill ph-bookmark" style="font-size:14px;color:var(--yellow);"></i>
               </div>
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:white;border:1px solid var(--grey-mid);border-radius:8px;">
-                <span style="font-size:16px;">🤝</span>
+                <i class="ph ph-handshake" style="font-size:18px;"></i>
                 <div style="font-size:10px;font-weight:600;color:var(--black);">Contact a Local Host</div>
                 <span style="margin-left:auto;font-size:10px;color:var(--grey-dark);">›</span>
               </div>
@@ -1336,7 +1723,7 @@
             </div>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:white;border:1px solid var(--grey-mid);border-radius:8px;">
-                <span style="font-size:16px;">🗼</span>
+                <i class="ph ph-map-pin" style="font-size:18px;"></i>
                 <div style="font-size:10px;font-weight:600;color:var(--black);">Paris City Guide</div>
                 <span style="margin-left:auto;font-size:9px;color:var(--green);font-weight:700;">Read</span>
               </div>
@@ -1344,7 +1731,7 @@
                 <img src="https://plus.unsplash.com/premium_photo-1723867331866-e112500178a4?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhZHNob3QlMjB3b21hbiUyMGZyZW5jaHxlbnwwfDJ8MHx8fDA%3D" style="width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;"/>
                 <div style="flex:1;">
                   <div style="font-size:10px;font-weight:600;color:var(--black);">Message Mila</div>
-                  <div style="font-size:8.5px;font-weight:700;color:var(--green);">★ Verified Local Host</div>
+                  <div style="font-size:8.5px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:3px;"><i class="ph-fill ph-seal-check" style="font-size:11px;"></i> Verified Local Host</div>
                 </div>
                 <span style="margin-left:auto;font-size:10px;color:var(--grey-dark);">›</span>
               </div>
@@ -1463,6 +1850,10 @@
         var startT = setTimeout(runChecklistAnimation, 400);
         checklistTimers.push(startT);
       }
+      if (screenId === 'ref-s1-bought') {
+        var scrollBody = t.querySelector('[style*="overflow-y:auto"]');
+        if (scrollBody) { setTimeout(function() { scrollBody.scrollTop = scrollBody.scrollHeight; }, 50); }
+      }
     }
   }
 
@@ -1487,6 +1878,17 @@
 
   window.addEventListener('scroll', updateActiveScreen, { passive: true });
   updateActiveScreen();
+})();
+</script>
+
+<!-- BromptonSlab font injection -->
+<script>
+(function(){
+  var p1="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";
+  var p2="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";
+  var s=document.createElement('style');
+  s.textContent="@font-face{font-family:'BromptonSlab';src:url('data:font/woff;base64,"+p1+p2+"')format('woff');}";
+  document.head.appendChild(s);
 })();
 </script>
 </body>
